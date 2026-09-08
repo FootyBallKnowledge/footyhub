@@ -1,45 +1,38 @@
-```yaml
 name: Update Football Data
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"
-
   workflow_dispatch:
+
+  schedule:
+    # Runs every 30 minutes
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
 
 jobs:
-
-  update-football:
-
+  update-football-data:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get football data
+      - name: Fetch football data
         env:
           API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: |
-
-          python - <<'PY'
-
+          python <<'PY'
           import json
-          import os
           import urllib.request
-          import urllib.parse
           from datetime import datetime, timedelta, timezone
 
-          API_KEY = os.environ["API_KEY"]
+          API_KEY = __import__("os").environ["API_KEY"]
 
-          BASE = "https://v3.football.api-sports.io/fixtures"
+          BASE_URL = "https://v3.football.api-sports.io/fixtures"
 
           # API-Football league IDs
-          leagues = {
+          TOP_LEAGUES = {
               39: "Premier League",
               140: "La Liga",
               78: "Bundesliga",
@@ -52,10 +45,7 @@ jobs:
               128: "Argentina Primera"
           }
 
-          # Current season
-          season = 2026
-
-          # Dates to collect
+          # Current date in UTC
           today = datetime.now(timezone.utc).date()
 
           dates = [
@@ -66,15 +56,13 @@ jobs:
 
           all_matches = []
 
-          def get_fixtures(league_id, date):
+          for match_date in dates:
 
-              params = urllib.parse.urlencode({
-                  "league": league_id,
-                  "season": season,
-                  "date": date.isoformat()
-              })
-
-              url = BASE + "?" + params
+              url = (
+                  f"{BASE_URL}"
+                  f"?date={match_date.isoformat()}"
+                  f"&timezone=Asia/Kolkata"
+              )
 
               request = urllib.request.Request(
                   url,
@@ -83,182 +71,124 @@ jobs:
                   }
               )
 
-              with urllib.request.urlopen(request) as response:
-                  return json.loads(
-                      response.read().decode()
+              try:
+                  with urllib.request.urlopen(request) as response:
+                      data = json.loads(response.read().decode())
+
+                  fixtures = data.get("response", [])
+
+                  print(
+                      f"{match_date}: "
+                      f"{len(fixtures)} fixtures received"
                   )
 
-          for league_id, league_name in leagues.items():
+                  for item in fixtures:
 
-              for date in dates:
+                      league = item.get("league", {})
+                      league_id = league.get("id")
 
-                  try:
+                      # Keep only our selected leagues
+                      if league_id not in TOP_LEAGUES:
+                          continue
 
-                      data = get_fixtures(
-                          league_id,
-                          date
-                      )
+                      teams = item.get("teams", {})
+                      goals = item.get("goals", {})
+                      fixture = item.get("fixture", {})
 
-                      for item in data.get("response", []):
+                      home = teams.get("home", {})
+                      away = teams.get("away", {})
 
-                          fixture = item.get("fixture", {})
-                          teams = item.get("teams", {})
-                          goals = item.get("goals", {})
-                          league = item.get("league", {})
-                          status = fixture.get("status", {})
+                      status = fixture.get("status", {})
 
-                          short_status = status.get(
-                              "short",
-                              "NS"
-                          )
+                      kickoff = fixture.get("date")
 
-                          live_statuses = [
+                      if kickoff:
+                          try:
+                              dt = datetime.fromisoformat(
+                                  kickoff.replace("Z", "+00:00")
+                              )
+
+                              time_string = dt.astimezone(
+                                  timezone(timedelta(hours=5, minutes=30))
+                              ).strftime("%I:%M %p")
+
+                          except Exception:
+                              time_string = "--:--"
+                      else:
+                          time_string = "--:--"
+
+                      match = {
+                          "id": item.get("fixture", {}).get("id"),
+                          "date": match_date.isoformat(),
+
+                          "league": TOP_LEAGUES[league_id],
+
+                          "country": league.get(
+                              "country",
+                              ""
+                          ),
+
+                          "home": home.get(
+                              "name",
+                              "Unknown"
+                          ),
+
+                          "away": away.get(
+                              "name",
+                              "Unknown"
+                          ),
+
+                          "homeLogo": home.get(
+                              "logo",
+                              ""
+                          ),
+
+                          "awayLogo": away.get(
+                              "logo",
+                              ""
+                          ),
+
+                          "homeScore": goals.get(
+                              "home"
+                          ),
+
+                          "awayScore": goals.get(
+                              "away"
+                          ),
+
+                          "time": time_string,
+
+                          "live": status.get(
+                              "short"
+                          ) in [
                               "1H",
-                              "HT",
                               "2H",
+                              "HT",
                               "ET",
-                              "BT",
-                              "P"
-                          ]
+                              "P",
+                              "LIVE"
+                          ],
 
-                          is_live = (
-                              short_status
-                              in live_statuses
+                          "status": status.get(
+                              "long",
+                              "Scheduled"
                           )
+                      }
 
-                          home_score = goals.get("home")
-                          away_score = goals.get("away")
+                      all_matches.append(match)
 
-                          kickoff = fixture.get("date")
-
-                          time_text = ""
-
-                          if kickoff:
-
-                              try:
-
-                                  dt = datetime.fromisoformat(
-                                      kickoff.replace(
-                                          "Z",
-                                          "+00:00"
-                                      )
-                                  )
-
-                                  time_text = dt.strftime(
-                                      "%H:%M"
-                                  )
-
-                              except:
-                                  pass
-
-                          all_matches.append({
-
-                              "id":
-                                  fixture.get("id"),
-
-                              "date":
-                                  date.isoformat(),
-
-                              "league":
-                                  league_name,
-
-                              "country":
-                                  league.get(
-                                      "country",
-                                      ""
-                                  ),
-
-                              "home":
-                                  teams.get(
-                                      "home",
-                                      {}
-                                  ).get(
-                                      "name",
-                                      "Home"
-                                  ),
-
-                              "away":
-                                  teams.get(
-                                      "away",
-                                      {}
-                                  ).get(
-                                      "name",
-                                      "Away"
-                                  ),
-
-                              "homeLogo":
-                                  teams.get(
-                                      "home",
-                                      {}
-                                  ).get(
-                                      "logo"
-                                  ),
-
-                              "awayLogo":
-                                  teams.get(
-                                      "away",
-                                      {}
-                                  ).get(
-                                      "logo"
-                                  ),
-
-                              "homeScore":
-                                  home_score,
-
-                              "awayScore":
-                                  away_score,
-
-                              "time":
-                                  time_text,
-
-                              "live":
-                                  is_live,
-
-                              "status":
-                                  status.get(
-                                      "long",
-                                      "Scheduled"
-                                  )
-
-                          })
-
-                  except Exception as error:
-
-                      print(
-                          "Error:",
-                          league_name,
-                          date,
-                          error
-                      )
-
-
-          # Remove duplicate fixture IDs
-
-          unique = {}
-
-          for match in all_matches:
-
-              unique[
-                  match["id"]
-              ] = match
-
-          all_matches = list(
-              unique.values()
-          )
-
+              except Exception as error:
+                  print(
+                      f"Error fetching {match_date}: {error}"
+                  )
 
           output = {
+              "updated": datetime.now(
+                  timezone.utc
+              ).isoformat(),
 
-              "updated":
-                  datetime.now(
-                      timezone.utc
-                  ).isoformat(),
-
-              "matches":
-                  all_matches
-
+              "matches": all_matches
           }
-
 
           with open(
               "football-data.json",
@@ -274,25 +204,17 @@ jobs:
               )
 
           print(
-              "Saved",
-              len(all_matches),
-              "matches"
+              f"Saved {len(all_matches)} matches."
           )
-
           PY
-
 
       - name: Commit updated football data
         run: |
-
-          git config user.name "FootyHub Bot"
-
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add football-data.json
 
-          git diff --cached --quiet || \
-          git commit -m "Update football data"
+          git diff --cached --quiet || git commit -m "Update football data"
 
           git push
-```
