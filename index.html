@@ -1,1868 +1,2160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FootballVerse | Global Football Hub</title>
+<title>FootyHub | Live Football</title>
+
+<meta name="description"
+content="FootyHub - live football scores, fixtures, results, standings and football news.">
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#07111f;
-    color:#ffffff;
-}
-
-button,
-input,
-select{
-    font-family:inherit;
+    font-family:Inter,Arial,sans-serif;
+    background:#06100b;
+    color:#f4fff7;
+    min-height:100vh;
 }
 
 button{
+    font-family:inherit;
     cursor:pointer;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-    position:fixed;
-    left:0;
+.topbar{
+    position:sticky;
     top:0;
-    bottom:0;
-    width:250px;
-    background:#06101b;
-    border-right:1px solid #20364d;
-    padding:20px 15px;
-    overflow-y:auto;
+    z-index:1000;
+    height:76px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(5,15,9,.96);
+    border-bottom:1px solid #193623;
+    backdrop-filter:blur(15px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .logo{
-    font-size:24px;
-    font-weight:bold;
-    margin-bottom:30px;
-    padding:10px;
+    width:45px;
+    height:45px;
+    display:grid;
+    place-items:center;
+    background:#18cf6c;
+    border-radius:12px;
+    font-size:23px;
 }
 
-.logo span{
-    color:#20d68a;
+.brand h1{
+    font-size:21px;
+    font-weight:900;
 }
 
-.menu-title{
-    color:#637b94;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin:18px 10px 8px;
+.brand small{
+    color:#718779;
+    font-size:9px;
 }
 
-.nav-button{
-    width:100%;
-    padding:12px;
-    margin:3px 0;
+nav{
+    display:flex;
+    gap:5px;
+}
+
+nav button{
     background:transparent;
     border:0;
+    color:#94a99a;
+    padding:10px 13px;
     border-radius:8px;
-    color:#aebfd0;
-    text-align:left;
-    font-size:14px;
 }
 
-.nav-button:hover,
-.nav-button.active{
-    background:#10283d;
+nav button:hover{
+    background:#102319;
     color:white;
 }
 
-.nav-button.active{
-    border-left:3px solid #20d68a;
-}
-
-/* MAIN */
-
-.main{
-    margin-left:250px;
-}
-
-.topbar{
-    height:70px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 30px;
-    border-bottom:1px solid #20364d;
-    background:#07111f;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-.search{
-    width:400px;
-    max-width:50%;
-    padding:11px 15px;
-    border:1px solid #263e56;
+.refresh{
+    background:#10271a;
+    border:1px solid #275337;
+    color:#63ef9b;
+    padding:10px 15px;
     border-radius:8px;
-    background:#0d1d2e;
-    color:white;
+    font-weight:700;
 }
 
-.live{
-    padding:9px 14px;
-    background:#10283d;
-    border:1px solid #203d54;
-    color:#20d68a;
-    border-radius:8px;
-}
-
-/* CONTENT */
-
-.content{
-    padding:30px;
-    max-width:1500px;
+main{
+    width:90%;
+    max-width:1250px;
     margin:auto;
 }
 
 .page{
-    display:none;
+    padding:35px 0 70px;
 }
 
-.page.active{
-    display:block;
+.hidden{
+    display:none!important;
 }
 
 /* HERO */
 
 .hero{
-    background:linear-gradient(120deg,#0d2d47,#0d1b2d);
-    border:1px solid #203d54;
-    border-radius:15px;
-    padding:35px;
-    margin-bottom:20px;
+    margin-top:25px;
+    min-height:430px;
+    padding:60px;
+    border-radius:25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at 85% 30%,#14532f 0,transparent 35%),
+    linear-gradient(135deg,#0d2617,#07120c);
+
+    border:1px solid #1d452d;
 }
 
-.hero h1{
-    font-size:40px;
-    margin-bottom:10px;
+.live{
+    color:#3eec89;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.hero h2{
+    font-size:clamp(40px,6vw,72px);
+    line-height:1;
+    margin:20px 0;
+}
+
+.hero h2 span{
+    color:#35df7d;
 }
 
 .hero p{
-    color:#91a8bd;
-    max-width:700px;
-    line-height:1.6;
+    color:#94a99a;
+    max-width:550px;
+    line-height:1.7;
+}
+
+.hero-ball{
+    font-size:190px;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.6));
+}
+
+.primary{
+    margin-top:28px;
+    border:0;
+    background:#19ce6b;
+    color:#041008;
+    padding:14px 22px;
+    border-radius:9px;
+    font-weight:900;
+}
+
+/* SECTION */
+
+.section{
+    margin-top:60px;
+}
+
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
     margin-bottom:20px;
 }
 
-.btn{
-    padding:11px 18px;
+.eyebrow{
+    color:#38e381;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.heading h2{
+    margin-top:5px;
+}
+
+.heading button{
+    background:transparent;
     border:0;
-    border-radius:7px;
-    background:#20d68a;
-    color:#04130d;
-    font-weight:bold;
+    color:#45e989;
 }
 
-.btn.secondary{
-    background:#18344c;
-    color:white;
-}
+/* MATCHES */
 
-/* CARDS */
-
-.grid{
+.matches-grid{
     display:grid;
-    gap:16px;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
 
-.stats{
-    grid-template-columns:repeat(4,1fr);
+.match-card{
+    background:#0b1a11;
+    border:1px solid #193724;
+    border-radius:16px;
+    padding:20px;
+    transition:.2s;
+}
+
+.match-card:hover{
+    transform:translateY(-3px);
+    border-color:#2c7347;
+}
+
+.competition{
+    color:#718679;
+    font-size:10px;
+    margin-bottom:18px;
+    text-transform:uppercase;
+}
+
+.teams{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.team{
+    text-align:center;
+    flex:1;
+}
+
+.team-logo{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.team-name{
+    font-size:12px;
+    font-weight:700;
+}
+
+.score{
+    font-size:21px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.status{
+    text-align:center;
+    color:#46e989;
+    font-size:10px;
+    margin-top:15px;
+}
+
+/* LEAGUES */
+
+.league-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:12px;
+}
+
+.league-card{
+    background:#0b1911;
+    border:1px solid #183523;
+    border-radius:15px;
+    padding:20px;
+    transition:.2s;
+}
+
+.league-card:hover{
+    transform:translateY(-3px);
+    border-color:#31d978;
+}
+
+.league-card .emoji{
+    font-size:29px;
+}
+
+.league-card h3{
+    font-size:13px;
+    margin-top:14px;
+}
+
+.league-card p{
+    color:#718678;
+    font-size:10px;
+    margin-top:5px;
+}
+
+/* PAGE TITLE */
+
+.page-title{
+    margin:35px 0;
+}
+
+.page-title h2{
+    font-size:42px;
+    margin:7px 0;
+}
+
+.page-title p{
+    color:#809487;
+}
+
+/* FILTERS */
+
+.filters,
+.standings-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
     margin-bottom:25px;
 }
 
-.cards{
-    grid-template-columns:repeat(3,1fr);
+.filter,
+.standings-buttons button{
+    border:1px solid #24442f;
+    background:#0c1d13;
+    color:#a9bcae;
+    padding:10px 15px;
+    border-radius:8px;
 }
 
-.players{
-    grid-template-columns:repeat(4,1fr);
+.filter:hover,
+.filter.active,
+.standings-buttons button:hover{
+    background:#189c53;
+    color:white;
 }
 
-.card{
-    background:#0d1b2d;
-    border:1px solid #20364d;
+/* MATCH LIST */
+
+.matches-list{
+    display:grid;
+    gap:12px;
+}
+
+.match-row{
+    display:grid;
+    grid-template-columns:170px 1fr 150px;
+    align-items:center;
+    background:#0b1911;
+    border:1px solid #193523;
+    padding:20px;
     border-radius:12px;
-    padding:18px;
 }
 
-.card:hover{
-    border-color:#20d68a;
+.match-league{
+    color:#73877a;
+    font-size:10px;
+    text-transform:uppercase;
 }
 
-.stat-title{
-    color:#849bb1;
+.match-teams{
+    text-align:center;
+    font-weight:700;
+}
+
+.match-teams strong{
+    margin:0 15px;
+    color:#fff;
+}
+
+.match-time{
+    text-align:right;
+    color:#49e98d;
+    font-weight:700;
+    font-size:12px;
+}
+
+/* NEWS */
+
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.news{
+    background:#0b1a11;
+    border:1px solid #193623;
+    border-radius:15px;
+    padding:25px;
+}
+
+.news span{
+    color:#39df82;
+    font-size:10px;
+    font-weight:900;
+}
+
+.news h3{
+    margin:15px 0;
+    line-height:1.45;
+}
+
+.news p{
+    color:#82968a;
     font-size:13px;
-}
-
-.stat-number{
-    font-size:30px;
-    font-weight:bold;
-    margin-top:7px;
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:25px 0 12px;
-}
-
-/* PLAYER */
-
-.player{
-    cursor:pointer;
-}
-
-.avatar{
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#1d4f72,#132a40);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    font-size:20px;
-    margin-bottom:10px;
-}
-
-.player h3{
-    margin-bottom:4px;
-}
-
-.muted{
-    color:#8da4ba;
-}
-
-.green{
-    color:#20d68a;
-}
-
-.gold{
-    color:#ffd166;
-}
-
-.red{
-    color:#ff6578;
+    line-height:1.6;
 }
 
 /* TABLE */
 
+.table-wrap{
+    overflow-x:auto;
+}
+
 table{
     width:100%;
     border-collapse:collapse;
-    background:#0d1b2d;
-    border:1px solid #20364d;
-    border-radius:10px;
+    background:#0b1911;
     overflow:hidden;
+    border-radius:12px;
 }
 
 th,
 td{
-    padding:14px;
+    padding:13px;
     text-align:left;
-    border-bottom:1px solid #20364d;
+    border-bottom:1px solid #183323;
 }
 
 th{
-    color:#849bb1;
+    color:#48e88b;
+    font-size:10px;
+}
+
+td{
+    color:#d5ded8;
     font-size:12px;
-    text-transform:uppercase;
 }
 
-tr:hover td{
-    background:#102337;
-}
+/* SEARCH */
 
-/* FILTER */
-
-.filters{
+.search-box{
     display:flex;
     gap:10px;
-    margin:18px 0;
-    flex-wrap:wrap;
-}
-
-.filters input,
-.filters select{
-    background:#0d1b2d;
-    color:white;
-    border:1px solid #263e56;
-    padding:10px;
-    border-radius:7px;
-}
-
-/* COMPARISON */
-
-.compare{
-    grid-template-columns:1fr 1fr;
-}
-
-.compare-player{
-    text-align:center;
-}
-
-.progress{
-    height:8px;
-    background:#20364d;
-    border-radius:10px;
-    overflow:hidden;
-    margin:7px 0 15px;
-}
-
-.progress span{
-    display:block;
-    height:100%;
-    background:#20d68a;
-}
-
-/* HISTORY */
-
-.timeline{
-    border-left:2px solid #20d68a;
-    padding-left:20px;
-}
-
-.event{
     margin-bottom:25px;
 }
 
-.event strong{
-    color:#20d68a;
-}
-
-/* QUIZ */
-
-.quiz-option{
-    display:block;
-    width:100%;
-    margin:8px 0;
-    padding:12px;
-    background:#13283d;
-    border:1px solid #263e56;
+.search-box input{
+    flex:1;
+    padding:13px 15px;
+    border-radius:8px;
+    border:1px solid #254530;
+    background:#0b1b11;
     color:white;
-    border-radius:7px;
-    text-align:left;
+    outline:none;
 }
 
-.quiz-option:hover{
-    border-color:#20d68a;
+.search-box input:focus{
+    border-color:#32d978;
+}
+
+.search-results{
+    display:grid;
+    gap:10px;
 }
 
 /* FOOTER */
 
 footer{
-    text-align:center;
-    padding:35px;
-    color:#627b94;
+    margin-top:50px;
+    padding:35px 5%;
+    border-top:1px solid #183323;
+    display:flex;
+    justify-content:space-between;
+    color:#708579;
+}
+
+footer strong{
+    color:white;
 }
 
 /* MOBILE */
 
-@media(max-width:1000px){
+@media(max-width:900px){
 
-    .sidebar{
-        width:75px;
-    }
-
-    .logo{
-        font-size:0;
-    }
-
-    .logo span{
-        font-size:20px;
-    }
-
-    .menu-title{
+    nav{
         display:none;
     }
 
-    .nav-button{
-        font-size:0;
-        text-align:center;
+    .hero{
+        padding:35px;
     }
 
-    .main{
-        margin-left:75px;
+    .hero-ball{
+        font-size:100px;
     }
 
-    .stats,
-    .players{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:650px){
-
-    .sidebar{
-        display:none;
-    }
-
-    .main{
-        margin-left:0;
-    }
-
-    .topbar{
-        padding:10px;
-    }
-
-    .search{
-        width:65%;
-        max-width:none;
-    }
-
-    .content{
-        padding:15px;
-    }
-
-    .hero h1{
-        font-size:28px;
-    }
-
-    .stats,
-    .cards,
-    .players,
-    .compare{
+    .matches-grid{
         grid-template-columns:1fr;
     }
 
+    .league-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .news-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .hero{
+        min-height:520px;
+        display:block;
+    }
+
+    .hero-ball{
+        text-align:center;
+        margin-top:25px;
+    }
+
+    .league-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .match-row{
+        grid-template-columns:1fr;
+        gap:10px;
+        text-align:center;
+    }
+
+    .match-time{
+        text-align:center;
+    }
+
+    footer{
+        display:block;
+    }
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
-
-<div class="logo">
-⚽ Football<span>Verse</span>
-</div>
-
-<div class="menu-title">Main</div>
-
-<button class="nav-button active" onclick="showPage('dashboard',this)">
-🏠 Dashboard
-</button>
-
-<button class="nav-button" onclick="showPage('matches',this)">
-🗓 Match Centre
-</button>
-
-<button class="nav-button" onclick="showPage('leagues',this)">
-🏆 Leagues
-</button>
-
-<button class="nav-button" onclick="showPage('players',this)">
-👤 Players
-</button>
-
-<button class="nav-button" onclick="showPage('clubs',this)">
-🛡 Clubs
-</button>
-
-<button class="nav-button" onclick="showPage('compare',this)">
-⚖ Player Comparison
-</button>
-
-<button class="nav-button" onclick="showPage('transfers',this)">
-🔄 Transfers
-</button>
-
-<div class="menu-title">Tools</div>
-
-<button class="nav-button" onclick="showPage('manager',this)">
-📋 Manager
-</button>
-
-<button class="nav-button" onclick="showPage('history',this)">
-📚 History
-</button>
-
-<button class="nav-button" onclick="showPage('records',this)">
-🥇 Records
-</button>
-
-<button class="nav-button" onclick="showPage('news',this)">
-📰 News
-</button>
-
-<button class="nav-button" onclick="showPage('quiz',this)">
-🧠 Quiz
-</button>
-
-</aside>
-
-
-<main class="main">
 
 <header class="topbar">
 
-<input
-class="search"
-id="search"
-placeholder="Search players, clubs, leagues..."
->
+    <div class="brand">
 
-<button class="live">
-● LIVE
-</button>
+        <div class="logo">⚽</div>
+
+        <div>
+            <h1>FootyHub</h1>
+            <small>FOOTBALL • LIVE • EVERYWHERE</small>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <button onclick="showPage('home')">
+            Home
+        </button>
+
+        <button onclick="showPage('matches')">
+            Matches
+        </button>
+
+        <button onclick="showPage('leagues')">
+            Leagues
+        </button>
+
+        <button onclick="showPage('standings')">
+            Standings
+        </button>
+
+        <button onclick="showPage('news')">
+            News
+        </button>
+
+        <button onclick="showPage('search')">
+            Search
+        </button>
+
+    </nav>
+
+
+    <button class="refresh"
+            onclick="loadMatches()">
+
+        ↻ Refresh
+
+    </button>
 
 </header>
 
 
-<div class="content">
+<main>
 
 
-<!-- DASHBOARD -->
+<!-- HOME -->
 
-<section id="dashboard" class="page active">
+<section id="home" class="page">
 
-<div class="hero">
 
-<h1>The World's Football in One Place</h1>
+    <div class="hero">
 
-<p>
-Explore football leagues, players, clubs, matches,
-transfers, records, history and statistics from one
-modern football dashboard.
-</p>
+        <div>
 
-<button class="btn"
-onclick="showPage('players',null)">
-Explore Players →
-</button>
+            <span class="live">
+                ● LIVE FOOTBALL
+            </span>
 
-</div>
+            <h2>
+                Football happening
+                <br>
+                <span>right now.</span>
+            </h2>
 
+            <p>
+                Follow current football matches,
+                fixtures, results, league tables
+                and major competitions from around
+                the world.
+            </p>
 
-<div class="grid stats">
+            <button class="primary"
+                    onclick="showPage('matches')">
 
-<div class="card">
+                View Today's Matches →
 
-<div class="stat-title">
-Leagues
-</div>
+            </button>
 
-<div class="stat-number">
-10+
-</div>
+        </div>
 
-</div>
 
+        <div class="hero-ball">
+            ⚽
+        </div>
 
-<div class="card">
+    </div>
 
-<div class="stat-title">
-Players
-</div>
 
-<div class="stat-number">
-10,000+
-</div>
+    <!-- FEATURED -->
 
-</div>
+    <section class="section">
 
+        <div class="heading">
 
-<div class="card">
+            <div>
 
-<div class="stat-title">
-Clubs
-</div>
+                <span class="eyebrow">
+                    TODAY
+                </span>
 
-<div class="stat-number">
-500+
-</div>
+                <h2>
+                    Featured Matches
+                </h2>
 
-</div>
+            </div>
 
+            <button onclick="showPage('matches')">
+                View all →
+            </button>
 
-<div class="card">
+        </div>
 
-<div class="stat-title">
-Football Tools
-</div>
 
-<div class="stat-number">
-12
-</div>
+        <div id="featuredMatches"
+             class="matches-grid">
 
-</div>
+            <div class="match-card">
+                Loading current matches...
+            </div>
 
-</div>
+        </div>
 
+    </section>
 
-<div class="section-title">
 
-<h2>
-Top Leagues
-</h2>
+    <!-- LEAGUES -->
 
-<button class="btn secondary"
-onclick="showPage('leagues',null)">
-View All
-</button>
+    <section class="section">
 
-</div>
+        <div class="heading">
 
+            <div>
 
-<div class="grid cards">
+                <span class="eyebrow">
+                    COMPETITIONS
+                </span>
 
-<div class="card">
+                <h2>
+                    Top Football Leagues
+                </h2>
 
-<h3>🇬🇧 Premier League</h3>
+            </div>
 
-<p class="muted">
-England · 20 clubs
-</p>
+        </div>
 
-</div>
 
+        <div class="league-grid">
 
-<div class="card">
 
-<h3>🇪🇸 La Liga</h3>
+            <div class="league-card"
+                 onclick="selectLeague('eng.1')">
 
-<p class="muted">
-Spain · 20 clubs
-</p>
+                <div class="emoji">🏴</div>
 
-</div>
+                <h3>
+                    Premier League
+                </h3>
 
+                <p>
+                    England
+                </p>
 
-<div class="card">
+            </div>
 
-<h3>🇩🇪 Bundesliga</h3>
 
-<p class="muted">
-Germany · 18 clubs
-</p>
+            <div class="league-card"
+                 onclick="selectLeague('esp.1')">
 
-</div>
+                <div class="emoji">🇪🇸</div>
 
+                <h3>
+                    La Liga
+                </h3>
 
-<div class="card">
+                <p>
+                    Spain
+                </p>
 
-<h3>🇮🇹 Serie A</h3>
+            </div>
 
-<p class="muted">
-Italy · 20 clubs
-</p>
 
-</div>
+            <div class="league-card"
+                 onclick="selectLeague('ger.1')">
 
+                <div class="emoji">🇩🇪</div>
 
-<div class="card">
+                <h3>
+                    Bundesliga
+                </h3>
 
-<h3>🇫🇷 Ligue 1</h3>
+                <p>
+                    Germany
+                </p>
 
-<p class="muted">
-France · 18 clubs
-</p>
+            </div>
 
-</div>
 
+            <div class="league-card"
+                 onclick="selectLeague('ita.1')">
 
-<div class="card">
+                <div class="emoji">🇮🇹</div>
 
-<h3>🇳🇱 Eredivisie</h3>
+                <h3>
+                    Serie A
+                </h3>
 
-<p class="muted">
-Netherlands · 18 clubs
-</p>
+                <p>
+                    Italy
+                </p>
 
-</div>
+            </div>
 
-</div>
 
+            <div class="league-card"
+                 onclick="selectLeague('fra.1')">
 
-<div class="section-title">
+                <div class="emoji">🇫🇷</div>
 
-<h2>
-Featured Players
-</h2>
+                <h3>
+                    Ligue 1
+                </h3>
 
-</div>
+                <p>
+                    France
+                </p>
 
+            </div>
 
-<div class="grid players">
 
-<div class="card player">
+            <div class="league-card"
+                 onclick="selectLeague('uefa.champions')">
 
-<div class="avatar">
-EH
-</div>
+                <div class="emoji">🏆</div>
 
-<h3>Erling Haaland</h3>
+                <h3>
+                    Champions League
+                </h3>
 
-<p class="muted">
-Forward · Manchester City
-</p>
+                <p>
+                    Europe
+                </p>
 
-<br>
+            </div>
 
-⚽ 28 Goals<br>
-🅰 6 Assists<br>
-⭐ 8.4 Rating
 
-</div>
+        </div>
 
-
-<div class="card player">
-
-<div class="avatar">
-KM
-</div>
-
-<h3>Kylian Mbappé</h3>
-
-<p class="muted">
-Forward · Real Madrid
-</p>
-
-<br>
-
-⚽ 31 Goals<br>
-🅰 8 Assists<br>
-⭐ 8.6 Rating
-
-</div>
-
-
-<div class="card player">
-
-<div class="avatar">
-JB
-</div>
-
-<h3>Jude Bellingham</h3>
-
-<p class="muted">
-Midfielder · Real Madrid
-</p>
-
-<br>
-
-⚽ 12 Goals<br>
-🅰 10 Assists<br>
-⭐ 8.1 Rating
-
-</div>
-
-
-<div class="card player">
-
-<div class="avatar">
-LY
-</div>
-
-<h3>Lamine Yamal</h3>
-
-<p class="muted">
-Forward · Barcelona
-</p>
-
-<br>
-
-⚽ 15 Goals<br>
-🅰 14 Assists<br>
-⭐ 8.5 Rating
-
-</div>
-
-</div>
+    </section>
 
 </section>
 
 
-<!-- MATCH CENTRE -->
+<!-- MATCHES -->
 
-<section id="matches" class="page">
-
-<h1>Match Centre</h1>
-
-<div class="filters">
-
-<select>
-<option>All Competitions</option>
-<option>Premier League</option>
-<option>La Liga</option>
-<option>Bundesliga</option>
-</select>
-
-<select>
-<option>Today</option>
-<option>Tomorrow</option>
-<option>This Week</option>
-</select>
-
-</div>
+<section id="matches"
+         class="page hidden">
 
 
-<table>
+    <div class="page-title">
 
-<thead>
+        <span class="eyebrow">
+            FOOTBALL CENTRE
+        </span>
 
-<tr>
+        <h2>
+            Matches
+        </h2>
 
-<th>Competition</th>
-<th>Match</th>
-<th>Time</th>
-<th>Status</th>
+        <p>
+            Live, upcoming and completed matches.
+        </p>
 
-</tr>
+    </div>
 
-</thead>
 
-<tbody>
+    <div class="filters">
 
-<tr>
-<td>Premier League</td>
-<td>Arsenal vs Chelsea</td>
-<td>18:30</td>
-<td class="green">Upcoming</td>
-</tr>
+        <button class="filter active"
+                onclick="changeDate('today',this)">
+            Today
+        </button>
 
-<tr>
-<td>La Liga</td>
-<td>Barcelona vs Sevilla</td>
-<td>20:00</td>
-<td class="green">Upcoming</td>
-</tr>
+        <button class="filter"
+                onclick="changeDate('tomorrow',this)">
+            Tomorrow
+        </button>
 
-<tr>
-<td>Bundesliga</td>
-<td>Bayern vs Dortmund</td>
-<td>21:00</td>
-<td class="green">Upcoming</td>
-</tr>
+        <button class="filter"
+                onclick="changeDate('yesterday',this)">
+            Yesterday
+        </button>
 
-<tr>
-<td>Serie A</td>
-<td>Inter vs Roma</td>
-<td>22:00</td>
-<td class="green">Upcoming</td>
-</tr>
+    </div>
 
-</tbody>
 
-</table>
+    <div id="allMatches"
+         class="matches-list">
+
+    </div>
+
 
 </section>
 
 
 <!-- LEAGUES -->
 
-<section id="leagues" class="page">
-
-<h1>League Explorer</h1>
-
-<p class="muted">
-Explore the world's leading football competitions.
-</p>
-
-<br>
-
-<div class="grid cards">
-
-<div class="card">
-<h2>Premier League</h2>
-<p class="muted">England</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>La Liga</h2>
-<p class="muted">Spain</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Bundesliga</h2>
-<p class="muted">Germany</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Serie A</h2>
-<p class="muted">Italy</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Ligue 1</h2>
-<p class="muted">France</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Eredivisie</h2>
-<p class="muted">Netherlands</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Primeira Liga</h2>
-<p class="muted">Portugal</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Süper Lig</h2>
-<p class="muted">Turkey</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Brasileirão</h2>
-<p class="muted">Brazil</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-<div class="card">
-<h2>Argentine Primera</h2>
-<p class="muted">Argentina</p>
-<br>
-<button class="btn">Standings</button>
-</div>
-
-</div>
-
-</section>
+<section id="leagues"
+         class="page hidden">
 
 
-<!-- PLAYERS -->
+    <div class="page-title">
 
-<section id="players" class="page">
+        <span class="eyebrow">
+            COMPETITIONS
+        </span>
 
-<h1>Player Database</h1>
+        <h2>
+            Football Leagues
+        </h2>
 
-<div class="filters">
+        <p>
+            Follow major football competitions.
+        </p>
 
-<input
-id="playerSearch"
-placeholder="Search player..."
->
-
-<select id="position">
-
-<option>All Positions</option>
-<option>Forward</option>
-<option>Midfielder</option>
-<option>Defender</option>
-<option>Goalkeeper</option>
-
-</select>
-
-</div>
+    </div>
 
 
-<div class="grid players" id="playerList">
+    <div class="league-grid">
 
-</div>
+        <div class="league-card"
+             onclick="selectLeague('uefa.champions')">
 
-</section>
+            <div class="emoji">🏆</div>
+
+            <h3>
+                Champions League
+            </h3>
+
+            <p>
+                UEFA
+            </p>
+
+        </div>
 
 
-<!-- CLUBS -->
+        <div class="league-card"
+             onclick="selectLeague('eng.1')">
 
-<section id="clubs" class="page">
+            <div class="emoji">🏴</div>
 
-<h1>Club Explorer</h1>
+            <h3>
+                Premier League
+            </h3>
 
-<br>
+            <p>
+                England
+            </p>
 
-<table>
+        </div>
 
-<thead>
 
-<tr>
-<th>Club</th>
-<th>League</th>
-<th>Squad</th>
-<th>Titles</th>
-<th>Form</th>
-</tr>
+        <div class="league-card"
+             onclick="selectLeague('esp.1')">
 
-</thead>
+            <div class="emoji">🇪🇸</div>
 
-<tbody>
+            <h3>
+                La Liga
+            </h3>
 
-<tr>
-<td>Manchester City</td>
-<td>Premier League</td>
-<td>28</td>
-<td>9</td>
-<td class="green">W W D W W</td>
-</tr>
+            <p>
+                Spain
+            </p>
 
-<tr>
-<td>Liverpool</td>
-<td>Premier League</td>
-<td>27</td>
-<td>20</td>
-<td class="green">W W W D W</td>
-</tr>
+        </div>
 
-<tr>
-<td>Real Madrid</td>
-<td>La Liga</td>
-<td>25</td>
-<td>36</td>
-<td class="green">W W W W D</td>
-</tr>
 
-<tr>
-<td>Barcelona</td>
-<td>La Liga</td>
-<td>26</td>
-<td>28</td>
-<td class="green">W W L W W</td>
-</tr>
+        <div class="league-card"
+             onclick="selectLeague('ger.1')">
 
-<tr>
-<td>Bayern Munich</td>
-<td>Bundesliga</td>
-<td>27</td>
-<td>33</td>
-<td class="green">W W W W W</td>
-</tr>
+            <div class="emoji">🇩🇪</div>
 
-</tbody>
+            <h3>
+                Bundesliga
+            </h3>
 
-</table>
+            <p>
+                Germany
+            </p>
+
+        </div>
+
+
+        <div class="league-card"
+             onclick="selectLeague('ita.1')">
+
+            <div class="emoji">🇮🇹</div>
+
+            <h3>
+                Serie A
+            </h3>
+
+            <p>
+                Italy
+            </p>
+
+        </div>
+
+
+        <div class="league-card"
+             onclick="selectLeague('fra.1')">
+
+            <div class="emoji">🇫🇷</div>
+
+            <h3>
+                Ligue 1
+            </h3>
+
+            <p>
+                France
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- PLAYER COMPARISON -->
+<!-- STANDINGS -->
 
-<section id="compare" class="page">
+<section id="standings"
+         class="page hidden">
 
-<h1>Player Comparison</h1>
 
-<p class="muted">
-Compare two football players.
-</p>
+    <div class="page-title">
 
-<div class="filters">
+        <span class="eyebrow">
+            TABLES
+        </span>
 
-<select id="playerA">
-<option>Erling Haaland</option>
-<option>Kylian Mbappé</option>
-<option>Jude Bellingham</option>
-<option>Lamine Yamal</option>
-</select>
+        <h2>
+            League Standings
+        </h2>
 
+        <p>
+            Current league tables.
+        </p>
 
-<select id="playerB">
-<option>Kylian Mbappé</option>
-<option>Erling Haaland</option>
-<option>Jude Bellingham</option>
-<option>Lamine Yamal</option>
-</select>
+    </div>
 
-<button class="btn"
-onclick="comparePlayers()">
-Compare
-</button>
 
-</div>
+    <div class="standings-buttons">
 
+        <button onclick="loadStandings('eng.1')">
+            Premier League
+        </button>
 
-<div class="grid compare">
+        <button onclick="loadStandings('esp.1')">
+            La Liga
+        </button>
 
-<div class="card compare-player">
+        <button onclick="loadStandings('ger.1')">
+            Bundesliga
+        </button>
 
-<h2>Erling Haaland</h2>
+        <button onclick="loadStandings('ita.1')">
+            Serie A
+        </button>
 
-<p>Goals: 28</p>
+        <button onclick="loadStandings('fra.1')">
+            Ligue 1
+        </button>
 
-<div class="progress">
-<span style="width:80%"></span>
-</div>
+    </div>
 
-<p>Assists: 6</p>
 
-<div class="progress">
-<span style="width:43%"></span>
-</div>
+    <div id="standingsTable"
+         class="table-wrap">
 
-<p>Rating: 8.4</p>
+    </div>
 
-<div class="progress">
-<span style="width:84%"></span>
-</div>
-
-</div>
-
-
-<div class="card compare-player">
-
-<h2>Kylian Mbappé</h2>
-
-<p>Goals: 31</p>
-
-<div class="progress">
-<span style="width:88%"></span>
-</div>
-
-<p>Assists: 8</p>
-
-<div class="progress">
-<span style="width:57%"></span>
-</div>
-
-<p>Rating: 8.6</p>
-
-<div class="progress">
-<span style="width:86%"></span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TRANSFERS -->
-
-<section id="transfers" class="page">
-
-<h1>Transfer Centre</h1>
-
-<br>
-
-<div class="grid cards">
-
-<div class="card">
-<h2>🔄 Confirmed</h2>
-<p class="muted">
-Officially completed transfers.
-</p>
-</div>
-
-<div class="card">
-<h2>🔥 Rumours</h2>
-<p class="muted">
-Transfer stories and reports.
-</p>
-</div>
-
-<div class="card">
-<h2>💰 Transfer Fees</h2>
-<p class="muted">
-Track reported transfer values.
-</p>
-</div>
-
-</div>
-
-<br>
-
-<table>
-
-<thead>
-<tr>
-<th>Player</th>
-<th>From</th>
-<th>To</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td>Sample Player</td>
-<td>Club A</td>
-<td>Club B</td>
-<td class="green">Confirmed</td>
-</tr>
-
-<tr>
-<td>Sample Player</td>
-<td>Club C</td>
-<td>Club D</td>
-<td class="gold">Rumour</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</section>
-
-
-<!-- MANAGER -->
-
-<section id="manager" class="page">
-
-<h1>Football Manager Dashboard</h1>
-
-<br>
-
-<div class="grid cards">
-
-<div class="card">
-
-<h2>Squad Builder</h2>
-
-<p class="muted">
-Create your starting XI.
-</p>
-
-<br>
-
-<button class="btn"
-onclick="alert('Squad Builder coming soon!')">
-Build XI
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h2>Formation</h2>
-
-<p class="muted">
-4-3-3 Balanced
-</p>
-
-<br>
-
-<h2>
-🥅
-</h2>
-
-<p>
-🧍 🧍 🧍
-</p>
-
-<p>
-🧍 🧍 🧍 🧍
-</p>
-
-<p>
-🧍 🧍 🧍
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>Team Analysis</h2>
-
-<p>
-Attack — 86
-</p>
-
-<div class="progress">
-<span style="width:86%"></span>
-</div>
-
-<p>
-Midfield — 84
-</p>
-
-<div class="progress">
-<span style="width:84%"></span>
-</div>
-
-<p>
-Defence — 81
-</p>
-
-<div class="progress">
-<span style="width:81%"></span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- HISTORY -->
-
-<section id="history" class="page">
-
-<h1>Football History</h1>
-
-<br>
-
-<div class="timeline">
-
-<div class="event">
-
-<strong>1930</strong>
-
-<p>
-The first FIFA World Cup takes place.
-</p>
-
-</div>
-
-
-<div class="event">
-
-<strong>1955</strong>
-
-<p>
-The European Cup era begins.
-</p>
-
-</div>
-
-
-<div class="event">
-
-<strong>1992</strong>
-
-<p>
-The Premier League begins.
-</p>
-
-</div>
-
-
-<div class="event">
-
-<strong>2000s</strong>
-
-<p>
-Football analytics becomes increasingly important.
-</p>
-
-</div>
-
-
-<div class="event">
-
-<strong>2020s</strong>
-
-<p>
-Tracking data and advanced analytics become
-major parts of modern football.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- RECORDS -->
-
-<section id="records" class="page">
-
-<h1>Records & Rankings</h1>
-
-<br>
-
-<div class="grid cards">
-
-<div class="card">
-
-<h2>🥇 Top Scorers</h2>
-
-<br>
-
-<ol>
-<li>Legendary Player — 900+</li>
-<li>Legendary Player — 800+</li>
-<li>Legendary Player — 700+</li>
-</ol>
-
-</div>
-
-
-<div class="card">
-
-<h2>🅰 Most Assists</h2>
-
-<br>
-
-<ol>
-<li>Playmaker A</li>
-<li>Playmaker B</li>
-<li>Playmaker C</li>
-</ol>
-
-</div>
-
-
-<div class="card">
-
-<h2>🏆 Club Honours</h2>
-
-<br>
-
-<ol>
-<li>Historic Club A</li>
-<li>Historic Club B</li>
-<li>Historic Club C</li>
-</ol>
-
-</div>
-
-</div>
 
 </section>
 
 
 <!-- NEWS -->
 
-<section id="news" class="page">
-
-<h1>Football News</h1>
-
-<br>
-
-<div class="grid cards">
-
-<div class="card">
-
-<p class="green">
-ANALYSIS
-</p>
-
-<h2>
-How football uses data
-</h2>
-
-<br>
-
-<p class="muted">
-Explore how performance statistics are used
-in modern football.
-</p>
-
-</div>
+<section id="news"
+         class="page hidden">
 
 
-<div class="card">
+    <div class="page-title">
 
-<p class="green">
-TACTICS
-</p>
+        <span class="eyebrow">
+            FOOTBALL
+        </span>
 
-<h2>
-Understanding formations
-</h2>
+        <h2>
+            Football News
+        </h2>
 
-<br>
+        <p>
+            Major football stories and competition updates.
+        </p>
 
-<p class="muted">
-Learn about common football formations.
-</p>
-
-</div>
+    </div>
 
 
-<div class="card">
-
-<p class="green">
-FEATURE
-</p>
-
-<h2>
-Evolution of player roles
-</h2>
-
-<br>
-
-<p class="muted">
-Discover how modern football positions
-continue to evolve.
-</p>
-
-</div>
-
-</div>
-
-</section>
+    <div class="news-grid">
 
 
-<!-- QUIZ -->
+        <article class="news">
 
-<section id="quiz" class="page">
+            <span>
+                CHAMPIONS LEAGUE
+            </span>
 
-<h1>Football Quiz</h1>
+            <h3>
+                The Champions League returns
+                with another European campaign.
+            </h3>
 
-<br>
+            <p>
+                Follow fixtures, results and
+                competition updates throughout
+                the season.
+            </p>
 
-<div class="card">
+        </article>
 
-<h2 id="question">
-Which position normally protects the goal?
-</h2>
 
-<br>
+        <article class="news">
 
-<button class="quiz-option"
-onclick="answer(this,false)">
-Striker
-</button>
+            <span>
+                EUROPE
+            </span>
 
-<button class="quiz-option"
-onclick="answer(this,true)">
-Goalkeeper
-</button>
+            <h3>
+                European football enters
+                another exciting phase.
+            </h3>
 
-<button class="quiz-option"
-onclick="answer(this,false)">
-Midfielder
-</button>
+            <p>
+                Track major clubs and competitions
+                from across Europe.
+            </p>
 
-<button class="quiz-option"
-onclick="answer(this,false)">
-Winger
-</button>
+        </article>
 
-</div>
+
+        <article class="news">
+
+            <span>
+                FOOTBALL
+            </span>
+
+            <h3>
+                Follow today's football
+                matches on FootyHub.
+            </h3>
+
+            <p>
+                Live fixtures, scores and
+                standings in one place.
+            </p>
+
+        </article>
+
+
+    </div>
 
 </section>
 
 
-</div>
+<!-- SEARCH -->
+
+<section id="search"
+         class="page hidden">
 
 
-<footer>
+    <div class="page-title">
 
-FootballVerse © 2026
-<br><br>
-Football database demo website
+        <span class="eyebrow">
+            FIND
+        </span>
 
-</footer>
+        <h2>
+            Search Football
+        </h2>
+
+        <p>
+            Search for a club or player.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search Manchester City, Real Madrid, Mbappé..."
+            onkeyup="searchFootball()">
+
+    </div>
+
+
+    <div id="searchResults"
+         class="search-results">
+
+    </div>
+
+
+</section>
 
 
 </main>
 
 
+<footer>
+
+    <div>
+
+        <strong>
+            ⚽ FootyHub
+        </strong>
+
+        <p>
+            Your football world in one place.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <p>
+            Live Scores • Fixtures • Results • Tables
+        </p>
+
+        <p>
+            © 2026 FootyHub
+        </p>
+
+    </div>
+
+</footer>
+
+
 <script>
 
-/* PAGE NAVIGATION */
+/* =====================================
+   FOOTYHUB FOOTBALL DATA
+===================================== */
 
-function showPage(page,button){
 
-    document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+const API =
+"https://site.api.espn.com/apis/site/v2/sports/soccer";
 
-    document.getElementById(page)
-    .classList.add("active");
 
-    document.querySelectorAll(".nav-button")
-    .forEach(b => b.classList.remove("active"));
+const leagues = {
 
-    if(button){
-        button.classList.add("active");
+    "uefa.champions":{
+        name:"UEFA Champions League"
+    },
+
+    "eng.1":{
+        name:"Premier League"
+    },
+
+    "esp.1":{
+        name:"La Liga"
+    },
+
+    "ger.1":{
+        name:"Bundesliga"
+    },
+
+    "ita.1":{
+        name:"Serie A"
+    },
+
+    "fra.1":{
+        name:"Ligue 1"
     }
 
-    window.scrollTo(0,0);
+};
+
+
+let currentDate = "today";
+
+
+/* =====================================
+   NAVIGATION
+===================================== */
+
+
+function showPage(page){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(section =>
+        section.classList.add("hidden")
+    );
+
+    document
+    .getElementById(page)
+    .classList.remove("hidden");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(page === "matches"){
+        loadMatches();
+    }
+
+
+    if(page === "standings"){
+        loadStandings("eng.1");
+    }
+
 }
 
 
-/* PLAYER DATABASE */
+/* =====================================
+   DATE
+===================================== */
 
-const players=[
 
-{
-name:"Erling Haaland",
-position:"Forward",
-club:"Manchester City",
-goals:28,
-assists:6,
-rating:8.4
-},
+function getDate(offset=0){
 
-{
-name:"Kylian Mbappé",
-position:"Forward",
-club:"Real Madrid",
-goals:31,
-assists:8,
-rating:8.6
-},
+    const date =
+        new Date();
 
-{
-name:"Jude Bellingham",
-position:"Midfielder",
-club:"Real Madrid",
-goals:12,
-assists:10,
-rating:8.1
-},
+    date.setDate(
+        date.getDate()+offset
+    );
 
-{
-name:"Lamine Yamal",
-position:"Forward",
-club:"Barcelona",
-goals:15,
-assists:14,
-rating:8.5
-},
+    return date
+        .toISOString()
+        .split("T")[0];
 
-{
-name:"Harry Kane",
-position:"Forward",
-club:"Bayern Munich",
-goals:29,
-assists:7,
-rating:8.3
-},
-
-{
-name:"Bukayo Saka",
-position:"Forward",
-club:"Arsenal",
-goals:17,
-assists:12,
-rating:8.0
-},
-
-{
-name:"Virgil van Dijk",
-position:"Defender",
-club:"Liverpool",
-goals:3,
-assists:2,
-rating:7.8
-},
-
-{
-name:"Alisson Becker",
-position:"Goalkeeper",
-club:"Liverpool",
-goals:0,
-assists:1,
-rating:7.7
 }
+
+
+/* =====================================
+   LOAD MATCHES
+===================================== */
+
+
+async function loadMatches(){
+
+    const container =
+        document.getElementById(
+            "allMatches"
+        );
+
+    const featured =
+        document.getElementById(
+            "featuredMatches"
+        );
+
+
+    if(container){
+
+        container.innerHTML =
+        `<div class="match-card">
+            Loading current football matches...
+        </div>`;
+
+    }
+
+
+    if(featured){
+
+        featured.innerHTML =
+        `<div class="match-card">
+            Loading today's football...
+        </div>`;
+
+    }
+
+
+    const competitions = [
+
+        "uefa.champions",
+        "eng.1",
+        "esp.1",
+        "ger.1",
+        "ita.1",
+        "fra.1"
+
+    ];
+
+
+    let games=[];
+
+
+    const offset =
+        currentDate==="tomorrow"
+        ? 1
+        : currentDate==="yesterday"
+        ? -1
+        : 0;
+
+
+    const date =
+        getDate(offset);
+
+
+    try{
+
+        const requests =
+            competitions.map(
+                league =>
+
+                fetch(
+                    `${API}/${league}/scoreboard?dates=${date}`
+                )
+                .then(response =>
+                    response.json()
+                )
+                .then(data => {
+
+                    if(data.events){
+
+                        return data.events
+                        .map(event => {
+
+                            event.leagueId =
+                                league;
+
+                            event.leagueName =
+                                leagues[league].name;
+
+                            return event;
+
+                        });
+
+                    }
+
+                    return [];
+
+                })
+            );
+
+
+        const results =
+            await Promise.all(requests);
+
+
+        games =
+            results.flat();
+
+
+        games.sort(
+            (a,b) =>
+            new Date(a.date)
+            -
+            new Date(b.date)
+        );
+
+
+        renderMatches(games);
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        if(container){
+
+            container.innerHTML =
+            `<div class="match-card">
+
+                <h3>
+                    Football data unavailable
+                </h3>
+
+                <p>
+                    Please try refreshing the page.
+                </p>
+
+            </div>`;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================
+   RENDER MATCHES
+===================================== */
+
+
+function renderMatches(games){
+
+    const container =
+        document.getElementById(
+            "allMatches"
+        );
+
+    const featured =
+        document.getElementById(
+            "featuredMatches"
+        );
+
+
+    if(!games.length){
+
+        if(container){
+
+            container.innerHTML =
+            `<div class="match-card">
+
+                <h3>
+                    No matches found
+                </h3>
+
+                <p>
+                    Try another date.
+                </p>
+
+            </div>`;
+
+        }
+
+        if(featured){
+
+            featured.innerHTML =
+            `<div class="match-card">
+
+                <h3>
+                    No featured matches
+                </h3>
+
+            </div>`;
+
+        }
+
+        return;
+
+    }
+
+
+    if(container){
+
+        container.innerHTML =
+            games.map(
+                createMatchRow
+            ).join("");
+
+    }
+
+
+    if(featured){
+
+        featured.innerHTML =
+            games
+            .slice(0,3)
+            .map(
+                createMatchCard
+            )
+            .join("");
+
+    }
+
+}
+
+
+/* =====================================
+   MATCH CARD
+===================================== */
+
+
+function getTeams(game){
+
+    const competitors =
+        game.competitions?.[0]
+        ?.competitors || [];
+
+
+    return {
+
+        home:
+        competitors.find(
+            x =>
+            x.homeAway==="home"
+        ),
+
+        away:
+        competitors.find(
+            x =>
+            x.homeAway==="away"
+        )
+
+    };
+
+}
+
+
+function createMatchCard(game){
+
+    const teams =
+        getTeams(game);
+
+
+    const home =
+        teams.home;
+
+    const away =
+        teams.away;
+
+
+    const status =
+        game.status
+        ?.type
+        ?.shortDetail
+        ||
+        "Upcoming";
+
+
+    return `
+
+    <div class="match-card">
+
+        <div class="competition">
+
+            ${game.leagueName}
+
+        </div>
+
+
+        <div class="teams">
+
+
+            <div class="team">
+
+                <div class="team-logo">
+                    ⚽
+                </div>
+
+                <div class="team-name">
+
+                    ${home?.team?.shortDisplayName
+                      ||"Home"}
+
+                </div>
+
+            </div>
+
+
+            <div class="score">
+
+                ${home?.score ?? "–"}
+                :
+                ${away?.score ?? "–"}
+
+            </div>
+
+
+            <div class="team">
+
+                <div class="team-logo">
+                    ⚽
+                </div>
+
+                <div class="team-name">
+
+                    ${away?.team?.shortDisplayName
+                      ||"Away"}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="status">
+
+            ${status}
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================
+   MATCH ROW
+===================================== */
+
+
+function createMatchRow(game){
+
+    const teams =
+        getTeams(game);
+
+
+    const home =
+        teams.home;
+
+    const away =
+        teams.away;
+
+
+    const status =
+        game.status
+        ?.type
+        ?.shortDetail
+        ||
+        "Scheduled";
+
+
+    return `
+
+    <div class="match-row">
+
+
+        <div class="match-league">
+
+            ${game.leagueName}
+
+        </div>
+
+
+        <div class="match-teams">
+
+            ${home?.team?.displayName
+              ||"Home"}
+
+            <strong>
+
+                ${home?.score ?? "–"}
+                -
+                ${away?.score ?? "–"}
+
+            </strong>
+
+            ${away?.team?.displayName
+              ||"Away"}
+
+        </div>
+
+
+        <div class="match-time">
+
+            ${status}
+
+        </div>
+
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================
+   DATE FILTER
+===================================== */
+
+
+function changeDate(date,button){
+
+    currentDate =
+        date;
+
+
+    document
+    .querySelectorAll(".filter")
+    .forEach(
+        item =>
+        item.classList.remove("active")
+    );
+
+
+    button.classList.add("active");
+
+
+    loadMatches();
+
+}
+
+
+/* =====================================
+   LEAGUE
+===================================== */
+
+
+function selectLeague(league){
+
+    showPage("matches");
+
+    loadLeague(league);
+
+}
+
+
+async function loadLeague(league){
+
+    const container =
+        document.getElementById(
+            "allMatches"
+        );
+
+
+    container.innerHTML =
+    `<div class="match-card">
+
+        Loading
+        ${leagues[league].name}...
+
+    </div>`;
+
+
+    try{
+
+        const date =
+            getDate();
+
+
+        const response =
+            await fetch(
+                `${API}/${league}/scoreboard?dates=${date}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const games =
+            data.events || [];
+
+
+        games.forEach(
+            game => {
+
+                game.leagueId =
+                    league;
+
+                game.leagueName =
+                    leagues[league].name;
+
+            }
+        );
+
+
+        renderMatches(games);
+
+
+    }catch{
+
+        container.innerHTML =
+        `<div class="match-card">
+
+            Unable to load this competition.
+
+        </div>`;
+
+    }
+
+}
+
+
+/* =====================================
+   STANDINGS
+===================================== */
+
+
+async function loadStandings(league){
+
+    const container =
+        document.getElementById(
+            "standingsTable"
+        );
+
+
+    container.innerHTML =
+    `<div class="match-card">
+
+        Loading standings...
+
+    </div>`;
+
+
+    try{
+
+        const response =
+            await fetch(
+                `${API}/${league}/standings`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        const entries =
+            data.standings?.[0]
+            ?.entries || [];
+
+
+        if(!entries.length){
+
+            container.innerHTML =
+            `<div class="match-card">
+
+                Standings unavailable.
+
+            </div>`;
+
+            return;
+
+        }
+
+
+        let html=`
+
+        <table>
+
+        <thead>
+
+        <tr>
+
+        <th>#</th>
+        <th>Club</th>
+        <th>GP</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GD</th>
+        <th>PTS</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        `;
+
+
+        entries.forEach(
+            (entry,index) => {
+
+                const stats =
+                    {};
+
+
+                (entry.stats || [])
+                .forEach(
+                    stat => {
+
+                        stats[
+                            stat.name
+                        ] =
+                        stat.value;
+
+                    }
+                );
+
+
+                html += `
+
+                <tr>
+
+                <td>
+                    ${index+1}
+                </td>
+
+                <td>
+                    ${entry.team
+                      ?.displayName
+                      ||"Club"}
+                </td>
+
+                <td>
+                    ${stats.gamesPlayed ?? "-"}
+                </td>
+
+                <td>
+                    ${stats.wins ?? "-"}
+                </td>
+
+                <td>
+                    ${stats.ties ?? "-"}
+                </td>
+
+                <td>
+                    ${stats.losses ?? "-"}
+                </td>
+
+                <td>
+                    ${stats.pointDifferential ?? "-"}
+                </td>
+
+                <td>
+                    <strong>
+                        ${stats.points ?? "-"}
+                    </strong>
+                </td>
+
+                </tr>
+
+                `;
+
+            }
+        );
+
+
+        html +=`
+
+        </tbody>
+
+        </table>
+
+        `;
+
+
+        container.innerHTML =
+            html;
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        container.innerHTML =
+        `<div class="match-card">
+
+            Unable to load standings.
+
+        </div>`;
+
+    }
+
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+
+const footballSearchData = [
+
+    "Manchester City",
+    "Manchester United",
+    "Liverpool",
+    "Arsenal",
+    "Chelsea",
+    "Real Madrid",
+    "Barcelona",
+    "Atletico Madrid",
+    "Bayern Munich",
+    "Borussia Dortmund",
+    "Inter Milan",
+    "AC Milan",
+    "Juventus",
+    "Paris Saint-Germain",
+    "Marseille",
+    "Lamine Yamal",
+    "Kylian Mbappe",
+    "Erling Haaland",
+    "Jude Bellingham",
+    "Vinicius Junior",
+    "Harry Kane",
+    "Mohamed Salah"
 
 ];
 
 
-function displayPlayers(list){
+function searchFootball(){
 
-    const container =
-        document.getElementById("playerList");
-
-    container.innerHTML="";
-
-    list.forEach(player => {
-
-        const initials =
-            player.name
-            .split(" ")
-            .map(x => x[0])
-            .slice(0,2)
-            .join("");
-
-        container.innerHTML += `
-
-        <div class="card player">
-
-            <div class="avatar">
-                ${initials}
-            </div>
-
-            <h3>
-                ${player.name}
-            </h3>
-
-            <p class="muted">
-                ${player.position}
-                ·
-                ${player.club}
-            </p>
-
-            <br>
-
-            ⚽ ${player.goals} Goals
-
-            <br>
-
-            🅰 ${player.assists} Assists
-
-            <br>
-
-            ⭐ ${player.rating} Rating
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-
-displayPlayers(players);
-
-
-/* PLAYER SEARCH */
-
-document
-.getElementById("playerSearch")
-.addEventListener("input",filterPlayers);
-
-
-document
-.getElementById("position")
-.addEventListener("change",filterPlayers);
-
-
-function filterPlayers(){
-
-    const search =
+    const input =
         document
-        .getElementById("playerSearch")
-        .value
-        .toLowerCase();
+        .getElementById(
+            "searchInput"
+        );
 
-    const position =
+
+    const results =
         document
-        .getElementById("position")
-        .value;
-
-    const filtered =
-        players.filter(player => {
-
-            const matchesName =
-                player.name
-                .toLowerCase()
-                .includes(search);
-
-            const matchesPosition =
-                position === "All Positions"
-                ||
-                player.position === position;
-
-            return matchesName &&
-                   matchesPosition;
-
-        });
-
-    displayPlayers(filtered);
-
-}
+        .getElementById(
+            "searchResults"
+        );
 
 
-/* QUIZ */
+    const query =
+        input.value
+        .toLowerCase()
+        .trim();
 
-function answer(button,correct){
 
-    if(correct){
+    if(!query){
 
-        button.innerHTML =
-            "✅ Correct Answer!";
+        results.innerHTML="";
 
-    }else{
-
-        button.innerHTML =
-            "❌ Incorrect Answer";
+        return;
 
     }
 
-}
 
-
-/* SEARCH */
-
-document
-.getElementById("search")
-.addEventListener("keydown",function(event){
-
-    if(event.key !== "Enter")
-        return;
-
-    const query =
-        this.value.toLowerCase();
-
-    const player =
-        players.find(p =>
-            p.name.toLowerCase()
+    const matches =
+        footballSearchData
+        .filter(
+            item =>
+            item
+            .toLowerCase()
             .includes(query)
         );
 
-    if(player){
 
-        showPage("players",null);
+    if(!matches.length){
 
-        document
-        .getElementById("playerSearch")
-        .value=player.name;
+        results.innerHTML =
+        `<div class="match-card">
 
-        filterPlayers();
+            No football result found.
 
-    }else{
+        </div>`;
 
-        alert(
-            "Player not found in the demo database."
-        );
+        return;
 
     }
 
-});
 
+    results.innerHTML =
+        matches
+        .map(
+            item => `
 
-/* PLAYER COMPARISON */
+            <div class="match-card">
 
-function comparePlayers(){
+                <strong>
+                    ⚽ ${item}
+                </strong>
 
-    const a =
-        document
-        .getElementById("playerA")
-        .value;
+                <p style="
+                    color:#819488;
+                    margin-top:7px;
+                    font-size:12px;
+                ">
 
-    const b =
-        document
-        .getElementById("playerB")
-        .value;
+                    Football profile
 
-    alert(
-        "Comparing " +
-        a +
-        " vs " +
-        b
-    );
+                </p>
+
+            </div>
+
+            `
+        )
+        .join("");
 
 }
 
+
+/* =====================================
+   INITIAL LOAD
+===================================== */
+
+
+loadMatches();
+
+
+/* Refresh every 60 seconds */
+
+setInterval(
+    loadMatches,
+    60000
+);
+
 </script>
+
 
 </body>
 </html>
