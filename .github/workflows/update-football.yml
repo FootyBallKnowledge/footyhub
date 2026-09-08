@@ -1,0 +1,298 @@
+```yaml
+name: Update Football Data
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+
+  update-football:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get football data
+        env:
+          API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: |
+
+          python - <<'PY'
+
+          import json
+          import os
+          import urllib.request
+          import urllib.parse
+          from datetime import datetime, timedelta, timezone
+
+          API_KEY = os.environ["API_KEY"]
+
+          BASE = "https://v3.football.api-sports.io/fixtures"
+
+          # API-Football league IDs
+          leagues = {
+              39: "Premier League",
+              140: "La Liga",
+              78: "Bundesliga",
+              135: "Serie A",
+              61: "Ligue 1",
+              88: "Eredivisie",
+              94: "Primeira Liga",
+              203: "Süper Lig",
+              71: "Brasileirão",
+              128: "Argentina Primera"
+          }
+
+          # Current season
+          season = 2026
+
+          # Dates to collect
+          today = datetime.now(timezone.utc).date()
+
+          dates = [
+              today - timedelta(days=1),
+              today,
+              today + timedelta(days=1)
+          ]
+
+          all_matches = []
+
+          def get_fixtures(league_id, date):
+
+              params = urllib.parse.urlencode({
+                  "league": league_id,
+                  "season": season,
+                  "date": date.isoformat()
+              })
+
+              url = BASE + "?" + params
+
+              request = urllib.request.Request(
+                  url,
+                  headers={
+                      "x-apisports-key": API_KEY
+                  }
+              )
+
+              with urllib.request.urlopen(request) as response:
+                  return json.loads(
+                      response.read().decode()
+                  )
+
+          for league_id, league_name in leagues.items():
+
+              for date in dates:
+
+                  try:
+
+                      data = get_fixtures(
+                          league_id,
+                          date
+                      )
+
+                      for item in data.get("response", []):
+
+                          fixture = item.get("fixture", {})
+                          teams = item.get("teams", {})
+                          goals = item.get("goals", {})
+                          league = item.get("league", {})
+                          status = fixture.get("status", {})
+
+                          short_status = status.get(
+                              "short",
+                              "NS"
+                          )
+
+                          live_statuses = [
+                              "1H",
+                              "HT",
+                              "2H",
+                              "ET",
+                              "BT",
+                              "P"
+                          ]
+
+                          is_live = (
+                              short_status
+                              in live_statuses
+                          )
+
+                          home_score = goals.get("home")
+                          away_score = goals.get("away")
+
+                          kickoff = fixture.get("date")
+
+                          time_text = ""
+
+                          if kickoff:
+
+                              try:
+
+                                  dt = datetime.fromisoformat(
+                                      kickoff.replace(
+                                          "Z",
+                                          "+00:00"
+                                      )
+                                  )
+
+                                  time_text = dt.strftime(
+                                      "%H:%M"
+                                  )
+
+                              except:
+                                  pass
+
+                          all_matches.append({
+
+                              "id":
+                                  fixture.get("id"),
+
+                              "date":
+                                  date.isoformat(),
+
+                              "league":
+                                  league_name,
+
+                              "country":
+                                  league.get(
+                                      "country",
+                                      ""
+                                  ),
+
+                              "home":
+                                  teams.get(
+                                      "home",
+                                      {}
+                                  ).get(
+                                      "name",
+                                      "Home"
+                                  ),
+
+                              "away":
+                                  teams.get(
+                                      "away",
+                                      {}
+                                  ).get(
+                                      "name",
+                                      "Away"
+                                  ),
+
+                              "homeLogo":
+                                  teams.get(
+                                      "home",
+                                      {}
+                                  ).get(
+                                      "logo"
+                                  ),
+
+                              "awayLogo":
+                                  teams.get(
+                                      "away",
+                                      {}
+                                  ).get(
+                                      "logo"
+                                  ),
+
+                              "homeScore":
+                                  home_score,
+
+                              "awayScore":
+                                  away_score,
+
+                              "time":
+                                  time_text,
+
+                              "live":
+                                  is_live,
+
+                              "status":
+                                  status.get(
+                                      "long",
+                                      "Scheduled"
+                                  )
+
+                          })
+
+                  except Exception as error:
+
+                      print(
+                          "Error:",
+                          league_name,
+                          date,
+                          error
+                      )
+
+
+          # Remove duplicate fixture IDs
+
+          unique = {}
+
+          for match in all_matches:
+
+              unique[
+                  match["id"]
+              ] = match
+
+          all_matches = list(
+              unique.values()
+          )
+
+
+          output = {
+
+              "updated":
+                  datetime.now(
+                      timezone.utc
+                  ).isoformat(),
+
+              "matches":
+                  all_matches
+
+          }
+
+
+          with open(
+              "football-data.json",
+              "w",
+              encoding="utf-8"
+          ) as file:
+
+              json.dump(
+                  output,
+                  file,
+                  indent=2,
+                  ensure_ascii=False
+              )
+
+          print(
+              "Saved",
+              len(all_matches),
+              "matches"
+          )
+
+          PY
+
+
+      - name: Commit updated football data
+        run: |
+
+          git config user.name "FootyHub Bot"
+
+          git config user.email "actions@github.com"
+
+          git add football-data.json
+
+          git diff --cached --quiet || \
+          git commit -m "Update football data"
+
+          git push
+```
