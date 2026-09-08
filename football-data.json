@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-08T17:06:15.010650+00:00",
+  "updated": "2026-09-08T17:37:05.668112+00:00",
   "matches": [
     {
       "id": 1550114,
@@ -371,10 +371,10 @@
       "homeLogo": "https://media.api-sports.io/football/teams/413.png",
       "awayLogo": "https://media.api-sports.io/football/teams/196.png",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "time": "10:15 PM",
       "live": true,
-      "status": "First Half"
+      "status": "Halftime"
     },
     {
       "id": 1552142,
