@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-08T16:39:41.673951+00:00",
+  "updated": "2026-09-08T17:06:15.010650+00:00",
   "matches": [
     {
       "id": 1550114,
@@ -370,11 +370,11 @@
       "away": "Excelsior",
       "homeLogo": "https://media.api-sports.io/football/teams/413.png",
       "awayLogo": "https://media.api-sports.io/football/teams/196.png",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 1,
+      "awayScore": 0,
       "time": "10:15 PM",
-      "live": false,
-      "status": "Not Started"
+      "live": true,
+      "status": "First Half"
     },
     {
       "id": 1552142,
