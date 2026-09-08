@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FootballVerse | Global Football Hub</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07111f;
+    color:#ffffff;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#06101b;
+    border-right:1px solid #20364d;
+    padding:20px 15px;
+    overflow-y:auto;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:30px;
+    padding:10px;
+}
+
+.logo span{
+    color:#20d68a;
+}
+
+.menu-title{
+    color:#637b94;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:18px 10px 8px;
+}
+
+.nav-button{
+    width:100%;
+    padding:12px;
+    margin:3px 0;
+    background:transparent;
+    border:0;
+    border-radius:8px;
+    color:#aebfd0;
+    text-align:left;
+    font-size:14px;
+}
+
+.nav-button:hover,
+.nav-button.active{
+    background:#10283d;
+    color:white;
+}
+
+.nav-button.active{
+    border-left:3px solid #20d68a;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+}
+
+.topbar{
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    border-bottom:1px solid #20364d;
+    background:#07111f;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.search{
+    width:400px;
+    max-width:50%;
+    padding:11px 15px;
+    border:1px solid #263e56;
+    border-radius:8px;
+    background:#0d1d2e;
+    color:white;
+}
+
+.live{
+    padding:9px 14px;
+    background:#10283d;
+    border:1px solid #203d54;
+    color:#20d68a;
+    border-radius:8px;
+}
+
+/* CONTENT */
+
+.content{
+    padding:30px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(120deg,#0d2d47,#0d1b2d);
+    border:1px solid #203d54;
+    border-radius:15px;
+    padding:35px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#91a8bd;
+    max-width:700px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.btn{
+    padding:11px 18px;
+    border:0;
+    border-radius:7px;
+    background:#20d68a;
+    color:#04130d;
+    font-weight:bold;
+}
+
+.btn.secondary{
+    background:#18344c;
+    color:white;
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    gap:16px;
+}
+
+.stats{
+    grid-template-columns:repeat(4,1fr);
+    margin-bottom:25px;
+}
+
+.cards{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.players{
+    grid-template-columns:repeat(4,1fr);
+}
+
+.card{
+    background:#0d1b2d;
+    border:1px solid #20364d;
+    border-radius:12px;
+    padding:18px;
+}
+
+.card:hover{
+    border-color:#20d68a;
+}
+
+.stat-title{
+    color:#849bb1;
+    font-size:13px;
+}
+
+.stat-number{
+    font-size:30px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0 12px;
+}
+
+/* PLAYER */
+
+.player{
+    cursor:pointer;
+}
+
+.avatar{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#1d4f72,#132a40);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.player h3{
+    margin-bottom:4px;
+}
+
+.muted{
+    color:#8da4ba;
+}
+
+.green{
+    color:#20d68a;
+}
+
+.gold{
+    color:#ffd166;
+}
+
+.red{
+    color:#ff6578;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#0d1b2d;
+    border:1px solid #20364d;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th,
+td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #20364d;
+}
+
+th{
+    color:#849bb1;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+tr:hover td{
+    background:#102337;
+}
+
+/* FILTER */
+
+.filters{
+    display:flex;
+    gap:10px;
+    margin:18px 0;
+    flex-wrap:wrap;
+}
+
+.filters input,
+.filters select{
+    background:#0d1b2d;
+    color:white;
+    border:1px solid #263e56;
+    padding:10px;
+    border-radius:7px;
+}
+
+/* COMPARISON */
+
+.compare{
+    grid-template-columns:1fr 1fr;
+}
+
+.compare-player{
+    text-align:center;
+}
+
+.progress{
+    height:8px;
+    background:#20364d;
+    border-radius:10px;
+    overflow:hidden;
+    margin:7px 0 15px;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    background:#20d68a;
+}
+
+/* HISTORY */
+
+.timeline{
+    border-left:2px solid #20d68a;
+    padding-left:20px;
+}
+
+.event{
+    margin-bottom:25px;
+}
+
+.event strong{
+    color:#20d68a;
+}
+
+/* QUIZ */
+
+.quiz-option{
+    display:block;
+    width:100%;
+    margin:8px 0;
+    padding:12px;
+    background:#13283d;
+    border:1px solid #263e56;
+    color:white;
+    border-radius:7px;
+    text-align:left;
+}
+
+.quiz-option:hover{
+    border-color:#20d68a;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:35px;
+    color:#627b94;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+    .sidebar{
+        width:75px;
+    }
+
+    .logo{
+        font-size:0;
+    }
+
+    .logo span{
+        font-size:20px;
+    }
+
+    .menu-title{
+        display:none;
+    }
+
+    .nav-button{
+        font-size:0;
+        text-align:center;
+    }
+
+    .main{
+        margin-left:75px;
+    }
+
+    .stats,
+    .players{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .topbar{
+        padding:10px;
+    }
+
+    .search{
+        width:65%;
+        max-width:none;
+    }
+
+    .content{
+        padding:15px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .stats,
+    .cards,
+    .players,
+    .compare{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+⚽ Football<span>Verse</span>
+</div>
+
+<div class="menu-title">Main</div>
+
+<button class="nav-button active" onclick="showPage('dashboard',this)">
+🏠 Dashboard
+</button>
+
+<button class="nav-button" onclick="showPage('matches',this)">
+🗓 Match Centre
+</button>
+
+<button class="nav-button" onclick="showPage('leagues',this)">
+🏆 Leagues
+</button>
+
+<button class="nav-button" onclick="showPage('players',this)">
+👤 Players
+</button>
+
+<button class="nav-button" onclick="showPage('clubs',this)">
+🛡 Clubs
+</button>
+
+<button class="nav-button" onclick="showPage('compare',this)">
+⚖ Player Comparison
+</button>
+
+<button class="nav-button" onclick="showPage('transfers',this)">
+🔄 Transfers
+</button>
+
+<div class="menu-title">Tools</div>
+
+<button class="nav-button" onclick="showPage('manager',this)">
+📋 Manager
+</button>
+
+<button class="nav-button" onclick="showPage('history',this)">
+📚 History
+</button>
+
+<button class="nav-button" onclick="showPage('records',this)">
+🥇 Records
+</button>
+
+<button class="nav-button" onclick="showPage('news',this)">
+📰 News
+</button>
+
+<button class="nav-button" onclick="showPage('quiz',this)">
+🧠 Quiz
+</button>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+<input
+class="search"
+id="search"
+placeholder="Search players, clubs, leagues..."
+>
+
+<button class="live">
+● LIVE
+</button>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<div class="hero">
+
+<h1>The World's Football in One Place</h1>
+
+<p>
+Explore football leagues, players, clubs, matches,
+transfers, records, history and statistics from one
+modern football dashboard.
+</p>
+
+<button class="btn"
+onclick="showPage('players',null)">
+Explore Players →
+</button>
+
+</div>
+
+
+<div class="grid stats">
+
+<div class="card">
+
+<div class="stat-title">
+Leagues
+</div>
+
+<div class="stat-number">
+10+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Players
+</div>
+
+<div class="stat-number">
+10,000+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Clubs
+</div>
+
+<div class="stat-number">
+500+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Football Tools
+</div>
+
+<div class="stat-number">
+12
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>
+Top Leagues
+</h2>
+
+<button class="btn secondary"
+onclick="showPage('leagues',null)">
+View All
+</button>
+
+</div>
+
+
+<div class="grid cards">
+
+<div class="card">
+
+<h3>🇬🇧 Premier League</h3>
+
+<p class="muted">
+England · 20 clubs
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🇪🇸 La Liga</h3>
+
+<p class="muted">
+Spain · 20 clubs
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🇩🇪 Bundesliga</h3>
+
+<p class="muted">
+Germany · 18 clubs
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🇮🇹 Serie A</h3>
+
+<p class="muted">
+Italy · 20 clubs
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🇫🇷 Ligue 1</h3>
+
+<p class="muted">
+France · 18 clubs
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🇳🇱 Eredivisie</h3>
+
+<p class="muted">
+Netherlands · 18 clubs
+</p>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>
+Featured Players
+</h2>
+
+</div>
+
+
+<div class="grid players">
+
+<div class="card player">
+
+<div class="avatar">
+EH
+</div>
+
+<h3>Erling Haaland</h3>
+
+<p class="muted">
+Forward · Manchester City
+</p>
+
+<br>
+
+⚽ 28 Goals<br>
+🅰 6 Assists<br>
+⭐ 8.4 Rating
+
+</div>
+
+
+<div class="card player">
+
+<div class="avatar">
+KM
+</div>
+
+<h3>Kylian Mbappé</h3>
+
+<p class="muted">
+Forward · Real Madrid
+</p>
+
+<br>
+
+⚽ 31 Goals<br>
+🅰 8 Assists<br>
+⭐ 8.6 Rating
+
+</div>
+
+
+<div class="card player">
+
+<div class="avatar">
+JB
+</div>
+
+<h3>Jude Bellingham</h3>
+
+<p class="muted">
+Midfielder · Real Madrid
+</p>
+
+<br>
+
+⚽ 12 Goals<br>
+🅰 10 Assists<br>
+⭐ 8.1 Rating
+
+</div>
+
+
+<div class="card player">
+
+<div class="avatar">
+LY
+</div>
+
+<h3>Lamine Yamal</h3>
+
+<p class="muted">
+Forward · Barcelona
+</p>
+
+<br>
+
+⚽ 15 Goals<br>
+🅰 14 Assists<br>
+⭐ 8.5 Rating
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MATCH CENTRE -->
+
+<section id="matches" class="page">
+
+<h1>Match Centre</h1>
+
+<div class="filters">
+
+<select>
+<option>All Competitions</option>
+<option>Premier League</option>
+<option>La Liga</option>
+<option>Bundesliga</option>
+</select>
+
+<select>
+<option>Today</option>
+<option>Tomorrow</option>
+<option>This Week</option>
+</select>
+
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Competition</th>
+<th>Match</th>
+<th>Time</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Premier League</td>
+<td>Arsenal vs Chelsea</td>
+<td>18:30</td>
+<td class="green">Upcoming</td>
+</tr>
+
+<tr>
+<td>La Liga</td>
+<td>Barcelona vs Sevilla</td>
+<td>20:00</td>
+<td class="green">Upcoming</td>
+</tr>
+
+<tr>
+<td>Bundesliga</td>
+<td>Bayern vs Dortmund</td>
+<td>21:00</td>
+<td class="green">Upcoming</td>
+</tr>
+
+<tr>
+<td>Serie A</td>
+<td>Inter vs Roma</td>
+<td>22:00</td>
+<td class="green">Upcoming</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+
+<!-- LEAGUES -->
+
+<section id="leagues" class="page">
+
+<h1>League Explorer</h1>
+
+<p class="muted">
+Explore the world's leading football competitions.
+</p>
+
+<br>
+
+<div class="grid cards">
+
+<div class="card">
+<h2>Premier League</h2>
+<p class="muted">England</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>La Liga</h2>
+<p class="muted">Spain</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Bundesliga</h2>
+<p class="muted">Germany</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Serie A</h2>
+<p class="muted">Italy</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Ligue 1</h2>
+<p class="muted">France</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Eredivisie</h2>
+<p class="muted">Netherlands</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Primeira Liga</h2>
+<p class="muted">Portugal</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Süper Lig</h2>
+<p class="muted">Turkey</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Brasileirão</h2>
+<p class="muted">Brazil</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+<div class="card">
+<h2>Argentine Primera</h2>
+<p class="muted">Argentina</p>
+<br>
+<button class="btn">Standings</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PLAYERS -->
+
+<section id="players" class="page">
+
+<h1>Player Database</h1>
+
+<div class="filters">
+
+<input
+id="playerSearch"
+placeholder="Search player..."
+>
+
+<select id="position">
+
+<option>All Positions</option>
+<option>Forward</option>
+<option>Midfielder</option>
+<option>Defender</option>
+<option>Goalkeeper</option>
+
+</select>
+
+</div>
+
+
+<div class="grid players" id="playerList">
+
+</div>
+
+</section>
+
+
+<!-- CLUBS -->
+
+<section id="clubs" class="page">
+
+<h1>Club Explorer</h1>
+
+<br>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Club</th>
+<th>League</th>
+<th>Squad</th>
+<th>Titles</th>
+<th>Form</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Manchester City</td>
+<td>Premier League</td>
+<td>28</td>
+<td>9</td>
+<td class="green">W W D W W</td>
+</tr>
+
+<tr>
+<td>Liverpool</td>
+<td>Premier League</td>
+<td>27</td>
+<td>20</td>
+<td class="green">W W W D W</td>
+</tr>
+
+<tr>
+<td>Real Madrid</td>
+<td>La Liga</td>
+<td>25</td>
+<td>36</td>
+<td class="green">W W W W D</td>
+</tr>
+
+<tr>
+<td>Barcelona</td>
+<td>La Liga</td>
+<td>26</td>
+<td>28</td>
+<td class="green">W W L W W</td>
+</tr>
+
+<tr>
+<td>Bayern Munich</td>
+<td>Bundesliga</td>
+<td>27</td>
+<td>33</td>
+<td class="green">W W W W W</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+
+<!-- PLAYER COMPARISON -->
+
+<section id="compare" class="page">
+
+<h1>Player Comparison</h1>
+
+<p class="muted">
+Compare two football players.
+</p>
+
+<div class="filters">
+
+<select id="playerA">
+<option>Erling Haaland</option>
+<option>Kylian Mbappé</option>
+<option>Jude Bellingham</option>
+<option>Lamine Yamal</option>
+</select>
+
+
+<select id="playerB">
+<option>Kylian Mbappé</option>
+<option>Erling Haaland</option>
+<option>Jude Bellingham</option>
+<option>Lamine Yamal</option>
+</select>
+
+<button class="btn"
+onclick="comparePlayers()">
+Compare
+</button>
+
+</div>
+
+
+<div class="grid compare">
+
+<div class="card compare-player">
+
+<h2>Erling Haaland</h2>
+
+<p>Goals: 28</p>
+
+<div class="progress">
+<span style="width:80%"></span>
+</div>
+
+<p>Assists: 6</p>
+
+<div class="progress">
+<span style="width:43%"></span>
+</div>
+
+<p>Rating: 8.4</p>
+
+<div class="progress">
+<span style="width:84%"></span>
+</div>
+
+</div>
+
+
+<div class="card compare-player">
+
+<h2>Kylian Mbappé</h2>
+
+<p>Goals: 31</p>
+
+<div class="progress">
+<span style="width:88%"></span>
+</div>
+
+<p>Assists: 8</p>
+
+<div class="progress">
+<span style="width:57%"></span>
+</div>
+
+<p>Rating: 8.6</p>
+
+<div class="progress">
+<span style="width:86%"></span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TRANSFERS -->
+
+<section id="transfers" class="page">
+
+<h1>Transfer Centre</h1>
+
+<br>
+
+<div class="grid cards">
+
+<div class="card">
+<h2>🔄 Confirmed</h2>
+<p class="muted">
+Officially completed transfers.
+</p>
+</div>
+
+<div class="card">
+<h2>🔥 Rumours</h2>
+<p class="muted">
+Transfer stories and reports.
+</p>
+</div>
+
+<div class="card">
+<h2>💰 Transfer Fees</h2>
+<p class="muted">
+Track reported transfer values.
+</p>
+</div>
+
+</div>
+
+<br>
+
+<table>
+
+<thead>
+<tr>
+<th>Player</th>
+<th>From</th>
+<th>To</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Sample Player</td>
+<td>Club A</td>
+<td>Club B</td>
+<td class="green">Confirmed</td>
+</tr>
+
+<tr>
+<td>Sample Player</td>
+<td>Club C</td>
+<td>Club D</td>
+<td class="gold">Rumour</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+
+<!-- MANAGER -->
+
+<section id="manager" class="page">
+
+<h1>Football Manager Dashboard</h1>
+
+<br>
+
+<div class="grid cards">
+
+<div class="card">
+
+<h2>Squad Builder</h2>
+
+<p class="muted">
+Create your starting XI.
+</p>
+
+<br>
+
+<button class="btn"
+onclick="alert('Squad Builder coming soon!')">
+Build XI
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Formation</h2>
+
+<p class="muted">
+4-3-3 Balanced
+</p>
+
+<br>
+
+<h2>
+🥅
+</h2>
+
+<p>
+🧍 🧍 🧍
+</p>
+
+<p>
+🧍 🧍 🧍 🧍
+</p>
+
+<p>
+🧍 🧍 🧍
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Team Analysis</h2>
+
+<p>
+Attack — 86
+</p>
+
+<div class="progress">
+<span style="width:86%"></span>
+</div>
+
+<p>
+Midfield — 84
+</p>
+
+<div class="progress">
+<span style="width:84%"></span>
+</div>
+
+<p>
+Defence — 81
+</p>
+
+<div class="progress">
+<span style="width:81%"></span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="page">
+
+<h1>Football History</h1>
+
+<br>
+
+<div class="timeline">
+
+<div class="event">
+
+<strong>1930</strong>
+
+<p>
+The first FIFA World Cup takes place.
+</p>
+
+</div>
+
+
+<div class="event">
+
+<strong>1955</strong>
+
+<p>
+The European Cup era begins.
+</p>
+
+</div>
+
+
+<div class="event">
+
+<strong>1992</strong>
+
+<p>
+The Premier League begins.
+</p>
+
+</div>
+
+
+<div class="event">
+
+<strong>2000s</strong>
+
+<p>
+Football analytics becomes increasingly important.
+</p>
+
+</div>
+
+
+<div class="event">
+
+<strong>2020s</strong>
+
+<p>
+Tracking data and advanced analytics become
+major parts of modern football.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RECORDS -->
+
+<section id="records" class="page">
+
+<h1>Records & Rankings</h1>
+
+<br>
+
+<div class="grid cards">
+
+<div class="card">
+
+<h2>🥇 Top Scorers</h2>
+
+<br>
+
+<ol>
+<li>Legendary Player — 900+</li>
+<li>Legendary Player — 800+</li>
+<li>Legendary Player — 700+</li>
+</ol>
+
+</div>
+
+
+<div class="card">
+
+<h2>🅰 Most Assists</h2>
+
+<br>
+
+<ol>
+<li>Playmaker A</li>
+<li>Playmaker B</li>
+<li>Playmaker C</li>
+</ol>
+
+</div>
+
+
+<div class="card">
+
+<h2>🏆 Club Honours</h2>
+
+<br>
+
+<ol>
+<li>Historic Club A</li>
+<li>Historic Club B</li>
+<li>Historic Club C</li>
+</ol>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<section id="news" class="page">
+
+<h1>Football News</h1>
+
+<br>
+
+<div class="grid cards">
+
+<div class="card">
+
+<p class="green">
+ANALYSIS
+</p>
+
+<h2>
+How football uses data
+</h2>
+
+<br>
+
+<p class="muted">
+Explore how performance statistics are used
+in modern football.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<p class="green">
+TACTICS
+</p>
+
+<h2>
+Understanding formations
+</h2>
+
+<br>
+
+<p class="muted">
+Learn about common football formations.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<p class="green">
+FEATURE
+</p>
+
+<h2>
+Evolution of player roles
+</h2>
+
+<br>
+
+<p class="muted">
+Discover how modern football positions
+continue to evolve.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="page">
+
+<h1>Football Quiz</h1>
+
+<br>
+
+<div class="card">
+
+<h2 id="question">
+Which position normally protects the goal?
+</h2>
+
+<br>
+
+<button class="quiz-option"
+onclick="answer(this,false)">
+Striker
+</button>
+
+<button class="quiz-option"
+onclick="answer(this,true)">
+Goalkeeper
+</button>
+
+<button class="quiz-option"
+onclick="answer(this,false)">
+Midfielder
+</button>
+
+<button class="quiz-option"
+onclick="answer(this,false)">
+Winger
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+FootballVerse © 2026
+<br><br>
+Football database demo website
+
+</footer>
+
+
+</main>
+
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function showPage(page,button){
+
+    document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+    document.getElementById(page)
+    .classList.add("active");
+
+    document.querySelectorAll(".nav-button")
+    .forEach(b => b.classList.remove("active"));
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    window.scrollTo(0,0);
+}
+
+
+/* PLAYER DATABASE */
+
+const players=[
+
+{
+name:"Erling Haaland",
+position:"Forward",
+club:"Manchester City",
+goals:28,
+assists:6,
+rating:8.4
+},
+
+{
+name:"Kylian Mbappé",
+position:"Forward",
+club:"Real Madrid",
+goals:31,
+assists:8,
+rating:8.6
+},
+
+{
+name:"Jude Bellingham",
+position:"Midfielder",
+club:"Real Madrid",
+goals:12,
+assists:10,
+rating:8.1
+},
+
+{
+name:"Lamine Yamal",
+position:"Forward",
+club:"Barcelona",
+goals:15,
+assists:14,
+rating:8.5
+},
+
+{
+name:"Harry Kane",
+position:"Forward",
+club:"Bayern Munich",
+goals:29,
+assists:7,
+rating:8.3
+},
+
+{
+name:"Bukayo Saka",
+position:"Forward",
+club:"Arsenal",
+goals:17,
+assists:12,
+rating:8.0
+},
+
+{
+name:"Virgil van Dijk",
+position:"Defender",
+club:"Liverpool",
+goals:3,
+assists:2,
+rating:7.8
+},
+
+{
+name:"Alisson Becker",
+position:"Goalkeeper",
+club:"Liverpool",
+goals:0,
+assists:1,
+rating:7.7
+}
+
+];
+
+
+function displayPlayers(list){
+
+    const container =
+        document.getElementById("playerList");
+
+    container.innerHTML="";
+
+    list.forEach(player => {
+
+        const initials =
+            player.name
+            .split(" ")
+            .map(x => x[0])
+            .slice(0,2)
+            .join("");
+
+        container.innerHTML += `
+
+        <div class="card player">
+
+            <div class="avatar">
+                ${initials}
+            </div>
+
+            <h3>
+                ${player.name}
+            </h3>
+
+            <p class="muted">
+                ${player.position}
+                ·
+                ${player.club}
+            </p>
+
+            <br>
+
+            ⚽ ${player.goals} Goals
+
+            <br>
+
+            🅰 ${player.assists} Assists
+
+            <br>
+
+            ⭐ ${player.rating} Rating
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+displayPlayers(players);
+
+
+/* PLAYER SEARCH */
+
+document
+.getElementById("playerSearch")
+.addEventListener("input",filterPlayers);
+
+
+document
+.getElementById("position")
+.addEventListener("change",filterPlayers);
+
+
+function filterPlayers(){
+
+    const search =
+        document
+        .getElementById("playerSearch")
+        .value
+        .toLowerCase();
+
+    const position =
+        document
+        .getElementById("position")
+        .value;
+
+    const filtered =
+        players.filter(player => {
+
+            const matchesName =
+                player.name
+                .toLowerCase()
+                .includes(search);
+
+            const matchesPosition =
+                position === "All Positions"
+                ||
+                player.position === position;
+
+            return matchesName &&
+                   matchesPosition;
+
+        });
+
+    displayPlayers(filtered);
+
+}
+
+
+/* QUIZ */
+
+function answer(button,correct){
+
+    if(correct){
+
+        button.innerHTML =
+            "✅ Correct Answer!";
+
+    }else{
+
+        button.innerHTML =
+            "❌ Incorrect Answer";
+
+    }
+
+}
+
+
+/* SEARCH */
+
+document
+.getElementById("search")
+.addEventListener("keydown",function(event){
+
+    if(event.key !== "Enter")
+        return;
+
+    const query =
+        this.value.toLowerCase();
+
+    const player =
+        players.find(p =>
+            p.name.toLowerCase()
+            .includes(query)
+        );
+
+    if(player){
+
+        showPage("players",null);
+
+        document
+        .getElementById("playerSearch")
+        .value=player.name;
+
+        filterPlayers();
+
+    }else{
+
+        alert(
+            "Player not found in the demo database."
+        );
+
+    }
+
+});
+
+
+/* PLAYER COMPARISON */
+
+function comparePlayers(){
+
+    const a =
+        document
+        .getElementById("playerA")
+        .value;
+
+    const b =
+        document
+        .getElementById("playerB")
+        .value;
+
+    alert(
+        "Comparing " +
+        a +
+        " vs " +
+        b
+    );
+
+}
+
+</script>
+
+</body>
+</html>
