@@ -4,242 +4,260 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FootyHub | Players</title>
+<title>FootyHub - Players</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #07111f;
-    color: #ffffff;
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07111f;
+    color:#fff;
 }
 
-header {
-    background: linear-gradient(135deg, #07111f, #10294a);
-    padding: 25px 7%;
-    border-bottom: 1px solid #243957;
+header{
+    background:linear-gradient(135deg,#07111f,#12345a);
+    padding:25px 7%;
+    border-bottom:1px solid #29425f;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 32px;
+header h1{
+    margin:0;
+    font-size:32px;
 }
 
-header p {
-    color: #aebbd0;
-    margin-bottom: 0;
+header p{
+    color:#aebed1;
+    margin:8px 0 0;
 }
 
-.container {
-    width: 86%;
-    max-width: 1200px;
-    margin: 35px auto;
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
 }
 
-.search-box {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 25px;
+.search-area{
+    background:#101d2d;
+    padding:22px;
+    border-radius:15px;
+    border:1px solid #29415d;
 }
 
-#searchInput {
-    flex: 1;
-    padding: 17px 20px;
-    border-radius: 12px;
-    border: 1px solid #344b68;
-    background: #101d2f;
-    color: white;
-    font-size: 17px;
-    outline: none;
+.search-area h2{
+    margin-top:0;
 }
 
-#searchInput:focus {
-    border-color: #42a5ff;
+.search-row{
+    display:flex;
+    gap:10px;
 }
 
-#searchButton {
-    padding: 0 25px;
-    border: none;
-    border-radius: 12px;
-    background: #1683e8;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+#searchInput{
+    flex:1;
+    padding:16px;
+    font-size:17px;
+    color:white;
+    background:#081525;
+    border:1px solid #39536f;
+    border-radius:10px;
+    outline:none;
 }
 
-#searchButton:hover {
-    background: #0d72cf;
+#searchInput:focus{
+    border-color:#3199ff;
 }
 
-.results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 18px;
+#searchButton{
+    padding:0 25px;
+    border:0;
+    border-radius:10px;
+    background:#1687ed;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 }
 
-.player-card {
-    background: #101d2f;
-    border: 1px solid #263b57;
-    border-radius: 15px;
-    padding: 18px;
-    cursor: pointer;
-    transition: 0.2s;
+#searchButton:hover{
+    background:#0c72cf;
 }
 
-.player-card:hover {
-    transform: translateY(-4px);
-    border-color: #42a5ff;
-    background: #14253c;
+#message{
+    margin:20px 0;
+    color:#a9b9cb;
 }
 
-.player-card img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto 15px;
-    background: #1c3049;
+.results{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:18px;
 }
 
-.player-card h3 {
-    text-align: center;
-    margin: 8px 0;
+.player-card{
+    background:#101d2d;
+    border:1px solid #29415d;
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.player-card p {
-    text-align: center;
-    color: #9eacc0;
-    margin: 5px;
+.player-card:hover{
+    transform:translateY(-5px);
+    border-color:#3199ff;
+    background:#14263c;
 }
 
-#message {
-    color: #9eacc0;
-    margin: 15px 0;
+.player-photo{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    margin:0 auto 15px;
+    background:#1d344e;
 }
 
-.hidden {
-    display: none;
+.player-card h3{
+    text-align:center;
+    margin:8px 0;
 }
 
-.profile {
-    margin-top: 30px;
-    background: #101d2f;
-    border: 1px solid #2b425f;
-    border-radius: 18px;
-    padding: 28px;
+.player-card p{
+    text-align:center;
+    color:#9fb0c4;
+    margin:6px 0;
 }
 
-.profile-top {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid #2b425f;
-    padding-bottom: 25px;
+.profile{
+    margin-top:25px;
+    background:#101d2d;
+    border:1px solid #29415d;
+    border-radius:18px;
+    padding:28px;
 }
 
-.profile-top img {
-    width: 130px;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 50%;
-    background: #1c3049;
+.profile-header{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    flex-wrap:wrap;
+    padding-bottom:25px;
+    border-bottom:1px solid #29415d;
 }
 
-.profile-top h2 {
-    margin: 0 0 10px;
-    font-size: 32px;
+.profile-photo{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
+    background:#1d344e;
 }
 
-.profile-top p {
-    color: #aebbd0;
-    margin: 6px 0;
+.profile-header h2{
+    margin:0 0 10px;
+    font-size:34px;
 }
 
-.section {
-    margin-top: 28px;
+.profile-header p{
+    color:#a9b9cb;
+    margin:6px 0;
 }
 
-.section h3 {
-    border-left: 4px solid #1683e8;
-    padding-left: 10px;
+.section{
+    margin-top:30px;
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+.section h3{
+    border-left:4px solid #1687ed;
+    padding-left:10px;
 }
 
-.info-box {
-    background: #0b1727;
-    border-radius: 10px;
-    padding: 15px;
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:12px;
 }
 
-.info-box strong {
-    display: block;
-    color: #8fa4bf;
-    font-size: 13px;
-    margin-bottom: 5px;
+.info-box{
+    background:#091626;
+    padding:16px;
+    border-radius:10px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    overflow: hidden;
-    border-radius: 10px;
+.info-box span{
+    display:block;
+    color:#8195aa;
+    font-size:13px;
+    margin-bottom:6px;
 }
 
-th, td {
-    padding: 13px;
-    border-bottom: 1px solid #263b57;
-    text-align: left;
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
 }
 
-th {
-    background: #162942;
+th,td{
+    padding:13px;
+    text-align:left;
+    border-bottom:1px solid #29415d;
 }
 
-td {
-    background: #0d1a2b;
+th{
+    background:#172b43;
 }
 
-.back {
-    margin-top: 20px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 9px;
-    background: #263f5f;
-    color: white;
-    cursor: pointer;
+td{
+    background:#0b192a;
 }
 
-.back:hover {
-    background: #355577;
+.back-button{
+    margin-top:25px;
+    padding:12px 20px;
+    border:0;
+    border-radius:9px;
+    background:#294563;
+    color:white;
+    cursor:pointer;
 }
 
-@media(max-width:600px) {
-    .container {
-        width: 92%;
+.back-button:hover{
+    background:#385d82;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:600px){
+
+    .search-row{
+        flex-direction:column;
     }
 
-    .search-box {
-        flex-direction: column;
+    #searchButton{
+        padding:14px;
     }
 
-    #searchButton {
-        padding: 14px;
+    .profile-header h2{
+        font-size:26px;
     }
 
-    .profile-top h2 {
-        font-size: 25px;
+    .profile-photo{
+        width:120px;
+        height:120px;
+    }
+
+    table{
+        font-size:13px;
+    }
+
+    th,td{
+        padding:9px;
     }
 }
 </style>
@@ -254,17 +272,30 @@ td {
 
 <div class="container">
 
-    <div class="search-box">
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Search player e.g. Mbappe, Messi, Ronaldo..."
-            autocomplete="off"
-        >
-        <button id="searchButton">Search</button>
+    <div class="search-area">
+
+        <h2>Search Players</h2>
+
+        <div class="search-row">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search Mbappe, Messi, Ronaldo, Haaland..."
+                autocomplete="off"
+            >
+
+            <button id="searchButton">
+                Search
+            </button>
+
+        </div>
+
     </div>
 
-    <div id="message">Start typing a player's name.</div>
+    <div id="message">
+        Type a player's name to search.
+    </div>
 
     <div id="results" class="results"></div>
 
@@ -281,530 +312,550 @@ td {
 const players = [
 
 {
-    name: "Kylian Mbappé",
-    aliases: ["mbappe", "mbappé", "kylian", "kylian mbappe", "kylian mbappé"],
-    country: "France",
-    position: "Forward",
-    birth: "20 December 1998",
-    currentClub: "Real Madrid",
-    number: "9",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/231388.png",
+    name:"Kylian Mbappé",
+    aliases:[
+        "mbappe",
+        "mbappé",
+        "kylian",
+        "kylian mbappe",
+        "kylian mbappé",
+        "mbappe jr"
+    ],
+    country:"France",
+    position:"Forward",
+    birth:"20 December 1998",
+    club:"Real Madrid",
+    number:"9",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/231388.png",
 
-    clubs: [
-        ["AS Monaco", "2015–2018"],
-        ["Paris Saint-Germain", "2017–2024"],
-        ["Real Madrid", "2024–Present"]
+    clubs:[
+        ["AS Monaco","2015–2018"],
+        ["Paris Saint-Germain","2017–2024"],
+        ["Real Madrid","2024–Present"]
     ],
 
-    career: {
-        appearances: "500+",
-        goals: "350+",
-        assists: "100+",
-        internationalGoals: "50+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","500+"],
+        ["Goals","350+"],
+        ["Assists","100+"],
+        ["International Goals","50+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2023–24", "Paris Saint-Germain", "Ligue 1", "—", "—", "—"],
-        ["2022–23", "Paris Saint-Germain", "Ligue 1", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Real Madrid","La Liga","—","—","—"],
+        ["2023–24","Paris Saint-Germain","Ligue 1","—","—","—"],
+        ["2022–23","Paris Saint-Germain","Ligue 1","—","—","—"],
+        ["2021–22","Paris Saint-Germain","Ligue 1","—","—","—"]
     ]
 },
 
 {
-    name: "Lionel Messi",
-    aliases: ["messi", "lionel", "lionel messi", "leo messi"],
-    country: "Argentina",
-    position: "Forward",
-    birth: "24 June 1987",
-    currentClub: "Inter Miami",
-    number: "10",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/45843.png",
+    name:"Lionel Messi",
+    aliases:["messi","lionel","leo","lionel messi","leo messi"],
+    country:"Argentina",
+    position:"Forward",
+    birth:"24 June 1987",
+    club:"Inter Miami",
+    number:"10",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/45843.png",
 
-    clubs: [
-        ["Barcelona", "2004–2021"],
-        ["Paris Saint-Germain", "2021–2023"],
-        ["Inter Miami", "2023–Present"]
+    clubs:[
+        ["Barcelona","2004–2021"],
+        ["Paris Saint-Germain","2021–2023"],
+        ["Inter Miami","2023–Present"]
     ],
 
-    career: {
-        appearances: "900+",
-        goals: "800+",
-        assists: "350+",
-        internationalGoals: "110+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","900+"],
+        ["Goals","800+"],
+        ["Assists","350+"],
+        ["International Goals","110+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024", "Inter Miami", "MLS", "—", "—", "—"],
-        ["2023–24", "Inter Miami", "MLS", "—", "—", "—"],
-        ["2022–23", "Paris Saint-Germain", "Ligue 1", "—", "—", "—"]
+    seasons:[
+        ["2024","Inter Miami","MLS","—","—","—"],
+        ["2023–24","Inter Miami","MLS","—","—","—"],
+        ["2022–23","Paris Saint-Germain","Ligue 1","—","—","—"],
+        ["2021–22","Paris Saint-Germain","Ligue 1","—","—","—"]
     ]
 },
 
 {
-    name: "Cristiano Ronaldo",
-    aliases: ["ronaldo", "cristiano", "cr7", "cristiano ronaldo"],
-    country: "Portugal",
-    position: "Forward",
-    birth: "5 February 1985",
-    currentClub: "Al Nassr",
-    number: "7",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/22774.png",
+    name:"Cristiano Ronaldo",
+    aliases:[
+        "ronaldo",
+        "cr7",
+        "cristiano",
+        "cristiano ronaldo"
+    ],
+    country:"Portugal",
+    position:"Forward",
+    birth:"5 February 1985",
+    club:"Al Nassr",
+    number:"7",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/22774.png",
 
-    clubs: [
-        ["Sporting CP", "2002–2003"],
-        ["Manchester United", "2003–2009"],
-        ["Real Madrid", "2009–2018"],
-        ["Juventus", "2018–2021"],
-        ["Manchester United", "2021–2022"],
-        ["Al Nassr", "2023–Present"]
+    clubs:[
+        ["Sporting CP","2002–2003"],
+        ["Manchester United","2003–2009"],
+        ["Real Madrid","2009–2018"],
+        ["Juventus","2018–2021"],
+        ["Manchester United","2021–2022"],
+        ["Al Nassr","2023–Present"]
     ],
 
-    career: {
-        appearances: "1,000+",
-        goals: "900+",
-        assists: "250+",
-        internationalGoals: "130+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","1,000+"],
+        ["Goals","900+"],
+        ["Assists","250+"],
+        ["International Goals","130+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Al Nassr", "Saudi Pro League", "—", "—", "—"],
-        ["2023–24", "Al Nassr", "Saudi Pro League", "—", "—", "—"],
-        ["2022–23", "Al Nassr", "Saudi Pro League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Al Nassr","Saudi Pro League","—","—","—"],
+        ["2023–24","Al Nassr","Saudi Pro League","—","—","—"],
+        ["2022–23","Al Nassr","Saudi Pro League","—","—","—"]
     ]
 },
 
 {
-    name: "Erling Haaland",
-    aliases: ["haaland", "erling", "erling haaland"],
-    country: "Norway",
-    position: "Forward",
-    birth: "21 July 2000",
-    currentClub: "Manchester City",
-    number: "9",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/239245.png",
+    name:"Erling Haaland",
+    aliases:["haaland","erling","erling haaland"],
+    country:"Norway",
+    position:"Forward",
+    birth:"21 July 2000",
+    club:"Manchester City",
+    number:"9",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/239245.png",
 
-    clubs: [
-        ["Molde", "2017–2019"],
-        ["Red Bull Salzburg", "2019–2020"],
-        ["Borussia Dortmund", "2020–2022"],
-        ["Manchester City", "2022–Present"]
+    clubs:[
+        ["Molde","2017–2019"],
+        ["Red Bull Salzburg","2019–2020"],
+        ["Borussia Dortmund","2020–2022"],
+        ["Manchester City","2022–Present"]
     ],
 
-    career: {
-        appearances: "300+",
-        goals: "250+",
-        assists: "50+",
-        internationalGoals: "40+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","300+"],
+        ["Goals","250+"],
+        ["Assists","50+"],
+        ["International Goals","40+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2023–24", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2022–23", "Manchester City", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Manchester City","Premier League","—","—","—"],
+        ["2023–24","Manchester City","Premier League","—","—","—"],
+        ["2022–23","Manchester City","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Jude Bellingham",
-    aliases: ["bellingham", "jude", "jude bellingham"],
-    country: "England",
-    position: "Midfielder",
-    birth: "29 June 2003",
-    currentClub: "Real Madrid",
-    number: "5",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/280555.png",
+    name:"Jude Bellingham",
+    aliases:["bellingham","jude","jude bellingham"],
+    country:"England",
+    position:"Midfielder",
+    birth:"29 June 2003",
+    club:"Real Madrid",
+    number:"5",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/280555.png",
 
-    clubs: [
-        ["Birmingham City", "2019–2020"],
-        ["Borussia Dortmund", "2020–2023"],
-        ["Real Madrid", "2023–Present"]
+    clubs:[
+        ["Birmingham City","2019–2020"],
+        ["Borussia Dortmund","2020–2023"],
+        ["Real Madrid","2023–Present"]
     ],
 
-    career: {
-        appearances: "200+",
-        goals: "50+",
-        assists: "40+",
-        internationalGoals: "10+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","200+"],
+        ["Goals","50+"],
+        ["Assists","40+"],
+        ["International Goals","10+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2023–24", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2022–23", "Borussia Dortmund", "Bundesliga", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Real Madrid","La Liga","—","—","—"],
+        ["2023–24","Real Madrid","La Liga","—","—","—"],
+        ["2022–23","Borussia Dortmund","Bundesliga","—","—","—"]
     ]
 },
 
 {
-    name: "Vinícius Júnior",
-    aliases: ["vinicius", "vinicius jr", "vini", "vini jr", "vinícius"],
-    country: "Brazil",
-    position: "Forward",
-    birth: "12 July 2000",
-    currentClub: "Real Madrid",
-    number: "7",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/246419.png",
+    name:"Vinícius Júnior",
+    aliases:[
+        "vinicius",
+        "vinicius jr",
+        "vini",
+        "vini jr",
+        "vinícius"
+    ],
+    country:"Brazil",
+    position:"Forward",
+    birth:"12 July 2000",
+    club:"Real Madrid",
+    number:"7",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/246419.png",
 
-    clubs: [
-        ["Flamengo", "2017–2018"],
-        ["Real Madrid", "2018–Present"]
+    clubs:[
+        ["Flamengo","2017–2018"],
+        ["Real Madrid","2018–Present"]
     ],
 
-    career: {
-        appearances: "300+",
-        goals: "100+",
-        assists: "80+",
-        internationalGoals: "10+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","300+"],
+        ["Goals","100+"],
+        ["Assists","80+"],
+        ["International Goals","10+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2023–24", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2022–23", "Real Madrid", "La Liga", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Real Madrid","La Liga","—","—","—"],
+        ["2023–24","Real Madrid","La Liga","—","—","—"],
+        ["2022–23","Real Madrid","La Liga","—","—","—"]
     ]
 },
 
 {
-    name: "Mohamed Salah",
-    aliases: ["salah", "mo salah", "mohamed salah"],
-    country: "Egypt",
-    position: "Forward",
-    birth: "15 June 1992",
-    currentClub: "Liverpool",
-    number: "11",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/235574.png",
+    name:"Mohamed Salah",
+    aliases:["salah","mo salah","mohamed","mohamed salah"],
+    country:"Egypt",
+    position:"Forward",
+    birth:"15 June 1992",
+    club:"Liverpool",
+    number:"11",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/235574.png",
 
-    clubs: [
-        ["Basel", "2012–2014"],
-        ["Chelsea", "2014–2016"],
-        ["Roma", "2016–2017"],
-        ["Liverpool", "2017–Present"]
+    clubs:[
+        ["Basel","2012–2014"],
+        ["Chelsea","2014–2016"],
+        ["Roma","2016–2017"],
+        ["Liverpool","2017–Present"]
     ],
 
-    career: {
-        appearances: "600+",
-        goals: "300+",
-        assists: "150+",
-        internationalGoals: "50+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","600+"],
+        ["Goals","300+"],
+        ["Assists","150+"],
+        ["International Goals","50+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Liverpool", "Premier League", "—", "—", "—"],
-        ["2023–24", "Liverpool", "Premier League", "—", "—", "—"],
-        ["2022–23", "Liverpool", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Liverpool","Premier League","—","—","—"],
+        ["2023–24","Liverpool","Premier League","—","—","—"],
+        ["2022–23","Liverpool","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Harry Kane",
-    aliases: ["kane", "harry", "harry kane"],
-    country: "England",
-    position: "Forward",
-    birth: "28 July 1993",
-    currentClub: "Bayern Munich",
-    number: "9",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/153637.png",
+    name:"Harry Kane",
+    aliases:["kane","harry","harry kane"],
+    country:"England",
+    position:"Forward",
+    birth:"28 July 1993",
+    club:"Bayern Munich",
+    number:"9",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/153637.png",
 
-    clubs: [
-        ["Tottenham Hotspur", "2011–2023"],
-        ["Bayern Munich", "2023–Present"]
+    clubs:[
+        ["Tottenham Hotspur","2011–2023"],
+        ["Bayern Munich","2023–Present"]
     ],
 
-    career: {
-        appearances: "500+",
-        goals: "300+",
-        assists: "100+",
-        internationalGoals: "70+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","500+"],
+        ["Goals","300+"],
+        ["Assists","100+"],
+        ["International Goals","70+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Bayern Munich", "Bundesliga", "—", "—", "—"],
-        ["2023–24", "Bayern Munich", "Bundesliga", "—", "—", "—"],
-        ["2022–23", "Tottenham", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Bayern Munich","Bundesliga","—","—","—"],
+        ["2023–24","Bayern Munich","Bundesliga","—","—","—"],
+        ["2022–23","Tottenham Hotspur","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Kevin De Bruyne",
-    aliases: ["de bruyne", "kevin", "kdb", "kevin de bruyne"],
-    country: "Belgium",
-    position: "Midfielder",
-    birth: "28 June 1991",
-    currentClub: "Napoli",
-    number: "17",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/138931.png",
+    name:"Robert Lewandowski",
+    aliases:["lewandowski","lewy","robert","robert lewandowski"],
+    country:"Poland",
+    position:"Forward",
+    birth:"21 August 1988",
+    club:"Barcelona",
+    number:"9",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/125824.png",
 
-    clubs: [
-        ["Genk", "2008–2012"],
-        ["Chelsea", "2012–2014"],
-        ["Wolfsburg", "2014–2015"],
-        ["Manchester City", "2015–2025"],
-        ["Napoli", "2025–Present"]
+    clubs:[
+        ["Lech Poznan","2008–2010"],
+        ["Borussia Dortmund","2010–2014"],
+        ["Bayern Munich","2014–2022"],
+        ["Barcelona","2022–Present"]
     ],
 
-    career: {
-        appearances: "500+",
-        goals: "100+",
-        assists: "200+",
-        internationalGoals: "30+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","700+"],
+        ["Goals","600+"],
+        ["Assists","150+"],
+        ["International Goals","80+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2023–24", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2022–23", "Manchester City", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Barcelona","La Liga","—","—","—"],
+        ["2023–24","Barcelona","La Liga","—","—","—"],
+        ["2022–23","Barcelona","La Liga","—","—","—"]
     ]
 },
 
 {
-    name: "Robert Lewandowski",
-    aliases: ["lewandowski", "lewy", "robert", "robert lewandowski"],
-    country: "Poland",
-    position: "Forward",
-    birth: "21 August 1988",
-    currentClub: "Barcelona",
-    number: "9",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/125824.png",
+    name:"Kevin De Bruyne",
+    aliases:["de bruyne","kdb","kevin","kevin de bruyne"],
+    country:"Belgium",
+    position:"Midfielder",
+    birth:"28 June 1991",
+    club:"Napoli",
+    number:"17",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/138931.png",
 
-    clubs: [
-        ["Lech Poznan", "2008–2010"],
-        ["Borussia Dortmund", "2010–2014"],
-        ["Bayern Munich", "2014–2022"],
-        ["Barcelona", "2022–Present"]
+    clubs:[
+        ["Genk","2008–2012"],
+        ["Chelsea","2012–2014"],
+        ["Wolfsburg","2014–2015"],
+        ["Manchester City","2015–2025"],
+        ["Napoli","2025–Present"]
     ],
 
-    career: {
-        appearances: "700+",
-        goals: "600+",
-        assists: "150+",
-        internationalGoals: "80+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","500+"],
+        ["Goals","100+"],
+        ["Assists","200+"],
+        ["International Goals","30+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Barcelona", "La Liga", "—", "—", "—"],
-        ["2023–24", "Barcelona", "La Liga", "—", "—", "—"],
-        ["2022–23", "Barcelona", "La Liga", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Manchester City","Premier League","—","—","—"],
+        ["2023–24","Manchester City","Premier League","—","—","—"],
+        ["2022–23","Manchester City","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Rodri",
-    aliases: ["rodri", "rodrigo", "rodrigo hernandez"],
-    country: "Spain",
-    position: "Midfielder",
-    birth: "22 June 1996",
-    currentClub: "Manchester City",
-    number: "16",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/231446.png",
+    name:"Rodri",
+    aliases:["rodri","rodrigo","rodrigo hernandez"],
+    country:"Spain",
+    position:"Midfielder",
+    birth:"22 June 1996",
+    club:"Manchester City",
+    number:"16",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/231446.png",
 
-    clubs: [
-        ["Villarreal", "2015–2018"],
-        ["Atlético Madrid", "2018–2019"],
-        ["Manchester City", "2019–Present"]
+    clubs:[
+        ["Villarreal","2015–2018"],
+        ["Atlético Madrid","2018–2019"],
+        ["Manchester City","2019–Present"]
     ],
 
-    career: {
-        appearances: "400+",
-        goals: "40+",
-        assists: "50+",
-        internationalGoals: "3+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","400+"],
+        ["Goals","40+"],
+        ["Assists","50+"],
+        ["International Goals","3+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2023–24", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2022–23", "Manchester City", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Manchester City","Premier League","—","—","—"],
+        ["2023–24","Manchester City","Premier League","—","—","—"],
+        ["2022–23","Manchester City","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Bukayo Saka",
-    aliases: ["saka", "bukayo", "bukayo saka"],
-    country: "England",
-    position: "Forward",
-    birth: "5 September 2001",
-    currentClub: "Arsenal",
-    number: "7",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/280555.png",
+    name:"Bukayo Saka",
+    aliases:["saka","bukayo","bukayo saka"],
+    country:"England",
+    position:"Forward",
+    birth:"5 September 2001",
+    club:"Arsenal",
+    number:"7",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/280555.png",
 
-    clubs: [
-        ["Arsenal", "2018–Present"]
+    clubs:[
+        ["Arsenal","2018–Present"]
     ],
 
-    career: {
-        appearances: "250+",
-        goals: "70+",
-        assists: "60+",
-        internationalGoals: "10+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","250+"],
+        ["Goals","70+"],
+        ["Assists","60+"],
+        ["International Goals","10+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Arsenal", "Premier League", "—", "—", "—"],
-        ["2023–24", "Arsenal", "Premier League", "—", "—", "—"],
-        ["2022–23", "Arsenal", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Arsenal","Premier League","—","—","—"],
+        ["2023–24","Arsenal","Premier League","—","—","—"],
+        ["2022–23","Arsenal","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Phil Foden",
-    aliases: ["foden", "phil", "phil foden"],
-    country: "England",
-    position: "Midfielder",
-    birth: "28 May 2000",
-    currentClub: "Manchester City",
-    number: "47",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/237050.png",
+    name:"Phil Foden",
+    aliases:["foden","phil","phil foden"],
+    country:"England",
+    position:"Midfielder",
+    birth:"28 May 2000",
+    club:"Manchester City",
+    number:"47",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/237050.png",
 
-    clubs: [
-        ["Manchester City", "2017–Present"]
+    clubs:[
+        ["Manchester City","2017–Present"]
     ],
 
-    career: {
-        appearances: "300+",
-        goals: "100+",
-        assists: "70+",
-        internationalGoals: "5+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","300+"],
+        ["Goals","100+"],
+        ["Assists","70+"],
+        ["International Goals","5+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2023–24", "Manchester City", "Premier League", "—", "—", "—"],
-        ["2022–23", "Manchester City", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Manchester City","Premier League","—","—","—"],
+        ["2023–24","Manchester City","Premier League","—","—","—"],
+        ["2022–23","Manchester City","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Virgil van Dijk",
-    aliases: ["van dijk", "virgil", "vvd", "virgil van dijk"],
-    country: "Netherlands",
-    position: "Defender",
-    birth: "8 July 1991",
-    currentClub: "Liverpool",
-    number: "4",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/139208.png",
+    name:"Virgil van Dijk",
+    aliases:["van dijk","virgil","vvd","virgil van dijk"],
+    country:"Netherlands",
+    position:"Defender",
+    birth:"8 July 1991",
+    club:"Liverpool",
+    number:"4",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/139208.png",
 
-    clubs: [
-        ["Groningen", "2011–2013"],
-        ["Celtic", "2013–2015"],
-        ["Southampton", "2015–2018"],
-        ["Liverpool", "2018–Present"]
+    clubs:[
+        ["Groningen","2011–2013"],
+        ["Celtic","2013–2015"],
+        ["Southampton","2015–2018"],
+        ["Liverpool","2018–Present"]
     ],
 
-    career: {
-        appearances: "400+",
-        goals: "40+",
-        assists: "20+",
-        internationalGoals: "9+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","400+"],
+        ["Goals","40+"],
+        ["Assists","20+"],
+        ["International Goals","9+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Liverpool", "Premier League", "—", "—", "—"],
-        ["2023–24", "Liverpool", "Premier League", "—", "—", "—"],
-        ["2022–23", "Liverpool", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Liverpool","Premier League","—","—","—"],
+        ["2023–24","Liverpool","Premier League","—","—","—"],
+        ["2022–23","Liverpool","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Thibaut Courtois",
-    aliases: ["courtois", "thibaut", "thibaut courtois"],
-    country: "Belgium",
-    position: "Goalkeeper",
-    birth: "11 May 1992",
-    currentClub: "Real Madrid",
-    number: "1",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/139024.png",
+    name:"Lamine Yamal",
+    aliases:["yamal","lamine","lamine yamal"],
+    country:"Spain",
+    position:"Forward",
+    birth:"13 July 2007",
+    club:"Barcelona",
+    number:"10",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/323553.png",
 
-    clubs: [
-        ["Genk", "2009–2011"],
-        ["Atlético Madrid", "2011–2014"],
-        ["Chelsea", "2014–2018"],
-        ["Real Madrid", "2018–Present"]
+    clubs:[
+        ["Barcelona","2023–Present"]
     ],
 
-    career: {
-        appearances: "500+",
-        goals: "0",
-        assists: "0",
-        internationalGoals: "0",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","100+"],
+        ["Goals","30+"],
+        ["Assists","30+"],
+        ["International Goals","10+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2023–24", "Real Madrid", "La Liga", "—", "—", "—"],
-        ["2022–23", "Real Madrid", "La Liga", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Barcelona","La Liga","—","—","—"],
+        ["2023–24","Barcelona","La Liga","—","—","—"]
     ]
 },
 
 {
-    name: "Lamine Yamal",
-    aliases: ["yamal", "lamine", "lamine yamal"],
-    country: "Spain",
-    position: "Forward",
-    birth: "13 July 2007",
-    currentClub: "Barcelona",
-    number: "10",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/323553.png",
+    name:"Martin Ødegaard",
+    aliases:["odegaard","ødegaard","martin","martin odegaard"],
+    country:"Norway",
+    position:"Midfielder",
+    birth:"17 December 1998",
+    club:"Arsenal",
+    number:"8",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/203069.png",
 
-    clubs: [
-        ["Barcelona", "2023–Present"]
+    clubs:[
+        ["Strømsgodset","2014–2015"],
+        ["Real Madrid","2015–2021"],
+        ["Arsenal","2021–Present"]
     ],
 
-    career: {
-        appearances: "100+",
-        goals: "30+",
-        assists: "30+",
-        internationalGoals: "10+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","350+"],
+        ["Goals","60+"],
+        ["Assists","70+"],
+        ["International Goals","3+"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Barcelona", "La Liga", "—", "—", "—"],
-        ["2023–24", "Barcelona", "La Liga", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Arsenal","Premier League","—","—","—"],
+        ["2023–24","Arsenal","Premier League","—","—","—"],
+        ["2022–23","Arsenal","Premier League","—","—","—"]
     ]
 },
 
 {
-    name: "Martin Ødegaard",
-    aliases: ["odegaard", "ødegaard", "martin", "martin odegaard"],
-    country: "Norway",
-    position: "Midfielder",
-    birth: "17 December 1998",
-    currentClub: "Arsenal",
-    number: "8",
-    image: "https://a.espncdn.com/i/headshots/soccer/players/full/203069.png",
+    name:"Thibaut Courtois",
+    aliases:["courtois","thibaut","thibaut courtois"],
+    country:"Belgium",
+    position:"Goalkeeper",
+    birth:"11 May 1992",
+    club:"Real Madrid",
+    number:"1",
+    image:"https://a.espncdn.com/i/headshots/soccer/players/full/139024.png",
 
-    clubs: [
-        ["Strømsgodset", "2014–2015"],
-        ["Real Madrid", "2015–2021"],
-        ["Arsenal", "2021–Present"]
+    clubs:[
+        ["Genk","2009–2011"],
+        ["Atlético Madrid","2011–2014"],
+        ["Chelsea","2014–2018"],
+        ["Real Madrid","2018–Present"]
     ],
 
-    career: {
-        appearances: "350+",
-        goals: "60+",
-        assists: "70+",
-        internationalGoals: "3+",
-        trophies: "Multiple"
-    },
+    career:[
+        ["Appearances","500+"],
+        ["Goals","0"],
+        ["Assists","0"],
+        ["International Goals","0"],
+        ["Major Trophies","Multiple"]
+    ],
 
-    seasons: [
-        ["2024–25", "Arsenal", "Premier League", "—", "—", "—"],
-        ["2023–24", "Arsenal", "Premier League", "—", "—", "—"],
-        ["2022–23", "Arsenal", "Premier League", "—", "—", "—"]
+    seasons:[
+        ["2024–25","Real Madrid","La Liga","—","—","—"],
+        ["2023–24","Real Madrid","La Liga","—","—","—"],
+        ["2022–23","Real Madrid","La Liga","—","—","—"]
     ]
 }
 
@@ -812,63 +863,81 @@ const players = [
 
 
 /* =========================================================
-   SEARCH
+   SEARCH NORMALIZER
    ========================================================= */
 
-const input = document.getElementById("searchInput");
-const results = document.getElementById("results");
-const message = document.getElementById("message");
-const profile = document.getElementById("profile");
+function normalize(text){
 
-function normalize(text) {
-    return text
+    return String(text)
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9 ]/g, "")
-        .trim();
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[^a-z0-9]/g,"");
+
 }
 
-function searchPlayers() {
+
+/* =========================================================
+   SEARCH FUNCTION
+   ========================================================= */
+
+function searchPlayers(){
+
+    const input = document.getElementById("searchInput");
 
     const query = normalize(input.value);
 
-    results.innerHTML = "";
+    const results = document.getElementById("results");
+
+    const message = document.getElementById("message");
+
+    const profile = document.getElementById("profile");
+
     profile.classList.add("hidden");
+
     profile.innerHTML = "";
 
-    if (!query) {
-        message.textContent = "Start typing a player's name.";
+    results.innerHTML = "";
+
+    if(query === ""){
+
+        message.textContent =
+            "Type a player's name to search.";
+
         return;
+
     }
+
 
     const matches = players.filter(player => {
 
-        const name = normalize(player.name);
+        const mainName = normalize(player.name);
 
-        const aliases = player.aliases
-            .map(alias => normalize(alias));
+        if(mainName.includes(query)){
+            return true;
+        }
 
-        return (
-            name.includes(query) ||
-            query.includes(name) ||
-            aliases.some(alias =>
-                alias.includes(query) ||
-                query.includes(alias)
-            )
+        return player.aliases.some(alias =>
+            normalize(alias).includes(query)
         );
+
     });
 
-    if (matches.length === 0) {
-        message.textContent =
-            "No player found. Try another spelling or search term.";
+
+    if(matches.length === 0){
+
+        message.innerHTML =
+            "<strong>No player found.</strong> Try Mbappe, Messi, Ronaldo, Haaland, Salah or Bellingham.";
+
         return;
+
     }
 
+
     message.textContent =
-        matches.length + " player" +
-        (matches.length > 1 ? "s" : "") +
-        " found.";
+        matches.length +
+        (matches.length === 1 ? " player found." : " players found.");
+
 
     matches.forEach(player => {
 
@@ -877,77 +946,125 @@ function searchPlayers() {
         card.className = "player-card";
 
         card.innerHTML = `
+
             <img
+                class="player-photo"
                 src="${player.image}"
                 alt="${player.name}"
-                onerror="this.style.display='none'"
+                onerror="this.onerror=null;this.src='https://placehold.co/200x200/1d344e/ffffff?text=⚽';"
             >
 
             <h3>${player.name}</h3>
 
             <p>${player.position}</p>
 
-            <p>${player.currentClub}</p>
+            <p>${player.club}</p>
 
             <p>${player.country}</p>
+
         `;
 
-        card.addEventListener("click", () => {
+        card.onclick = function(){
+
             showProfile(player);
-        });
+
+        };
 
         results.appendChild(card);
+
     });
+
 }
 
 
 /* =========================================================
-   PLAYER PROFILE
+   SHOW PLAYER PROFILE
    ========================================================= */
 
-function showProfile(player) {
+function showProfile(player){
+
+    const results = document.getElementById("results");
+
+    const message = document.getElementById("message");
+
+    const profile = document.getElementById("profile");
 
     results.innerHTML = "";
+
     message.textContent = "";
 
     profile.classList.remove("hidden");
+
+
+    let careerHTML = "";
+
+    player.career.forEach(stat => {
+
+        careerHTML += `
+
+            <div class="info-box">
+
+                <span>${stat[0]}</span>
+
+                <strong>${stat[1]}</strong>
+
+            </div>
+
+        `;
+
+    });
+
 
     let clubsHTML = "";
 
     player.clubs.forEach(club => {
 
         clubsHTML += `
+
             <tr>
+
                 <td>${club[0]}</td>
+
                 <td>${club[1]}</td>
+
             </tr>
+
         `;
+
     });
+
 
     let seasonsHTML = "";
 
     player.seasons.forEach(season => {
 
         seasonsHTML += `
+
             <tr>
+
                 <td>${season[0]}</td>
                 <td>${season[1]}</td>
                 <td>${season[2]}</td>
                 <td>${season[3]}</td>
                 <td>${season[4]}</td>
                 <td>${season[5]}</td>
+
             </tr>
+
         `;
+
     });
+
 
     profile.innerHTML = `
 
-        <div class="profile-top">
+        <div class="profile-header">
 
             <img
+                class="profile-photo"
                 src="${player.image}"
                 alt="${player.name}"
-                onerror="this.style.display='none'"
+                onerror="this.onerror=null;this.src='https://placehold.co/200x200/1d344e/ffffff?text=⚽';"
             >
 
             <div>
@@ -956,7 +1073,7 @@ function showProfile(player) {
 
                 <p><strong>${player.position}</strong></p>
 
-                <p>${player.currentClub}</p>
+                <p>${player.club}</p>
 
                 <p>${player.country}</p>
 
@@ -972,28 +1089,28 @@ function showProfile(player) {
             <div class="info-grid">
 
                 <div class="info-box">
-                    <strong>Nationality</strong>
-                    ${player.country}
+                    <span>Nationality</span>
+                    <strong>${player.country}</strong>
                 </div>
 
                 <div class="info-box">
-                    <strong>Position</strong>
-                    ${player.position}
+                    <span>Position</span>
+                    <strong>${player.position}</strong>
                 </div>
 
                 <div class="info-box">
-                    <strong>Date of Birth</strong>
-                    ${player.birth}
+                    <span>Date of Birth</span>
+                    <strong>${player.birth}</strong>
                 </div>
 
                 <div class="info-box">
-                    <strong>Current Club</strong>
-                    ${player.currentClub}
+                    <span>Current Club</span>
+                    <strong>${player.club}</strong>
                 </div>
 
                 <div class="info-box">
-                    <strong>Squad Number</strong>
-                    ${player.number}
+                    <span>Squad Number</span>
+                    <strong>${player.number}</strong>
                 </div>
 
             </div>
@@ -1007,30 +1124,7 @@ function showProfile(player) {
 
             <div class="info-grid">
 
-                <div class="info-box">
-                    <strong>Appearances</strong>
-                    ${player.career.appearances}
-                </div>
-
-                <div class="info-box">
-                    <strong>Goals</strong>
-                    ${player.career.goals}
-                </div>
-
-                <div class="info-box">
-                    <strong>Assists</strong>
-                    ${player.career.assists}
-                </div>
-
-                <div class="info-box">
-                    <strong>International Goals</strong>
-                    ${player.career.internationalGoals}
-                </div>
-
-                <div class="info-box">
-                    <strong>Trophies</strong>
-                    ${player.career.trophies}
-                </div>
+                ${careerHTML}
 
             </div>
 
@@ -1039,19 +1133,23 @@ function showProfile(player) {
 
         <div class="section">
 
-            <h3>Club Career</h3>
+            <h3>Club History</h3>
 
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Club</th>
                         <th>Years</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
+
                     ${clubsHTML}
+
                 </tbody>
 
             </table>
@@ -1079,7 +1177,9 @@ function showProfile(player) {
                 </thead>
 
                 <tbody>
+
                     ${seasonsHTML}
+
                 </tbody>
 
             </table>
@@ -1093,67 +1193,98 @@ function showProfile(player) {
 
             <div class="info-box">
 
-                Detailed individual match statistics and ratings will
-                appear here when a verified match-statistics data source
-                is connected.
+                Match-by-match ratings are not included in this
+                static database yet. No invented ratings are shown.
 
             </div>
 
         </div>
 
 
-        <button class="back" onclick="backToSearch()">
+        <button
+            class="back-button"
+            onclick="backToSearch()"
+        >
             ← Back to Search
         </button>
+
     `;
+
 }
 
 
 /* =========================================================
-   BACK BUTTON
+   BACK TO SEARCH
    ========================================================= */
 
-function backToSearch() {
+function backToSearch(){
+
+    const profile = document.getElementById("profile");
+
+    const input = document.getElementById("searchInput");
 
     profile.classList.add("hidden");
 
-    results.innerHTML = "";
+    profile.innerHTML = "";
 
-    input.focus();
+    if(input.value.trim() !== ""){
 
-    if (input.value.trim()) {
         searchPlayers();
-    } else {
-        message.textContent = "Start typing a player's name.";
+
+    }else{
+
+        document.getElementById("message").textContent =
+            "Type a player's name to search.";
+
     }
+
 }
 
 
 /* =========================================================
-   EVENTS
+   BUTTON
    ========================================================= */
-
-input.addEventListener("input", searchPlayers);
 
 document
     .getElementById("searchButton")
-    .addEventListener("click", searchPlayers);
-
-input.addEventListener("keydown", function(event) {
-
-    if (event.key === "Enter") {
-        searchPlayers();
-    }
-
-});
+    .addEventListener("click",searchPlayers);
 
 
 /* =========================================================
-   TEST SEARCH
+   LIVE SEARCH
    ========================================================= */
 
-// Makes sure the page starts correctly.
-console.log("FootyHub Players loaded:", players.length, "players.");
+document
+    .getElementById("searchInput")
+    .addEventListener("input",searchPlayers);
+
+
+/* =========================================================
+   ENTER KEY
+   ========================================================= */
+
+document
+    .getElementById("searchInput")
+    .addEventListener("keydown",function(event){
+
+        if(event.key === "Enter"){
+
+            searchPlayers();
+
+        }
+
+    });
+
+
+/* =========================================================
+   PAGE TEST
+   ========================================================= */
+
+console.log(
+    "FootyHub Players loaded successfully:",
+    players.length,
+    "players"
+);
 
 </script>
 
