@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FootyHub - Player Database</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07111f;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    background:#0b1728;
+    border-bottom:1px solid #22344d;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:#39d98a;
+}
+
+.logo span{
+    color:white;
+}
+
+.nav button{
+    background:#14243a;
+    color:#fff;
+    border:1px solid #29415f;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.nav button:hover{
+    background:#1c3450;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:35px 20px;
+}
+
+.hero{
+    text-align:center;
+    padding:30px 0 25px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#9db0c7;
+    font-size:16px;
+}
+
+.search-area{
+    max-width:750px;
+    margin:25px auto;
+    position:relative;
+}
+
+.search-box{
+    display:flex;
+    background:#101f32;
+    border:1px solid #29415f;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.search-box input{
+    flex:1;
+    padding:18px;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:white;
+    font-size:17px;
+}
+
+.search-box input::placeholder{
+    color:#71859d;
+}
+
+.search-box button{
+    padding:0 25px;
+    border:none;
+    background:#39d98a;
+    color:#04150d;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#55e9a0;
+}
+
+#results{
+    margin-top:20px;
+}
+
+.status{
+    text-align:center;
+    color:#8fa4bb;
+    padding:25px;
+}
+
+.player-result{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:#101f32;
+    border:1px solid #263c56;
+    padding:16px;
+    border-radius:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.player-result:hover{
+    background:#152942;
+    transform:translateY(-2px);
+    border-color:#39d98a;
+}
+
+.player-photo{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#1b2c43;
+}
+
+.player-result h3{
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.player-result p{
+    color:#91a6bc;
+    font-size:14px;
+}
+
+.arrow{
+    margin-left:auto;
+    color:#39d98a;
+    font-size:22px;
+}
+
+/* PROFILE */
+
+#profile{
+    display:none;
+}
+
+.back{
+    background:#14243a;
+    color:#fff;
+    border:1px solid #29415f;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.back:hover{
+    background:#1c3450;
+}
+
+.profile-header{
+    background:linear-gradient(135deg,#10253d,#0c1727);
+    border:1px solid #29415f;
+    border-radius:18px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    margin-bottom:25px;
+}
+
+.profile-photo{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#172a42;
+}
+
+.profile-name{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.profile-sub{
+    color:#a8b8ca;
+    line-height:1.8;
+}
+
+.section{
+    background:#0e1c2e;
+    border:1px solid #253b55;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:22px;
+}
+
+.section h2{
+    margin-bottom:20px;
+    font-size:23px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+}
+
+.stat{
+    background:#13253b;
+    border:1px solid #29415d;
+    border-radius:10px;
+    padding:18px;
+}
+
+.stat .label{
+    color:#8ea3b9;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.stat .value{
+    font-size:25px;
+    font-weight:bold;
+    color:#39d98a;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.info{
+    background:#13253b;
+    padding:15px;
+    border-radius:10px;
+}
+
+.info strong{
+    display:block;
+    color:#8ea3b9;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.info span{
+    font-size:16px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px 12px;
+    border-bottom:1px solid #253b55;
+    text-align:left;
+    white-space:nowrap;
+}
+
+th{
+    color:#8fa6be;
+    font-size:13px;
+    background:#122238;
+}
+
+td{
+    color:#e6edf5;
+}
+
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#8fa6be;
+}
+
+.error{
+    background:#341923;
+    border:1px solid #713345;
+    color:#ffb8c7;
+    padding:16px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    background:#183b31;
+    color:#57e5a1;
+    border-radius:20px;
+    font-size:12px;
+}
+
+@media(max-width:700px){
+    .hero h1{
+        font-size:32px;
+    }
+
+    .profile-header{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .profile-name{
+        font-size:29px;
+    }
+
+    .profile-photo{
+        width:120px;
+        height:120px;
+    }
+
+    .search-box button{
+        padding:0 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">Footy<span>Hub</span></div>
+        <button onclick="showSearch()">Players</button>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- SEARCH PAGE -->
+
+    <div id="searchPage">
+
+        <div class="hero">
+            <h1>Football Player Database</h1>
+            <p>Search for a player and explore their available career statistics.</p>
+        </div>
+
+        <div class="search-area">
+
+            <div class="search-box">
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search player e.g. Mbappe, Messi, Ronaldo..."
+                    autocomplete="off"
+                >
+                <button onclick="searchPlayers()">Search</button>
+            </div>
+
+            <div id="results"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAYER PROFILE -->
+
+    <div id="profile">
+
+        <button class="back" onclick="showSearch()">
+            ← Back to Player Search
+        </button>
+
+        <div id="profileContent"></div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const SEARCH_API =
+    "https://site.web.api.espn.com/apis/search/v2";
+
+const CORE_V2 =
+    "https://sports.core.api.espn.com/v2/sports/soccer";
+
+const CORE_V3 =
+    "https://sports.core.api.espn.com/v3/sports/soccer";
+
+const SITE_API =
+    "https://site.api.espn.com/apis/site/v2/sports/soccer";
+
+let currentPlayer = null;
+
+
+/* ================================
+   HELPERS
+================================ */
+
+function normalizeText(text){
+
+    return (text || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .toLowerCase()
+        .trim();
+
+}
+
+
+function escapeHTML(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function valueOrNA(value){
+
+    if(
+        value === null ||
+        value === undefined ||
+        value === "" ||
+        value === "-"
+    ){
+        return "N/A";
+    }
+
+    return value;
+
+}
+
+
+async function fetchJSON(url){
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+        throw new Error("HTTP " + response.status);
+    }
+
+    return await response.json();
+
+}
+
+
+/* ================================
+   PLAYER SEARCH
+================================ */
+
+async function searchPlayers(){
+
+    const input =
+        document.getElementById("searchInput");
+
+    const query = input.value.trim();
+
+    const results =
+        document.getElementById("results");
+
+    if(query.length < 2){
+
+        results.innerHTML =
+            `<div class="status">
+                Type at least 2 characters.
+             </div>`;
+
+        return;
+
+    }
+
+    results.innerHTML =
+        `<div class="loading">
+            Searching for <strong>${escapeHTML(query)}</strong>...
+         </div>`;
+
+    try{
+
+        /*
+         ESPN global search.
+         We also send sport=soccer so that
+         football/soccer players are prioritized.
+        */
+
+        const url =
+            SEARCH_API +
+            "?query=" +
+            encodeURIComponent(query) +
+            "&sport=soccer" +
+            "&limit=20";
+
+        const data =
+            await fetchJSON(url);
+
+        const players =
+            extractPlayersFromSearch(data,query);
+
+        if(!players.length){
+
+            results.innerHTML =
+                `<div class="status">
+                    No players found for
+                    <strong>${escapeHTML(query)}</strong>.
+                 </div>`;
+
+            return;
+
+        }
+
+        renderSearchResults(players);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        results.innerHTML =
+            `<div class="error">
+                Unable to search the player database.
+                Please try again.
+             </div>`;
+
+    }
+
+}
+
+
+/* ================================
+   EXTRACT SEARCH RESULTS
+================================ */
+
+function extractPlayersFromSearch(data,query){
+
+    const output = [];
+    const seen = new Set();
+
+    function walk(obj){
+
+        if(!obj || typeof obj !== "object"){
+            return;
+        }
+
+        /*
+         Look for objects that resemble ESPN athletes.
+        */
+
+        const id =
+            obj.id ||
+            obj.athleteId;
+
+        const name =
+            obj.displayName ||
+            obj.fullName ||
+            obj.name ||
+            obj.display_name;
+
+        const type =
+            String(
+                obj.type ||
+                obj.objectType ||
+                obj.kind ||
+                ""
+            ).toLowerCase();
+
+        const hasAthleteClues =
+            id &&
+            name &&
+            (
+                type.includes("athlete") ||
+                type.includes("player") ||
+                obj.position ||
+                obj.team ||
+                obj.jersey ||
+                obj.dateOfBirth
+            );
+
+        if(hasAthleteClues){
+
+            const key = String(id);
+
+            if(!seen.has(key)){
+
+                seen.add(key);
+
+                output.push({
+                    id:key,
+                    name:name,
+                    firstName:obj.firstName || "",
+                    lastName:obj.lastName || "",
+                    position:
+                        obj.position?.displayName ||
+                        obj.position?.name ||
+                        obj.position?.abbreviation ||
+                        "",
+                    team:
+                        obj.team?.displayName ||
+                        obj.team?.name ||
+                        "",
+                    league:
+                        obj.league?.displayName ||
+                        obj.league?.name ||
+                        "",
+                    country:
+                        obj.nationality?.displayName ||
+                        obj.nationality?.name ||
+                        obj.birthPlace?.country ||
+                        "",
+                    image:
+                        obj.image?.href ||
+                        obj.headshot?.href ||
+                        obj.photo?.href ||
+                        ""
+                });
+
+            }
+
+        }
+
+        for(const key in obj){
+
+            if(
+                key === "parent" ||
+                key === "$ref"
+            ){
+                continue;
+            }
+
+            const child = obj[key];
+
+            if(
+                child &&
+                typeof child === "object"
+            ){
+                walk(child);
+            }
+
+        }
+
+    }
+
+    walk(data);
+
+    /*
+     If ESPN's search response changes structure,
+     perform a secondary recursive scan for name/id pairs.
+    */
+
+    if(!output.length){
+
+        const normalizedQuery =
+            normalizeText(query);
+
+        function fallback(obj){
+
+            if(!obj || typeof obj !== "object"){
+                return;
+            }
+
+            if(
+                obj.id &&
+                (obj.displayName || obj.fullName || obj.name)
+            ){
+
+                const name =
+                    obj.displayName ||
+                    obj.fullName ||
+                    obj.name;
+
+                const normalizedName =
+                    normalizeText(name);
+
+                if(
+                    normalizedName.includes(normalizedQuery) ||
+                    normalizedQuery.includes(normalizedName)
+                ){
+
+                    const key = String(obj.id);
+
+                    if(!seen.has(key)){
+
+                        seen.add(key);
+
+                        output.push({
+                            id:key,
+                            name:name,
+                            position:
+                                obj.position?.displayName ||
+                                obj.position?.name ||
+                                "",
+                            team:
+                                obj.team?.displayName ||
+                                obj.team?.name ||
+                                "",
+                            league:
+                                obj.league?.displayName ||
+                                obj.league?.name ||
+                                "",
+                            country:"",
+                            image:
+                                obj.image?.href ||
+                                obj.headshot?.href ||
+                                ""
+                        });
+
+                    }
+
+                }
+
+            }
+
+            for(const key in obj){
+
+                if(
+                    obj[key] &&
+                    typeof obj[key] === "object"
+                ){
+                    fallback(obj[key]);
+                }
+
+            }
+
+        }
+
+        fallback(data);
+
+    }
+
+    return output.slice(0,20);
+
+}
+
+
+/* ================================
+   RENDER SEARCH RESULTS
+================================ */
+
+function renderSearchResults(players){
+
+    const results =
+        document.getElementById("results");
+
+    results.innerHTML =
+        players.map(player => {
+
+            const photo =
+                player.image ||
+                "https://a.espncdn.com/i/headshots/soccer/players/full/" +
+                player.id +
+                ".png";
+
+            const details =
+                [
+                    player.team,
+                    player.position,
+                    player.country
+                ]
+                .filter(Boolean)
+                .join(" • ");
+
+            return `
+
+                <div
+                    class="player-result"
+                    onclick="openPlayer('${escapeHTML(player.id)}')"
+                >
+
+                    <img
+                        class="player-photo"
+                        src="${escapeHTML(photo)}"
+                        onerror="this.style.display='none'"
+                        alt=""
+                    >
+
+                    <div>
+
+                        <h3>
+                            ${escapeHTML(player.name)}
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                details || "Football player"
+                            )}
+                        </p>
+
+                    </div>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* ================================
+   OPEN PLAYER
+================================ */
+
+async function openPlayer(id){
+
+    document.getElementById("searchPage").style.display =
+        "none";
+
+    document.getElementById("profile").style.display =
+        "block";
+
+    const content =
+        document.getElementById("profileContent");
+
+    content.innerHTML =
+        `<div class="loading">
+            Loading player profile...
+         </div>`;
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    try{
+
+        /*
+         First try the general soccer athlete endpoint.
+        */
+
+        let athlete = null;
+
+        const endpoints = [
+
+            `${CORE_V2}/athletes/${id}`,
+
+            `${CORE_V3}/athletes/${id}`,
+
+            `${SITE_API}/athletes/${id}`
+
+        ];
+
+        for(const url of endpoints){
+
+            try{
+
+                athlete =
+                    await fetchJSON(url);
+
+                if(athlete){
+                    break;
+                }
+
+            }
+            catch(error){
+
+                console.log(
+                    "Endpoint failed:",
+                    url
+                );
+
+            }
+
+        }
+
+        if(!athlete){
+
+            throw new Error(
+                "Player profile unavailable"
+            );
+
+        }
+
+        currentPlayer =
+            extractAthlete(athlete,id);
+
+        await loadPlayerStatistics(
+            currentPlayer
+        );
+
+        renderProfile(
+            currentPlayer
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        content.innerHTML =
+            `<div class="error">
+                The player was found, but ESPN did not return
+                enough profile data for this player.
+             </div>`;
+
+    }
+
+}
+
+
+/* ================================
+   EXTRACT ATHLETE
+================================ */
+
+function extractAthlete(data,id){
+
+    /*
+     Some endpoints return:
+     { athlete: {...} }
+
+     Others return the athlete directly.
+    */
+
+    const a =
+        data.athlete ||
+        data;
+
+    return {
+
+        id:id,
+
+        name:
+            a.displayName ||
+            a.fullName ||
+            a.name ||
+            "Unknown Player",
+
+        firstName:
+            a.firstName || "",
+
+        lastName:
+            a.lastName || "",
+
+        position:
+            a.position?.displayName ||
+            a.position?.name ||
+            a.position?.abbreviation ||
+            "N/A",
+
+        team:
+            a.team?.displayName ||
+            a.team?.name ||
+            "N/A",
+
+        teamId:
+            a.team?.id ||
+            "",
+
+        nationality:
+            a.nationality?.displayName ||
+            a.nationality?.name ||
+            a.birthPlace?.country ||
+            "N/A",
+
+        age:
+            a.age ||
+            "N/A",
+
+        birthDate:
+            a.dateOfBirth ||
+            "N/A",
+
+        jersey:
+            a.jersey ||
+            "N/A",
+
+        height:
+            a.displayHeight ||
+            a.height ||
+            "N/A",
+
+        weight:
+            a.displayWeight ||
+            a.weight ||
+            "N/A",
+
+        experience:
+            a.experience?.years ||
+            "N/A",
+
+        image:
+            a.headshot?.href ||
+            a.image?.href ||
+            "https://a.espncdn.com/i/headshots/soccer/players/full/" +
+            id +
+            ".png",
+
+        raw:a,
+
+        statistics:{},
+
+        logs:[]
+
+    };
+
+}
+
+
+/* ================================
+   LOAD STATISTICS
+================================ */
+
+async function loadPlayerStatistics(player){
+
+    const possibleURLs = [
+
+        `${CORE_V2}/athletes/${player.id}/statistics`,
+
+        `${CORE_V3}/athletes/${player.id}/statistics`,
+
+        `${CORE_V2}/athletes/${player.id}/statisticslog?limit=100`,
+
+        `${CORE_V3}/athletes/${player.id}/statisticslog?limit=100`
+
+    ];
+
+    for(const url of possibleURLs){
+
+        try{
+
+            const data =
+                await fetchJSON(url);
+
+            if(!data){
+                continue;
+            }
+
+            collectStatistics(
+                data,
+                player
+            );
+
+        }
+        catch(error){
+
+            console.log(
+                "Stats endpoint unavailable:",
+                url
+            );
+
+        }
+
+    }
+
+}
+
+
+/* ================================
+   COLLECT STATISTICS
+================================ */
+
+function collectStatistics(data,player){
+
+    const stats = {};
+
+    function walk(obj){
+
+        if(!obj || typeof obj !== "object"){
+            return;
+        }
+
+        /*
+         Handle ESPN statistic objects.
+        */
+
+        if(
+            obj.name &&
+            (
+                obj.value !== undefined ||
+                obj.displayValue !== undefined
+            )
+        ){
+
+            const key =
+                String(obj.name);
+
+            const value =
+                obj.displayValue ??
+                obj.value;
+
+            if(
+                value !== undefined &&
+                value !== null
+            ){
+
+                stats[key] =
+                    value;
+
+            }
+
+        }
+
+        /*
+         Handle arrays such as:
+         categories -> stats
+        */
+
+        if(Array.isArray(obj)){
+
+            obj.forEach(item =>
+                walk(item)
+            );
+
+        }
+        else{
+
+            Object.keys(obj).forEach(key => {
+
+                if(
+                    key !== "$ref" &&
+                    key !== "athlete"
+                ){
+
+                    walk(obj[key]);
+
+                }
+
+            });
+
+        }
+
+    }
+
+    walk(data);
+
+    player.statistics = {
+        ...player.statistics,
+        ...stats
+    };
+
+    /*
+     Keep the original response for additional
+     table generation.
+    */
+
+    player.rawStatistics =
+        player.rawStatistics || [];
+
+    player.rawStatistics.push(data);
+
+}
+
+
+/* ================================
+   FIND STATISTIC
+================================ */
+
+function findStat(player,names){
+
+    const stats =
+        player.statistics || {};
+
+    for(const name of names){
+
+        if(
+            stats[name] !== undefined
+        ){
+
+            return stats[name];
+
+        }
+
+    }
+
+    /*
+     Fuzzy matching.
+    */
+
+    const keys =
+        Object.keys(stats);
+
+    for(const desired of names){
+
+        const normalizedDesired =
+            normalizeText(desired);
+
+        const match =
+            keys.find(key =>
+                normalizeText(key)
+                .includes(normalizedDesired)
+            );
+
+        if(match){
+            return stats[match];
+        }
+
+    }
+
+    return "N/A";
+
+}
+
+
+/* ================================
+   RENDER PROFILE
+================================ */
+
+function renderProfile(player){
+
+    const content =
+        document.getElementById("profileContent");
+
+    const appearances =
+        findStat(player,[
+            "appearances",
+            "gamesPlayed",
+            "games"
+        ]);
+
+    const starts =
+        findStat(player,[
+            "starts",
+            "gamesStarted"
+        ]);
+
+    const minutes =
+        findStat(player,[
+            "minutes",
+            "mins"
+        ]);
+
+    const goals =
+        findStat(player,[
+            "goals",
+            "totalGoals"
+        ]);
+
+    const assists =
+        findStat(player,[
+            "assists",
+            "totalAssists"
+        ]);
+
+    const shots =
+        findStat(player,[
+            "shots",
+            "totalShots"
+        ]);
+
+    const shotsOnTarget =
+        findStat(player,[
+            "shotsOnTarget",
+            "shotsOnGoal"
+        ]);
+
+    const passes =
+        findStat(player,[
+            "passes",
+            "totalPasses"
+        ]);
+
+    const tackles =
+        findStat(player,[
+            "tackles",
+            "totalTackles"
+        ]);
+
+    const yellow =
+        findStat(player,[
+            "yellowCards",
+            "yellowCard"
+        ]);
+
+    const red =
+        findStat(player,[
+            "redCards",
+            "redCard"
+        ]);
+
+    const photo =
+        player.image;
+
+    content.innerHTML = `
+
+        <div class="profile-header">
+
+            <img
+                class="profile-photo"
+                src="${escapeHTML(photo)}"
+                onerror="this.src='https://a.espncdn.com/i/headshots/soccer/players/full/${player.id}.png'"
+                alt=""
+            >
+
+            <div>
+
+                <h1 class="profile-name">
+                    ${escapeHTML(player.name)}
+                </h1>
+
+                <div class="profile-sub">
+
+                    <span class="badge">
+                        ${escapeHTML(player.position)}
+                    </span>
+
+                    <br>
+
+                    ${escapeHTML(player.team)}
+                    •
+                    ${escapeHTML(player.nationality)}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>Player Information</h2>
+
+            <div class="info-grid">
+
+                <div class="info">
+                    <strong>Full Name</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.name
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Position</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.position
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Club</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.team
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Nationality</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.nationality
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Date of Birth</strong>
+                    <span>
+                        ${escapeHTML(
+                            formatDate(
+                                player.birthDate
+                            )
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Age</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.age
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Shirt Number</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.jersey
+                        )}
+                    </span>
+                </div>
+
+                <div class="info">
+                    <strong>Height</strong>
+                    <span>
+                        ${escapeHTML(
+                            player.height
+                        )}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>Career Statistics Available</h2>
+
+            <div class="stats-grid">
+
+                ${statCard(
+                    "Appearances",
+                    appearances
+                )}
+
+                ${statCard(
+                    "Starts",
+                    starts
+                )}
+
+                ${statCard(
+                    "Minutes",
+                    minutes
+                )}
+
+                ${statCard(
+                    "Goals",
+                    goals
+                )}
+
+                ${statCard(
+                    "Assists",
+                    assists
+                )}
+
+                ${statCard(
+                    "Shots",
+                    shots
+                )}
+
+                ${statCard(
+                    "Shots on Target",
+                    shotsOnTarget
+                )}
+
+                ${statCard(
+                    "Passes",
+                    passes
+                )}
+
+                ${statCard(
+                    "Tackles",
+                    tackles
+                )}
+
+                ${statCard(
+                    "Yellow Cards",
+                    yellow
+                )}
+
+                ${statCard(
+                    "Red Cards",
+                    red
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>All Statistics Returned by ESPN</h2>
+
+            ${renderAllStatistics(player)}
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>Match Ratings</h2>
+
+            <p style="color:#8fa4bb;margin-bottom:15px;">
+                ESPN does not provide a rating for every soccer
+                competition or every player match. Ratings are shown
+                only when the API actually returns one.
+            </p>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Date</th>
+                            <th>Competition</th>
+                            <th>Opponent</th>
+                            <th>Minutes</th>
+                            <th>Goals</th>
+                            <th>Assists</th>
+                            <th>Rating</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td colspan="7"
+                                style="text-align:center;color:#8196ad;">
+                                Match-by-match ratings will appear here
+                                when ESPN exposes them for this player.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ================================
+   STAT CARD
+================================ */
+
+function statCard(label,value){
+
+    return `
+
+        <div class="stat">
+
+            <div class="label">
+                ${escapeHTML(label)}
+            </div>
+
+            <div class="value">
+                ${escapeHTML(
+                    valueOrNA(value)
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ================================
+   ALL STATISTICS
+================================ */
+
+function renderAllStatistics(player){
+
+    const stats =
+        player.statistics || {};
+
+    const keys =
+        Object.keys(stats);
+
+    if(!keys.length){
+
+        return `
+            <div class="status">
+                ESPN did not return detailed statistics
+                for this player.
+            </div>
+        `;
+
+    }
+
+    return `
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Statistic</th>
+                        <th>Value</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${keys.map(key => `
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    prettifyStatName(key)
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    stats[key]
+                                )}
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ================================
+   FORMAT STAT NAME
+================================ */
+
+function prettifyStatName(name){
+
+    return String(name)
+        .replace(/([a-z])([A-Z])/g,"$1 $2")
+        .replace(/_/g," ")
+        .replace(/\b\w/g,
+            char => char.toUpperCase()
+        );
+
+}
+
+
+/* ================================
+   DATE
+================================ */
+
+function formatDate(date){
+
+    if(
+        !date ||
+        date === "N/A"
+    ){
+        return "N/A";
+    }
+
+    const d =
+        new Date(date);
+
+    if(
+        Number.isNaN(
+            d.getTime()
+        )
+    ){
+        return date;
+    }
+
+    return d.toLocaleDateString(
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* ================================
+   BACK TO SEARCH
+================================ */
+
+function showSearch(){
+
+    document.getElementById("profile").style.display =
+        "none";
+
+    document.getElementById("searchPage").style.display =
+        "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ================================
+   ENTER KEY SEARCH
+================================ */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+                searchPlayers();
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
