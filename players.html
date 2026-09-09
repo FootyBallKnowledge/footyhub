@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FootyHub - Player Database</title>
+
+<title>FootyHub - Players</title>
 
 <style>
 *{
@@ -15,7 +16,7 @@
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#07111f;
-    color:#fff;
+    color:white;
     min-height:100vh;
 }
 
@@ -30,14 +31,14 @@ header{
 .nav{
     max-width:1200px;
     margin:auto;
-    padding:18px 20px;
+    padding:17px 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
 
 .logo{
-    font-size:25px;
+    font-size:26px;
     font-weight:800;
     color:#39d98a;
 }
@@ -46,17 +47,18 @@ header{
     color:white;
 }
 
-.nav button{
+.home-btn{
     background:#14243a;
-    color:#fff;
+    color:white;
     border:1px solid #29415f;
     padding:10px 18px;
     border-radius:8px;
     cursor:pointer;
+    text-decoration:none;
 }
 
-.nav button:hover{
-    background:#1c3450;
+.home-btn:hover{
+    background:#1d3551;
 }
 
 .container{
@@ -65,9 +67,11 @@ header{
     padding:35px 20px;
 }
 
+/* SEARCH */
+
 .hero{
     text-align:center;
-    padding:30px 0 25px;
+    padding:35px 0 25px;
 }
 
 .hero h1{
@@ -76,14 +80,12 @@ header{
 }
 
 .hero p{
-    color:#9db0c7;
-    font-size:16px;
+    color:#91a6bd;
 }
 
 .search-area{
-    max-width:750px;
-    margin:25px auto;
-    position:relative;
+    max-width:760px;
+    margin:20px auto;
 }
 
 .search-box{
@@ -104,50 +106,58 @@ header{
     font-size:17px;
 }
 
-.search-box input::placeholder{
-    color:#71859d;
-}
-
 .search-box button{
-    padding:0 25px;
     border:none;
     background:#39d98a;
     color:#04150d;
+    padding:0 28px;
     font-weight:bold;
     cursor:pointer;
 }
 
 .search-box button:hover{
-    background:#55e9a0;
-}
-
-#results{
-    margin-top:20px;
+    background:#58e8a3;
 }
 
 .status{
     text-align:center;
     color:#8fa4bb;
-    padding:25px;
+    padding:30px;
+}
+
+.error{
+    background:#341923;
+    border:1px solid #713345;
+    color:#ffb8c7;
+    padding:18px;
+    border-radius:10px;
+    text-align:center;
+    margin-top:20px;
+}
+
+/* RESULTS */
+
+#results{
+    margin-top:20px;
 }
 
 .player-result{
     display:flex;
     align-items:center;
     gap:18px;
+    padding:17px;
+    margin-bottom:10px;
     background:#101f32;
     border:1px solid #263c56;
-    padding:16px;
     border-radius:12px;
-    margin-bottom:10px;
     cursor:pointer;
     transition:.2s;
 }
 
 .player-result:hover{
-    background:#152942;
-    transform:translateY(-2px);
     border-color:#39d98a;
+    background:#152941;
+    transform:translateY(-2px);
 }
 
 .player-photo{
@@ -155,23 +165,26 @@ header{
     height:65px;
     border-radius:50%;
     object-fit:cover;
-    background:#1b2c43;
+    background:#1a2b41;
 }
 
-.player-result h3{
+.player-info{
+    flex:1;
+}
+
+.player-info h3{
     font-size:18px;
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
-.player-result p{
+.player-info p{
     color:#91a6bc;
     font-size:14px;
 }
 
 .arrow{
-    margin-left:auto;
     color:#39d98a;
-    font-size:22px;
+    font-size:23px;
 }
 
 /* PROFILE */
@@ -180,9 +193,9 @@ header{
     display:none;
 }
 
-.back{
+.back-btn{
     background:#14243a;
-    color:#fff;
+    color:white;
     border:1px solid #29415f;
     padding:10px 18px;
     border-radius:8px;
@@ -190,12 +203,12 @@ header{
     margin-bottom:25px;
 }
 
-.back:hover{
-    background:#1c3450;
+.back-btn:hover{
+    background:#1d3551;
 }
 
 .profile-header{
-    background:linear-gradient(135deg,#10253d,#0c1727);
+    background:linear-gradient(135deg,#10253d,#0b1727);
     border:1px solid #29415f;
     border-radius:18px;
     padding:30px;
@@ -210,17 +223,27 @@ header{
     height:150px;
     border-radius:50%;
     object-fit:cover;
-    background:#172a42;
+    background:#162940;
 }
 
 .profile-name{
     font-size:38px;
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
-.profile-sub{
-    color:#a8b8ca;
+.profile-details{
+    color:#a6b7c9;
     line-height:1.8;
+}
+
+.badge{
+    display:inline-block;
+    background:#183b31;
+    color:#57e5a1;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:7px;
 }
 
 .section{
@@ -236,9 +259,32 @@ header{
     font-size:23px;
 }
 
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:14px;
+}
+
+.info{
+    background:#13253b;
+    padding:16px;
+    border-radius:10px;
+}
+
+.info strong{
+    display:block;
+    color:#8ea3b9;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.info span{
+    font-size:16px;
+}
+
 .stats-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
     gap:12px;
 }
 
@@ -249,39 +295,16 @@ header{
     padding:18px;
 }
 
-.stat .label{
+.stat-label{
     color:#8ea3b9;
     font-size:13px;
     margin-bottom:8px;
 }
 
-.stat .value{
+.stat-value{
+    color:#39d98a;
     font-size:25px;
     font-weight:bold;
-    color:#39d98a;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-}
-
-.info{
-    background:#13253b;
-    padding:15px;
-    border-radius:10px;
-}
-
-.info strong{
-    display:block;
-    color:#8ea3b9;
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.info span{
-    font-size:16px;
 }
 
 .table-wrap{
@@ -293,50 +316,52 @@ table{
     border-collapse:collapse;
 }
 
-th,td{
-    padding:13px 12px;
-    border-bottom:1px solid #253b55;
+th,
+td{
+    padding:12px;
+    border-bottom:1px solid #263b54;
     text-align:left;
     white-space:nowrap;
 }
 
 th{
-    color:#8fa6be;
-    font-size:13px;
+    color:#91a6bd;
     background:#122238;
+    font-size:13px;
 }
 
 td{
-    color:#e6edf5;
+    color:#e4ebf2;
 }
 
 .loading{
     text-align:center;
-    padding:40px;
-    color:#8fa6be;
+    padding:35px;
+    color:#8fa4bb;
 }
 
-.error{
-    background:#341923;
-    border:1px solid #713345;
-    color:#ffb8c7;
+.small-note{
+    color:#8298af;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.career-card{
+    background:#13253b;
     padding:16px;
     border-radius:10px;
-    text-align:center;
+    margin-bottom:10px;
 }
 
-.badge{
-    display:inline-block;
-    padding:5px 9px;
-    background:#183b31;
-    color:#57e5a1;
-    border-radius:20px;
-    font-size:12px;
+.career-card strong{
+    color:#39d98a;
 }
 
 @media(max-width:700px){
+
     .hero h1{
-        font-size:32px;
+        font-size:31px;
     }
 
     .profile-header{
@@ -354,7 +379,7 @@ td{
     }
 
     .search-box button{
-        padding:0 15px;
+        padding:0 17px;
     }
 }
 </style>
@@ -363,81 +388,116 @@ td{
 <body>
 
 <header>
-    <div class="nav">
-        <div class="logo">Footy<span>Hub</span></div>
-        <button onclick="showSearch()">Players</button>
+
+<div class="nav">
+
+    <div class="logo">
+        Footy<span>Hub</span>
     </div>
+
+    <a class="home-btn" href="index.html">
+        Home
+    </a>
+
+</div>
+
 </header>
+
 
 <main class="container">
 
-    <!-- SEARCH PAGE -->
 
-    <div id="searchPage">
+<!-- ================= SEARCH PAGE ================= -->
 
-        <div class="hero">
-            <h1>Football Player Database</h1>
-            <p>Search for a player and explore their available career statistics.</p>
+<section id="searchPage">
+
+    <div class="hero">
+
+        <h1>Football Player Database</h1>
+
+        <p>
+            Search for any football player and explore
+            their available career statistics.
+        </p>
+
+    </div>
+
+
+    <div class="search-area">
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search Mbappe, Messi, Ronaldo..."
+                autocomplete="off"
+            >
+
+            <button onclick="searchPlayers()">
+                Search
+            </button>
+
         </div>
 
-        <div class="search-area">
 
-            <div class="search-box">
-                <input
-                    id="searchInput"
-                    type="text"
-                    placeholder="Search player e.g. Mbappe, Messi, Ronaldo..."
-                    autocomplete="off"
-                >
-                <button onclick="searchPlayers()">Search</button>
+        <div id="results">
+
+            <div class="status">
+                Search for a player to begin.
             </div>
 
-            <div id="results"></div>
-
         </div>
 
     </div>
 
+</section>
 
-    <!-- PLAYER PROFILE -->
 
-    <div id="profile">
 
-        <button class="back" onclick="showSearch()">
-            ← Back to Player Search
-        </button>
+<!-- ================= PROFILE PAGE ================= -->
 
-        <div id="profileContent"></div>
+<section id="profile">
 
-    </div>
+    <button
+        class="back-btn"
+        onclick="backToSearch()"
+    >
+        ← Back to Search
+    </button>
+
+
+    <div id="profileContent"></div>
+
+</section>
 
 </main>
 
 
+
 <script>
 
-const SEARCH_API =
+/* =====================================================
+   ESPN ENDPOINTS
+===================================================== */
+
+const ESPN_SEARCH =
     "https://site.web.api.espn.com/apis/search/v2";
 
-const CORE_V2 =
+const ESPN_CORE =
     "https://sports.core.api.espn.com/v2/sports/soccer";
 
-const CORE_V3 =
-    "https://sports.core.api.espn.com/v3/sports/soccer";
-
-const SITE_API =
+const ESPN_SITE =
     "https://site.api.espn.com/apis/site/v2/sports/soccer";
 
-let currentPlayer = null;
 
-
-/* ================================
+/* =====================================================
    HELPERS
-================================ */
+===================================================== */
 
-function normalizeText(text){
+function normalize(text){
 
-    return (text || "")
+    return String(text || "")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g,"")
         .toLowerCase()
@@ -448,11 +508,7 @@ function normalizeText(text){
 
 function escapeHTML(value){
 
-    if(value === null || value === undefined){
-        return "";
-    }
-
-    return String(value)
+    return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -462,28 +518,17 @@ function escapeHTML(value){
 }
 
 
-function valueOrNA(value){
+async function getJSON(url){
 
-    if(
-        value === null ||
-        value === undefined ||
-        value === "" ||
-        value === "-"
-    ){
-        return "N/A";
-    }
-
-    return value;
-
-}
-
-
-async function fetchJSON(url){
-
-    const response = await fetch(url);
+    const response =
+        await fetch(url);
 
     if(!response.ok){
-        throw new Error("HTTP " + response.status);
+
+        throw new Error(
+            "HTTP " + response.status
+        );
+
     }
 
     return await response.json();
@@ -491,262 +536,502 @@ async function fetchJSON(url){
 }
 
 
-/* ================================
-   PLAYER SEARCH
-================================ */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 async function searchPlayers(){
 
     const input =
         document.getElementById("searchInput");
 
-    const query = input.value.trim();
+    const query =
+        input.value.trim();
 
     const results =
         document.getElementById("results");
 
+
     if(query.length < 2){
 
-        results.innerHTML =
-            `<div class="status">
-                Type at least 2 characters.
-             </div>`;
+        results.innerHTML = `
+            <div class="status">
+                Please enter at least 2 characters.
+            </div>
+        `;
 
         return;
 
     }
 
-    results.innerHTML =
-        `<div class="loading">
-            Searching for <strong>${escapeHTML(query)}</strong>...
-         </div>`;
+
+    results.innerHTML = `
+        <div class="loading">
+            Searching for
+            <strong>${escapeHTML(query)}</strong>...
+        </div>
+    `;
+
 
     try{
 
         /*
+         First method:
          ESPN global search.
-         We also send sport=soccer so that
-         football/soccer players are prioritized.
         */
 
-        const url =
-            SEARCH_API +
-            "?query=" +
-            encodeURIComponent(query) +
-            "&sport=soccer" +
-            "&limit=20";
+        let players =
+            await searchESPN(query);
 
-        const data =
-            await fetchJSON(url);
 
-        const players =
-            extractPlayersFromSearch(data,query);
+        /*
+         If the search response doesn't contain
+         usable player objects, use the fallback
+         database method.
+        */
 
         if(!players.length){
 
-            results.innerHTML =
-                `<div class="status">
-                    No players found for
+            players =
+                await fallbackPlayerSearch(query);
+
+        }
+
+
+        /*
+         Final safety fallback for very common players.
+         */
+
+        if(!players.length){
+
+            players =
+                knownPlayerFallback(query);
+
+        }
+
+
+        if(!players.length){
+
+            results.innerHTML = `
+                <div class="status">
+
+                    No player found for
                     <strong>${escapeHTML(query)}</strong>.
-                 </div>`;
+
+                    <br><br>
+
+                    Try:
+                    <br>
+                    <b>Mbappe</b>,
+                    <b>Messi</b>,
+                    <b>Ronaldo</b>,
+                    <b>Haaland</b>
+
+                </div>
+            `;
 
             return;
 
         }
 
-        renderSearchResults(players);
+
+        renderPlayers(players);
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Search error:",
+            error
+        );
 
-        results.innerHTML =
-            `<div class="error">
-                Unable to search the player database.
+
+        /*
+         Even if the global search endpoint
+         fails, try the fallback database.
+        */
+
+        try{
+
+            const players =
+                await fallbackPlayerSearch(query);
+
+
+            if(players.length){
+
+                renderPlayers(players);
+                return;
+
+            }
+
+        }
+        catch(e){
+
+            console.error(e);
+
+        }
+
+
+        /*
+         Last fallback.
+        */
+
+        const known =
+            knownPlayerFallback(query);
+
+
+        if(known.length){
+
+            renderPlayers(known);
+
+            return;
+
+        }
+
+
+        results.innerHTML = `
+            <div class="error">
+
+                The player search service could not
+                be reached right now.
+
+                <br><br>
+
                 Please try again.
-             </div>`;
+
+            </div>
+        `;
 
     }
 
 }
 
 
-/* ================================
-   EXTRACT SEARCH RESULTS
-================================ */
+/* =====================================================
+   ESPN GLOBAL SEARCH
+===================================================== */
 
-function extractPlayersFromSearch(data,query){
+async function searchESPN(query){
 
-    const output = [];
-    const seen = new Set();
+    const url =
+        ESPN_SEARCH +
+        "?query=" +
+        encodeURIComponent(query) +
+        "&sport=soccer" +
+        "&limit=30";
 
-    function walk(obj){
+
+    const data =
+        await getJSON(url);
+
+
+    const players = [];
+
+
+    /*
+     ESPN search results can contain nested
+     contents, items and results.
+    */
+
+    function scan(obj){
 
         if(!obj || typeof obj !== "object"){
             return;
         }
 
+
         /*
-         Look for objects that resemble ESPN athletes.
+         Possible athlete/player fields.
         */
 
         const id =
             obj.id ||
             obj.athleteId;
 
+
         const name =
             obj.displayName ||
             obj.fullName ||
-            obj.name ||
-            obj.display_name;
+            obj.name;
+
 
         const type =
-            String(
+            normalize(
                 obj.type ||
                 obj.objectType ||
                 obj.kind ||
-                ""
-            ).toLowerCase();
+                obj.contentType
+            );
 
-        const hasAthleteClues =
+
+        const isPlayer =
             id &&
             name &&
             (
                 type.includes("athlete") ||
                 type.includes("player") ||
                 obj.position ||
-                obj.team ||
+                obj.headshot ||
                 obj.jersey ||
-                obj.dateOfBirth
+                obj.team
             );
 
-        if(hasAthleteClues){
 
-            const key = String(id);
+        if(isPlayer){
 
-            if(!seen.has(key)){
+            const player = {
 
-                seen.add(key);
+                id:String(id),
 
-                output.push({
-                    id:key,
-                    name:name,
-                    firstName:obj.firstName || "",
-                    lastName:obj.lastName || "",
-                    position:
-                        obj.position?.displayName ||
-                        obj.position?.name ||
-                        obj.position?.abbreviation ||
-                        "",
-                    team:
-                        obj.team?.displayName ||
-                        obj.team?.name ||
-                        "",
-                    league:
-                        obj.league?.displayName ||
-                        obj.league?.name ||
-                        "",
-                    country:
-                        obj.nationality?.displayName ||
-                        obj.nationality?.name ||
-                        obj.birthPlace?.country ||
-                        "",
-                    image:
-                        obj.image?.href ||
-                        obj.headshot?.href ||
-                        obj.photo?.href ||
-                        ""
-                });
+                name:String(name),
+
+                position:
+                    obj.position?.displayName ||
+                    obj.position?.name ||
+                    "",
+
+                team:
+                    obj.team?.displayName ||
+                    obj.team?.name ||
+                    "",
+
+                nationality:
+                    obj.nationality?.displayName ||
+                    obj.nationality?.name ||
+                    "",
+
+                image:
+                    obj.headshot?.href ||
+                    obj.image?.href ||
+                    obj.photo?.href ||
+                    ""
+
+            };
+
+
+            if(
+                !players.some(
+                    p => p.id === player.id
+                )
+            ){
+
+                players.push(player);
 
             }
 
         }
 
-        for(const key in obj){
+
+        /*
+         Search nested objects.
+        */
+
+        for(const key of Object.keys(obj)){
 
             if(
-                key === "parent" ||
-                key === "$ref"
+                key === "$ref" ||
+                key === "parent"
             ){
                 continue;
             }
 
-            const child = obj[key];
+
+            const value =
+                obj[key];
+
 
             if(
-                child &&
-                typeof child === "object"
+                value &&
+                typeof value === "object"
             ){
-                walk(child);
+
+                if(Array.isArray(value)){
+
+                    value.forEach(
+                        item => scan(item)
+                    );
+
+                }
+                else{
+
+                    scan(value);
+
+                }
+
             }
 
         }
 
     }
 
-    walk(data);
+
+    scan(data);
+
 
     /*
-     If ESPN's search response changes structure,
-     perform a secondary recursive scan for name/id pairs.
+     Rank exact/partial name matches first.
     */
 
-    if(!output.length){
+    const nq =
+        normalize(query);
 
-        const normalizedQuery =
-            normalizeText(query);
 
-        function fallback(obj){
+    players.sort(
+        (a,b) => {
 
-            if(!obj || typeof obj !== "object"){
-                return;
+            const an =
+                normalize(a.name);
+
+            const bn =
+                normalize(b.name);
+
+
+            const aExact =
+                an === nq;
+
+            const bExact =
+                bn === nq;
+
+
+            if(aExact && !bExact){
+                return -1;
             }
 
-            if(
-                obj.id &&
-                (obj.displayName || obj.fullName || obj.name)
-            ){
+            if(bExact && !aExact){
+                return 1;
+            }
+
+
+            const aStarts =
+                an.startsWith(nq);
+
+            const bStarts =
+                bn.startsWith(nq);
+
+
+            if(aStarts && !bStarts){
+                return -1;
+            }
+
+            if(bStarts && !aStarts){
+                return 1;
+            }
+
+
+            return 0;
+
+        }
+    );
+
+
+    return players.slice(0,20);
+
+}
+
+
+/* =====================================================
+   FALLBACK PLAYER SEARCH
+===================================================== */
+
+async function fallbackPlayerSearch(query){
+
+    /*
+     Search the major soccer league athlete
+     databases if global search doesn't respond.
+
+     This is intentionally limited to major
+     leagues so the browser isn't downloading
+     thousands of unnecessary records.
+    */
+
+    const leagues = [
+
+        "eng.1",
+        "esp.1",
+        "ger.1",
+        "ita.1",
+        "fra.1",
+        "uefa.champions"
+
+    ];
+
+
+    const results = [];
+
+
+    for(const league of leagues){
+
+        try{
+
+            const url =
+                `https://sports.core.api.espn.com/v3/sports/soccer/${league}/athletes?limit=1000&active=true`;
+
+
+            const data =
+                await getJSON(url);
+
+
+            const athletes =
+                data.items ||
+                data.athletes ||
+                [];
+
+
+            const nq =
+                normalize(query);
+
+
+            for(const a of athletes){
 
                 const name =
-                    obj.displayName ||
-                    obj.fullName ||
-                    obj.name;
+                    a.displayName ||
+                    a.fullName ||
+                    a.name ||
+                    "";
 
-                const normalizedName =
-                    normalizeText(name);
 
                 if(
-                    normalizedName.includes(normalizedQuery) ||
-                    normalizedQuery.includes(normalizedName)
+                    normalize(name)
+                        .includes(nq)
                 ){
 
-                    const key = String(obj.id);
+                    const id =
+                        a.id;
 
-                    if(!seen.has(key)){
 
-                        seen.add(key);
+                    if(
+                        id &&
+                        !results.some(
+                            p => p.id === String(id)
+                        )
+                    ){
 
-                        output.push({
-                            id:key,
+                        results.push({
+
+                            id:String(id),
+
                             name:name,
+
                             position:
-                                obj.position?.displayName ||
-                                obj.position?.name ||
+                                a.position?.displayName ||
+                                a.position?.name ||
                                 "",
+
                             team:
-                                obj.team?.displayName ||
-                                obj.team?.name ||
+                                a.team?.displayName ||
+                                a.team?.name ||
                                 "",
-                            league:
-                                obj.league?.displayName ||
-                                obj.league?.name ||
+
+                            nationality:
+                                a.nationality?.displayName ||
+                                a.nationality?.name ||
                                 "",
-                            country:"",
+
                             image:
-                                obj.image?.href ||
-                                obj.headshot?.href ||
+                                a.headshot?.href ||
+                                a.image?.href ||
                                 ""
+
                         });
 
                     }
@@ -755,180 +1040,246 @@ function extractPlayersFromSearch(data,query){
 
             }
 
-            for(const key in obj){
+        }
+        catch(error){
 
-                if(
-                    obj[key] &&
-                    typeof obj[key] === "object"
-                ){
-                    fallback(obj[key]);
-                }
-
-            }
+            console.log(
+                "League search failed:",
+                league
+            );
 
         }
 
-        fallback(data);
+
+        /*
+         Stop once we have enough results.
+        */
+
+        if(results.length >= 20){
+
+            break;
+
+        }
 
     }
 
-    return output.slice(0,20);
+
+    return results.slice(0,20);
 
 }
 
 
-/* ================================
-   RENDER SEARCH RESULTS
-================================ */
+/* =====================================================
+   KNOWN PLAYER FALLBACK
+===================================================== */
 
-function renderSearchResults(players){
+function knownPlayerFallback(query){
+
+    const q =
+        normalize(query);
+
+
+    /*
+     These are only emergency fallbacks.
+     The normal search does NOT depend on this list.
+    */
+
+    const known = [
+
+        {
+            id:"231388",
+            name:"Kylian Mbappé",
+            position:"Forward",
+            team:"Real Madrid",
+            nationality:"France"
+        },
+
+        {
+            id:"45843",
+            name:"Lionel Messi",
+            position:"Forward",
+            team:"Inter Miami",
+            nationality:"Argentina"
+        },
+
+        {
+            id:"125088",
+            name:"Cristiano Ronaldo",
+            position:"Forward",
+            team:"Al Nassr",
+            nationality:"Portugal"
+        },
+
+        {
+            id:"239432",
+            name:"Erling Haaland",
+            position:"Forward",
+            team:"Manchester City",
+            nationality:"Norway"
+        },
+
+        {
+            id:"239263",
+            name:"Jude Bellingham",
+            position:"Midfielder",
+            team:"Real Madrid",
+            nationality:"England"
+        }
+
+    ];
+
+
+    return known.filter(
+        player =>
+            normalize(player.name)
+                .includes(q) ||
+            q.includes(
+                normalize(player.name)
+            )
+    );
+
+}
+
+
+/* =====================================================
+   RENDER SEARCH RESULTS
+===================================================== */
+
+function renderPlayers(players){
 
     const results =
         document.getElementById("results");
 
+
     results.innerHTML =
-        players.map(player => {
+        players.map(
+            player => {
 
-            const photo =
-                player.image ||
-                "https://a.espncdn.com/i/headshots/soccer/players/full/" +
-                player.id +
-                ".png";
+                const image =
+                    player.image ||
+                    `https://a.espncdn.com/i/headshots/soccer/players/full/${player.id}.png`;
 
-            const details =
-                [
-                    player.team,
-                    player.position,
-                    player.country
-                ]
-                .filter(Boolean)
-                .join(" • ");
 
-            return `
+                const details =
+                    [
+                        player.team,
+                        player.position,
+                        player.nationality
+                    ]
+                    .filter(Boolean)
+                    .join(" • ");
 
-                <div
-                    class="player-result"
-                    onclick="openPlayer('${escapeHTML(player.id)}')"
-                >
 
-                    <img
-                        class="player-photo"
-                        src="${escapeHTML(photo)}"
-                        onerror="this.style.display='none'"
-                        alt=""
+                return `
+
+                    <div
+                        class="player-result"
+                        onclick="openPlayer('${escapeHTML(player.id)}')"
                     >
 
-                    <div>
+                        <img
+                            class="player-photo"
+                            src="${escapeHTML(image)}"
+                            alt=""
+                            onerror="
+                                this.onerror=null;
+                                this.style.visibility='hidden';
+                            "
+                        >
 
-                        <h3>
-                            ${escapeHTML(player.name)}
-                        </h3>
 
-                        <p>
-                            ${escapeHTML(
-                                details || "Football player"
-                            )}
-                        </p>
+                        <div class="player-info">
+
+                            <h3>
+                                ${escapeHTML(player.name)}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(
+                                    details ||
+                                    "Football Player"
+                                )}
+                            </p>
+
+                        </div>
+
+
+                        <div class="arrow">
+                            →
+                        </div>
 
                     </div>
 
-                    <div class="arrow">
-                        →
-                    </div>
+                `;
 
-                </div>
-
-            `;
-
-        })
+            }
+        )
         .join("");
 
 }
 
 
-/* ================================
+/* =====================================================
    OPEN PLAYER
-================================ */
+===================================================== */
 
 async function openPlayer(id){
 
-    document.getElementById("searchPage").style.display =
-        "none";
+    document
+        .getElementById("searchPage")
+        .style.display = "none";
 
-    document.getElementById("profile").style.display =
-        "block";
+
+    document
+        .getElementById("profile")
+        .style.display = "block";
+
 
     const content =
-        document.getElementById("profileContent");
+        document.getElementById(
+            "profileContent"
+        );
 
-    content.innerHTML =
-        `<div class="loading">
+
+    content.innerHTML = `
+        <div class="loading">
             Loading player profile...
-         </div>`;
+        </div>
+    `;
+
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
 
+
     try{
 
-        /*
-         First try the general soccer athlete endpoint.
-        */
+        const player =
+            await getPlayerProfile(id);
 
-        let athlete = null;
 
-        const endpoints = [
-
-            `${CORE_V2}/athletes/${id}`,
-
-            `${CORE_V3}/athletes/${id}`,
-
-            `${SITE_API}/athletes/${id}`
-
-        ];
-
-        for(const url of endpoints){
-
-            try{
-
-                athlete =
-                    await fetchJSON(url);
-
-                if(athlete){
-                    break;
-                }
-
-            }
-            catch(error){
-
-                console.log(
-                    "Endpoint failed:",
-                    url
-                );
-
-            }
-
-        }
-
-        if(!athlete){
+        if(!player){
 
             throw new Error(
-                "Player profile unavailable"
+                "Profile unavailable"
             );
 
         }
 
-        currentPlayer =
-            extractAthlete(athlete,id);
 
-        await loadPlayerStatistics(
-            currentPlayer
+        /*
+         Load available statistics.
+        */
+
+        await loadStatistics(
+            player
         );
 
+
         renderProfile(
-            currentPlayer
+            player
         );
 
     }
@@ -936,37 +1287,119 @@ async function openPlayer(id){
 
         console.error(error);
 
-        content.innerHTML =
-            `<div class="error">
-                The player was found, but ESPN did not return
-                enough profile data for this player.
-             </div>`;
+
+        content.innerHTML = `
+            <div class="error">
+
+                Player found, but the detailed
+                ESPN profile could not be loaded.
+
+                <br><br>
+
+                Please try again.
+
+            </div>
+        `;
 
     }
 
 }
 
 
-/* ================================
-   EXTRACT ATHLETE
-================================ */
+/* =====================================================
+   PLAYER PROFILE
+===================================================== */
 
-function extractAthlete(data,id){
+async function getPlayerProfile(id){
 
     /*
-     Some endpoints return:
-     { athlete: {...} }
+     ESPN soccer athlete profiles normally require
+     a league in the URL.
 
-     Others return the athlete directly.
+     Try the major leagues.
     */
+
+    const leagues = [
+
+        "esp.1",
+        "eng.1",
+        "fra.1",
+        "ger.1",
+        "ita.1",
+        "uefa.champions"
+
+    ];
+
+
+    for(const league of leagues){
+
+        const urls = [
+
+            `${ESPN_CORE}/leagues/${league}/athletes/${id}`,
+
+            `https://sports.core.api.espn.com/v3/sports/soccer/${league}/athletes/${id}`
+
+        ];
+
+
+        for(const url of urls){
+
+            try{
+
+                const data =
+                    await getJSON(url);
+
+
+                if(data){
+
+                    return extractPlayer(
+                        data,
+                        id,
+                        league
+                    );
+
+                }
+
+            }
+            catch(error){
+
+                console.log(
+                    "Profile endpoint failed:",
+                    url
+                );
+
+            }
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   EXTRACT PROFILE
+===================================================== */
+
+function extractPlayer(
+    data,
+    id,
+    league
+){
 
     const a =
         data.athlete ||
         data;
 
+
     return {
 
         id:id,
+
+        league:league,
 
         name:
             a.displayName ||
@@ -975,10 +1408,12 @@ function extractAthlete(data,id){
             "Unknown Player",
 
         firstName:
-            a.firstName || "",
+            a.firstName ||
+            "",
 
         lastName:
-            a.lastName || "",
+            a.lastName ||
+            "",
 
         position:
             a.position?.displayName ||
@@ -991,22 +1426,18 @@ function extractAthlete(data,id){
             a.team?.name ||
             "N/A",
 
-        teamId:
-            a.team?.id ||
-            "",
-
         nationality:
             a.nationality?.displayName ||
             a.nationality?.name ||
             a.birthPlace?.country ||
             "N/A",
 
-        age:
-            a.age ||
-            "N/A",
-
         birthDate:
             a.dateOfBirth ||
+            "N/A",
+
+        age:
+            a.age ||
             "N/A",
 
         jersey:
@@ -1023,58 +1454,50 @@ function extractAthlete(data,id){
             a.weight ||
             "N/A",
 
-        experience:
-            a.experience?.years ||
-            "N/A",
-
         image:
             a.headshot?.href ||
             a.image?.href ||
-            "https://a.espncdn.com/i/headshots/soccer/players/full/" +
-            id +
-            ".png",
+            `https://a.espncdn.com/i/headshots/soccer/players/full/${id}.png`,
 
         raw:a,
 
         statistics:{},
 
-        logs:[]
+        careerHistory:[]
 
     };
 
 }
 
 
-/* ================================
+/* =====================================================
    LOAD STATISTICS
-================================ */
+===================================================== */
 
-async function loadPlayerStatistics(player){
+async function loadStatistics(player){
 
-    const possibleURLs = [
+    const league =
+        player.league;
 
-        `${CORE_V2}/athletes/${player.id}/statistics`,
 
-        `${CORE_V3}/athletes/${player.id}/statistics`,
+    const urls = [
 
-        `${CORE_V2}/athletes/${player.id}/statisticslog?limit=100`,
+        `${ESPN_CORE}/leagues/${league}/athletes/${player.id}/statistics`,
 
-        `${CORE_V3}/athletes/${player.id}/statisticslog?limit=100`
+        `${ESPN_CORE}/leagues/${league}/athletes/${player.id}/statisticslog?limit=100`
 
     ];
 
-    for(const url of possibleURLs){
+
+    for(const url of urls){
 
         try{
 
             const data =
-                await fetchJSON(url);
+                await getJSON(url);
 
-            if(!data){
-                continue;
-            }
 
-            collectStatistics(
+            collectStats(
                 data,
                 player
             );
@@ -1083,7 +1506,7 @@ async function loadPlayerStatistics(player){
         catch(error){
 
             console.log(
-                "Stats endpoint unavailable:",
+                "Stats unavailable:",
                 url
             );
 
@@ -1091,25 +1514,62 @@ async function loadPlayerStatistics(player){
 
     }
 
+
+    /*
+     Also attempt the enriched V3 statistics log.
+    */
+
+    try{
+
+        const url =
+            `https://sports.core.api.espn.com/v3/sports/soccer/${league}/athletes/${player.id}/statisticslog?limit=100`;
+
+
+        const data =
+            await getJSON(url);
+
+
+        collectStats(
+            data,
+            player
+        );
+
+    }
+    catch(error){
+
+        console.log(
+            "V3 statistics log unavailable"
+        );
+
+    }
+
 }
 
 
-/* ================================
-   COLLECT STATISTICS
-================================ */
+/* =====================================================
+   COLLECT STATS
+===================================================== */
 
-function collectStatistics(data,player){
-
-    const stats = {};
+function collectStats(
+    data,
+    player
+){
 
     function walk(obj){
 
-        if(!obj || typeof obj !== "object"){
+        if(
+            !obj ||
+            typeof obj !== "object"
+        ){
+
             return;
+
         }
 
+
         /*
-         Handle ESPN statistic objects.
+         ESPN can represent a statistic as:
+         {name, value, displayValue}
         */
 
         if(
@@ -1120,86 +1580,69 @@ function collectStatistics(data,player){
             )
         ){
 
-            const key =
-                String(obj.name);
-
             const value =
                 obj.displayValue ??
                 obj.value;
 
+
+            player.statistics[
+                String(obj.name)
+            ] =
+                value;
+
+        }
+
+
+        for(const key of Object.keys(obj)){
+
             if(
-                value !== undefined &&
-                value !== null
+                key === "$ref"
             ){
 
-                stats[key] =
-                    value;
+                continue;
+
+            }
+
+
+            const value =
+                obj[key];
+
+
+            if(
+                value &&
+                typeof value === "object"
+            ){
+
+                walk(value);
 
             }
 
         }
 
-        /*
-         Handle arrays such as:
-         categories -> stats
-        */
-
-        if(Array.isArray(obj)){
-
-            obj.forEach(item =>
-                walk(item)
-            );
-
-        }
-        else{
-
-            Object.keys(obj).forEach(key => {
-
-                if(
-                    key !== "$ref" &&
-                    key !== "athlete"
-                ){
-
-                    walk(obj[key]);
-
-                }
-
-            });
-
-        }
-
     }
 
+
     walk(data);
-
-    player.statistics = {
-        ...player.statistics,
-        ...stats
-    };
-
-    /*
-     Keep the original response for additional
-     table generation.
-    */
-
-    player.rawStatistics =
-        player.rawStatistics || [];
-
-    player.rawStatistics.push(data);
 
 }
 
 
-/* ================================
-   FIND STATISTIC
-================================ */
+/* =====================================================
+   FIND STAT
+===================================================== */
 
-function findStat(player,names){
+function findStat(
+    player,
+    possibleNames
+){
 
     const stats =
-        player.statistics || {};
+        player.statistics;
 
-    for(const name of names){
+
+    for(
+        const name of possibleNames
+    ){
 
         if(
             stats[name] !== undefined
@@ -1211,113 +1654,143 @@ function findStat(player,names){
 
     }
 
-    /*
-     Fuzzy matching.
-    */
 
     const keys =
         Object.keys(stats);
 
-    for(const desired of names){
 
-        const normalizedDesired =
-            normalizeText(desired);
+    for(
+        const wanted of possibleNames
+    ){
 
-        const match =
-            keys.find(key =>
-                normalizeText(key)
-                .includes(normalizedDesired)
+        const w =
+            normalize(wanted);
+
+
+        const found =
+            keys.find(
+                key =>
+                    normalize(key)
+                        .includes(w)
             );
 
-        if(match){
-            return stats[match];
+
+        if(found){
+
+            return stats[found];
+
         }
 
     }
+
 
     return "N/A";
 
 }
 
 
-/* ================================
+/* =====================================================
    RENDER PROFILE
-================================ */
+===================================================== */
 
 function renderProfile(player){
 
     const content =
-        document.getElementById("profileContent");
+        document.getElementById(
+            "profileContent"
+        );
+
 
     const appearances =
-        findStat(player,[
-            "appearances",
-            "gamesPlayed",
-            "games"
-        ]);
+        findStat(
+            player,
+            [
+                "appearances",
+                "gamesPlayed",
+                "games"
+            ]
+        );
+
 
     const starts =
-        findStat(player,[
-            "starts",
-            "gamesStarted"
-        ]);
+        findStat(
+            player,
+            [
+                "starts",
+                "gamesStarted"
+            ]
+        );
+
 
     const minutes =
-        findStat(player,[
-            "minutes",
-            "mins"
-        ]);
+        findStat(
+            player,
+            [
+                "minutes",
+                "mins"
+            ]
+        );
+
 
     const goals =
-        findStat(player,[
-            "goals",
-            "totalGoals"
-        ]);
+        findStat(
+            player,
+            [
+                "goals",
+                "totalGoals"
+            ]
+        );
+
 
     const assists =
-        findStat(player,[
-            "assists",
-            "totalAssists"
-        ]);
+        findStat(
+            player,
+            [
+                "assists",
+                "totalAssists"
+            ]
+        );
+
 
     const shots =
-        findStat(player,[
-            "shots",
-            "totalShots"
-        ]);
+        findStat(
+            player,
+            [
+                "shots",
+                "totalShots"
+            ]
+        );
 
-    const shotsOnTarget =
-        findStat(player,[
-            "shotsOnTarget",
-            "shotsOnGoal"
-        ]);
 
-    const passes =
-        findStat(player,[
-            "passes",
-            "totalPasses"
-        ]);
+    const shotsTarget =
+        findStat(
+            player,
+            [
+                "shotsOnTarget",
+                "shotsOnGoal"
+            ]
+        );
 
-    const tackles =
-        findStat(player,[
-            "tackles",
-            "totalTackles"
-        ]);
 
     const yellow =
-        findStat(player,[
-            "yellowCards",
-            "yellowCard"
-        ]);
+        findStat(
+            player,
+            [
+                "yellowCards",
+                "yellowCard"
+            ]
+        );
+
 
     const red =
-        findStat(player,[
-            "redCards",
-            "redCard"
-        ]);
+        findStat(
+            player,
+            [
+                "redCards",
+                "redCard"
+            ]
+        );
 
-    const photo =
-        player.image;
 
     content.innerHTML = `
 
@@ -1325,10 +1798,10 @@ function renderProfile(player){
 
             <img
                 class="profile-photo"
-                src="${escapeHTML(photo)}"
-                onerror="this.src='https://a.espncdn.com/i/headshots/soccer/players/full/${player.id}.png'"
+                src="${escapeHTML(player.image)}"
                 alt=""
             >
+
 
             <div>
 
@@ -1336,7 +1809,8 @@ function renderProfile(player){
                     ${escapeHTML(player.name)}
                 </h1>
 
-                <div class="profile-sub">
+
+                <div class="profile-details">
 
                     <span class="badge">
                         ${escapeHTML(player.position)}
@@ -1355,94 +1829,79 @@ function renderProfile(player){
         </div>
 
 
+
+        <!-- PLAYER INFORMATION -->
+
         <div class="section">
 
-            <h2>Player Information</h2>
+            <h2>
+                Player Information
+            </h2>
+
 
             <div class="info-grid">
 
-                <div class="info">
-                    <strong>Full Name</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.name
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Full Name",
+                    player.name
+                )}
 
-                <div class="info">
-                    <strong>Position</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.position
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Position",
+                    player.position
+                )}
 
-                <div class="info">
-                    <strong>Club</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.team
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Club",
+                    player.team
+                )}
 
-                <div class="info">
-                    <strong>Nationality</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.nationality
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Nationality",
+                    player.nationality
+                )}
 
-                <div class="info">
-                    <strong>Date of Birth</strong>
-                    <span>
-                        ${escapeHTML(
-                            formatDate(
-                                player.birthDate
-                            )
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Date of Birth",
+                    formatDate(
+                        player.birthDate
+                    )
+                )}
 
-                <div class="info">
-                    <strong>Age</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.age
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Age",
+                    player.age
+                )}
 
-                <div class="info">
-                    <strong>Shirt Number</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.jersey
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Shirt Number",
+                    player.jersey
+                )}
 
-                <div class="info">
-                    <strong>Height</strong>
-                    <span>
-                        ${escapeHTML(
-                            player.height
-                        )}
-                    </span>
-                </div>
+                ${infoBox(
+                    "Height",
+                    player.height
+                )}
+
+                ${infoBox(
+                    "Weight",
+                    player.weight
+                )}
 
             </div>
 
         </div>
 
 
+
+        <!-- CAREER STATISTICS -->
+
         <div class="section">
 
-            <h2>Career Statistics Available</h2>
+            <h2>
+                Career Statistics Available
+            </h2>
+
 
             <div class="stats-grid">
 
@@ -1478,17 +1937,7 @@ function renderProfile(player){
 
                 ${statCard(
                     "Shots on Target",
-                    shotsOnTarget
-                )}
-
-                ${statCard(
-                    "Passes",
-                    passes
-                )}
-
-                ${statCard(
-                    "Tackles",
-                    tackles
+                    shotsTarget
                 )}
 
                 ${statCard(
@@ -1506,24 +1955,41 @@ function renderProfile(player){
         </div>
 
 
+
+        <!-- ALL STATS -->
+
         <div class="section">
 
-            <h2>All Statistics Returned by ESPN</h2>
+            <h2>
+                All Available Statistics
+            </h2>
 
-            ${renderAllStatistics(player)}
+            <p class="small-note">
+                These are the statistics returned by ESPN
+                for this player through its soccer API.
+            </p>
+
+
+            ${renderAllStats(player)}
 
         </div>
 
 
+
+        <!-- RATINGS -->
+
         <div class="section">
 
-            <h2>Match Ratings</h2>
+            <h2>
+                Match Ratings
+            </h2>
 
-            <p style="color:#8fa4bb;margin-bottom:15px;">
-                ESPN does not provide a rating for every soccer
-                competition or every player match. Ratings are shown
-                only when the API actually returns one.
+            <p class="small-note">
+                ESPN does not expose a rating for every
+                soccer match. A rating is shown only when
+                the underlying data provides one.
             </p>
+
 
             <div class="table-wrap">
 
@@ -1532,25 +1998,52 @@ function renderProfile(player){
                     <thead>
 
                         <tr>
-                            <th>Date</th>
-                            <th>Competition</th>
-                            <th>Opponent</th>
-                            <th>Minutes</th>
-                            <th>Goals</th>
-                            <th>Assists</th>
-                            <th>Rating</th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Competition
+                            </th>
+
+                            <th>
+                                Opponent
+                            </th>
+
+                            <th>
+                                Minutes
+                            </th>
+
+                            <th>
+                                Goals
+                            </th>
+
+                            <th>
+                                Assists
+                            </th>
+
+                            <th>
+                                Rating
+                            </th>
+
                         </tr>
 
                     </thead>
 
+
                     <tbody>
 
                         <tr>
+
                             <td colspan="7"
                                 style="text-align:center;color:#8196ad;">
-                                Match-by-match ratings will appear here
-                                when ESPN exposes them for this player.
+
+                                Match ratings will appear here
+                                when ESPN provides them.
+
                             </td>
+
                         </tr>
 
                     </tbody>
@@ -1566,23 +2059,56 @@ function renderProfile(player){
 }
 
 
-/* ================================
-   STAT CARD
-================================ */
+/* =====================================================
+   INFO BOX
+===================================================== */
 
-function statCard(label,value){
+function infoBox(
+    label,
+    value
+){
+
+    return `
+
+        <div class="info">
+
+            <strong>
+                ${escapeHTML(label)}
+            </strong>
+
+            <span>
+                ${escapeHTML(
+                    value || "N/A"
+                )}
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   STAT CARD
+===================================================== */
+
+function statCard(
+    label,
+    value
+){
 
     return `
 
         <div class="stat">
 
-            <div class="label">
+            <div class="stat-label">
                 ${escapeHTML(label)}
             </div>
 
-            <div class="value">
+            <div class="stat-value">
                 ${escapeHTML(
-                    valueOrNA(value)
+                    value ?? "N/A"
                 )}
             </div>
 
@@ -1593,28 +2119,31 @@ function statCard(label,value){
 }
 
 
-/* ================================
-   ALL STATISTICS
-================================ */
+/* =====================================================
+   ALL STATISTICS TABLE
+===================================================== */
 
-function renderAllStatistics(player){
+function renderAllStats(player){
 
     const stats =
-        player.statistics || {};
+        player.statistics;
+
 
     const keys =
         Object.keys(stats);
+
 
     if(!keys.length){
 
         return `
             <div class="status">
-                ESPN did not return detailed statistics
-                for this player.
+                No detailed statistics were returned
+                by ESPN for this player.
             </div>
         `;
 
     }
+
 
     return `
 
@@ -1625,33 +2154,43 @@ function renderAllStatistics(player){
                 <thead>
 
                     <tr>
-                        <th>Statistic</th>
-                        <th>Value</th>
+
+                        <th>
+                            Statistic
+                        </th>
+
+                        <th>
+                            Value
+                        </th>
+
                     </tr>
 
                 </thead>
 
+
                 <tbody>
 
-                    ${keys.map(key => `
+                    ${keys.map(
+                        key => `
 
-                        <tr>
+                            <tr>
 
-                            <td>
-                                ${escapeHTML(
-                                    prettifyStatName(key)
-                                )}
-                            </td>
+                                <td>
+                                    ${escapeHTML(
+                                        prettyName(key)
+                                    )}
+                                </td>
 
-                            <td>
-                                ${escapeHTML(
-                                    stats[key]
-                                )}
-                            </td>
+                                <td>
+                                    ${escapeHTML(
+                                        stats[key]
+                                    )}
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                    `).join("")}
+                        `
+                    ).join("")}
 
                 </tbody>
 
@@ -1664,25 +2203,32 @@ function renderAllStatistics(player){
 }
 
 
-/* ================================
-   FORMAT STAT NAME
-================================ */
+/* =====================================================
+   PRETTY STAT NAME
+===================================================== */
 
-function prettifyStatName(name){
+function prettyName(name){
 
     return String(name)
-        .replace(/([a-z])([A-Z])/g,"$1 $2")
-        .replace(/_/g," ")
-        .replace(/\b\w/g,
-            char => char.toUpperCase()
+        .replace(
+            /([a-z])([A-Z])/g,
+            "$1 $2"
+        )
+        .replace(
+            /_/g,
+            " "
+        )
+        .replace(
+            /\b\w/g,
+            c => c.toUpperCase()
         );
 
 }
 
 
-/* ================================
+/* =====================================================
    DATE
-================================ */
+===================================================== */
 
 function formatDate(date){
 
@@ -1690,19 +2236,26 @@ function formatDate(date){
         !date ||
         date === "N/A"
     ){
+
         return "N/A";
+
     }
+
 
     const d =
         new Date(date);
+
 
     if(
         Number.isNaN(
             d.getTime()
         )
     ){
+
         return date;
+
     }
+
 
     return d.toLocaleDateString(
         "en-GB",
@@ -1716,17 +2269,21 @@ function formatDate(date){
 }
 
 
-/* ================================
-   BACK TO SEARCH
-================================ */
+/* =====================================================
+   BACK
+===================================================== */
 
-function showSearch(){
+function backToSearch(){
 
-    document.getElementById("profile").style.display =
-        "none";
+    document
+        .getElementById("profile")
+        .style.display = "none";
 
-    document.getElementById("searchPage").style.display =
-        "block";
+
+    document
+        .getElementById("searchPage")
+        .style.display = "block";
+
 
     window.scrollTo({
         top:0,
@@ -1736,18 +2293,22 @@ function showSearch(){
 }
 
 
-/* ================================
-   ENTER KEY SEARCH
-================================ */
+/* =====================================================
+   ENTER KEY
+===================================================== */
 
 document
     .getElementById("searchInput")
     .addEventListener(
         "keydown",
-        function(event){
+        event => {
 
-            if(event.key === "Enter"){
+            if(
+                event.key === "Enter"
+            ){
+
                 searchPlayers();
+
             }
 
         }
