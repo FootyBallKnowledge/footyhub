@@ -126,7 +126,7 @@ nav a:hover {
 
 .match {
     display: grid;
-    grid-template-columns: 1fr 90px 1fr;
+    grid-template-columns: 1fr 110px 1fr;
     align-items: center;
     gap: 15px;
     padding: 20px;
@@ -192,10 +192,21 @@ nav a:hover {
 
 .no-matches {
     background: white;
-    padding: 35px;
+    padding: 40px 25px;
     text-align: center;
     border-radius: 15px;
     box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.no-matches h2 {
+    margin-bottom: 10px;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
 }
 
 footer {
@@ -266,15 +277,18 @@ footer {
 
     <div class="tabs">
 
-        <button class="tab active" onclick="changeDate('today', this)">
+        <button class="tab active"
+                onclick="changeDate('today', this)">
             Today
         </button>
 
-        <button class="tab" onclick="changeDate('tomorrow', this)">
+        <button class="tab"
+                onclick="changeDate('tomorrow', this)">
             Tomorrow
         </button>
 
-        <button class="tab" onclick="changeDate('yesterday', this)">
+        <button class="tab"
+                onclick="changeDate('yesterday', this)">
             Yesterday
         </button>
 
@@ -282,11 +296,15 @@ footer {
 
 
     <div id="status" class="status">
-        Loading football matches...
+        ⏳ Loading football matches...
     </div>
 
 
-    <div id="matches"></div>
+    <div id="matches">
+        <div class="loading">
+            Loading matches...
+        </div>
+    </div>
 
 </main>
 
@@ -304,13 +322,58 @@ footer {
 
 <script>
 
-let footballData = null;
+/* =========================================
+   FOOTYHUB MATCHES
+========================================= */
+
+const API =
+    "https://site.api.espn.com/apis/site/v2/sports/soccer";
+
+
+/*
+   Competitions to display
+*/
+const LEAGUES = [
+
+    {
+        id: "eng.1",
+        name: "Premier League"
+    },
+
+    {
+        id: "esp.1",
+        name: "La Liga"
+    },
+
+    {
+        id: "ger.1",
+        name: "Bundesliga"
+    },
+
+    {
+        id: "ita.1",
+        name: "Serie A"
+    },
+
+    {
+        id: "fra.1",
+        name: "Ligue 1"
+    },
+
+    {
+        id: "uefa.champions",
+        name: "UEFA Champions League"
+    }
+
+];
+
+
 let selectedDate = "today";
 
 
-/* --------------------------------
-   GET DATE
--------------------------------- */
+/* =========================================
+   GET LOCAL DATE
+========================================= */
 
 function getDate(type) {
 
@@ -326,81 +389,177 @@ function getDate(type) {
 
     const year = date.getFullYear();
 
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
 
-    const day = String(date.getDate()).padStart(2, "0");
+    const day =
+        String(date.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
+
+    /*
+       ESPN expects YYYYMMDD
+    */
+
+    return `${year}${month}${day}`;
 }
 
 
-/* --------------------------------
+/* =========================================
+   DISPLAY DATE
+========================================= */
+
+function getReadableDate(type) {
+
+    const date = new Date();
+
+    if (type === "tomorrow") {
+        date.setDate(date.getDate() + 1);
+    }
+
+    if (type === "yesterday") {
+        date.setDate(date.getDate() - 1);
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* =========================================
    CHANGE DATE
--------------------------------- */
+========================================= */
 
 function changeDate(type, button) {
 
     selectedDate = type;
 
-    document.querySelectorAll(".tab").forEach(tab => {
-        tab.classList.remove("active");
-    });
 
-    button.classList.add("active");
+    document
+        .querySelectorAll(".tab")
+        .forEach(tab => {
 
-    displayMatches();
-}
+            tab.classList.remove("active");
 
-
-/* --------------------------------
-   LOAD JSON
--------------------------------- */
-
-async function loadFootballData() {
-
-    const status = document.getElementById("status");
-
-    try {
-
-        status.className = "status";
-
-        status.innerHTML = "⏳ Loading football data...";
-
-
-        /*
-           Cache-busting parameter prevents
-           GitHub Pages from showing old JSON.
-        */
-
-        const url = "./football-data.json?time=" + Date.now();
-
-
-        const response = await fetch(url, {
-            cache: "no-store"
         });
 
 
-        if (!response.ok) {
-
-            throw new Error(
-                "football-data.json could not be loaded. HTTP " +
-                response.status
-            );
-
-        }
+    button.classList.add("active");
 
 
-        footballData = await response.json();
+    loadMatches();
+
+}
 
 
-        console.log("FootyHub data:", footballData);
+/* =========================================
+   LOAD MATCHES
+========================================= */
+
+async function loadMatches() {
+
+    const container =
+        document.getElementById("matches");
+
+    const status =
+        document.getElementById("status");
 
 
-        status.innerHTML =
-            "✅ Football data loaded successfully.";
+    container.innerHTML = `
+        <div class="loading">
+            ⏳ Loading matches...
+        </div>
+    `;
 
 
-        displayMatches();
+    status.className = "status";
+
+    status.innerHTML =
+        `⏳ Loading matches for ${getReadableDate(selectedDate)}...`;
+
+
+    const date = getDate(selectedDate);
+
+
+    try {
+
+        /*
+           Fetch all six competitions
+        */
+
+        const requests =
+            LEAGUES.map(async league => {
+
+                const url =
+                    `${API}/${league.id}/scoreboard?dates=${date}`;
+
+                try {
+
+                    const response =
+                        await fetch(
+                            url + "&_=" + Date.now(),
+                            {
+                                cache: "no-store"
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        console.warn(
+                            "Could not load:",
+                            league.name,
+                            response.status
+                        );
+
+                        return {
+                            league,
+                            events: []
+                        };
+
+                    }
+
+
+                    const data =
+                        await response.json();
+
+
+                    return {
+                        league,
+                        events: data.events || []
+                    };
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        league.name,
+                        error
+                    );
+
+                    return {
+                        league,
+                        events: []
+                    };
+
+                }
+
+            });
+
+
+        const results =
+            await Promise.all(requests);
+
+
+        renderMatches(results);
+
 
     }
 
@@ -409,373 +568,316 @@ async function loadFootballData() {
         console.error(error);
 
 
-        status.className = "status error";
-
-        status.innerHTML =
-            "❌ <strong>Data loading error</strong><br><br>" +
-            error.message +
-            "<br><br>" +
-            "Please make sure football-data.json exists in the same GitHub repository.";
-
-    }
-
-}
+        status.className =
+            "status error";
 
 
-/* --------------------------------
-   DISPLAY MATCHES
--------------------------------- */
+        status.innerHTML = `
+            ❌ <strong>Unable to load football matches.</strong>
+            <br><br>
+            Please refresh the page and try again.
+        `;
 
-function displayMatches() {
-
-    const container = document.getElementById("matches");
-
-    container.innerHTML = "";
-
-
-    if (!footballData) {
-
-        return;
-
-    }
-
-
-    const date = getDate(selectedDate);
-
-
-    console.log("Looking for date:", date);
-
-
-    /*
-       Your JSON uses dates such as:
-
-       2026-09-08
-       2026-09-07
-       2026-09-09
-
-       So we first look for that exact date.
-    */
-
-    let matches = footballData[date];
-
-
-    /*
-       Some versions of the JSON may store
-       matches inside a "matches" property.
-    */
-
-    if (!matches && footballData.matches) {
-
-        matches = footballData.matches.filter(match => {
-
-            return match.date === date;
-
-        });
-
-    }
-
-
-    if (!matches) {
 
         container.innerHTML = `
             <div class="no-matches">
 
-                <h2>No matches found</h2>
-
-                <br>
+                <h2>Something went wrong</h2>
 
                 <p>
-                    There is no football data for
-                    <strong>${date}</strong>.
+                    We couldn't retrieve the football matches.
                 </p>
 
             </div>
         `;
 
-        return;
-
     }
-
-
-    /*
-       If the date contains leagues as an object
-    */
-
-    if (!Array.isArray(matches)) {
-
-        displayLeagueObject(matches);
-
-        return;
-
-    }
-
-
-    /*
-       If the date directly contains an array
-    */
-
-    displayMatchArray(matches);
 
 }
 
 
-/* --------------------------------
-   LEAGUE OBJECT
--------------------------------- */
+/* =========================================
+   RENDER MATCHES
+========================================= */
 
-function displayLeagueObject(leagues) {
+function renderMatches(results) {
 
-    const container = document.getElementById("matches");
+    const container =
+        document.getElementById("matches");
 
-    let found = false;
-
-
-    Object.keys(leagues).forEach(leagueName => {
-
-        const leagueMatches = leagues[leagueName];
+    const status =
+        document.getElementById("status");
 
 
-        if (!Array.isArray(leagueMatches)) {
+    container.innerHTML = "";
+
+
+    let totalMatches = 0;
+
+
+    results.forEach(result => {
+
+        if (
+            !result.events ||
+            result.events.length === 0
+        ) {
 
             return;
 
         }
 
 
-        if (leagueMatches.length === 0) {
+        totalMatches += result.events.length;
 
-            return;
-
-        }
-
-
-        found = true;
-
-
-        const leagueDiv = document.createElement("div");
-
-        leagueDiv.className = "league";
-
-
-        leagueDiv.innerHTML = `
-            <div class="league-header">
-                ${leagueName}
-            </div>
-        `;
-
-
-        leagueMatches.forEach(match => {
-
-            leagueDiv.appendChild(
-                createMatch(match)
-            );
-
-        });
-
-
-        container.appendChild(leagueDiv);
-
-    });
-
-
-    if (!found) {
-
-        container.innerHTML = `
-            <div class="no-matches">
-                <h2>No matches found</h2>
-                <br>
-                <p>Try another date.</p>
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* --------------------------------
-   MATCH ARRAY
--------------------------------- */
-
-function displayMatchArray(matches) {
-
-    const container = document.getElementById("matches");
-
-
-    /*
-       Group matches by league
-    */
-
-    const leagues = {};
-
-
-    matches.forEach(match => {
-
-        const league =
-            match.league?.name ||
-            match.league ||
-            "Football";
-
-
-        if (!leagues[league]) {
-
-            leagues[league] = [];
-
-        }
-
-
-        leagues[league].push(match);
-
-    });
-
-
-    Object.keys(leagues).forEach(leagueName => {
 
         const leagueDiv =
             document.createElement("div");
 
 
-        leagueDiv.className = "league";
+        leagueDiv.className =
+            "league";
 
 
         leagueDiv.innerHTML = `
             <div class="league-header">
-                ${leagueName}
+                ${result.league.name}
             </div>
         `;
 
 
-        leagues[leagueName].forEach(match => {
+        /*
+           Sort matches by kick-off time
+        */
+
+        result.events.sort((a, b) => {
+
+            return new Date(a.date) -
+                   new Date(b.date);
+
+        });
+
+
+        result.events.forEach(game => {
 
             leagueDiv.appendChild(
-                createMatch(match)
+                createMatch(game)
             );
 
         });
 
 
-        container.appendChild(leagueDiv);
+        container.appendChild(
+            leagueDiv
+        );
 
     });
+
+
+    if (totalMatches === 0) {
+
+        container.innerHTML = `
+            <div class="no-matches">
+
+                <h2>⚽ No matches found</h2>
+
+                <br>
+
+                <p>
+                    There are no matches from the
+                    selected competitions on
+                    <strong>
+                        ${getReadableDate(selectedDate)}
+                    </strong>.
+                </p>
+
+                <br>
+
+                <p>
+                    Try selecting another date.
+                </p>
+
+            </div>
+        `;
+
+
+        status.innerHTML =
+            `ℹ️ No matches found for ${getReadableDate(selectedDate)}.`;
+
+        return;
+
+    }
+
+
+    status.innerHTML =
+        `✅ ${totalMatches} match${totalMatches === 1 ? "" : "es"} found • ${getReadableDate(selectedDate)}`;
 
 }
 
 
-/* --------------------------------
-   CREATE MATCH
--------------------------------- */
+/* =========================================
+   CREATE MATCH CARD
+========================================= */
 
-function createMatch(match) {
+function createMatch(game) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
-    div.className = "match";
+
+    div.className =
+        "match";
 
 
-    /*
-       Support API-Football structure
-    */
+    const competition =
+        game.competitions &&
+        game.competitions[0];
+
+
+    if (!competition) {
+
+        return div;
+
+    }
+
+
+    const competitors =
+        competition.competitors || [];
+
 
     const home =
-        match.teams?.home?.name ||
-        match.home?.name ||
-        match.home ||
-        "Home";
+        competitors.find(
+            team => team.homeAway === "home"
+        );
 
 
     const away =
-        match.teams?.away?.name ||
-        match.away?.name ||
-        match.away ||
+        competitors.find(
+            team => team.homeAway === "away"
+        );
+
+
+    const homeName =
+        home?.team?.displayName ||
+        home?.team?.shortDisplayName ||
+        "Home";
+
+
+    const awayName =
+        away?.team?.displayName ||
+        away?.team?.shortDisplayName ||
         "Away";
 
 
     const homeLogo =
-        match.teams?.home?.logo ||
-        match.home?.logo ||
+        home?.team?.logo ||
         "";
 
 
     const awayLogo =
-        match.teams?.away?.logo ||
-        match.away?.logo ||
+        away?.team?.logo ||
         "";
 
 
     const homeScore =
-        match.goals?.home ??
-        match.score?.fulltime?.home ??
-        match.homeScore ??
+        home?.score ??
         "-";
 
 
     const awayScore =
-        match.goals?.away ??
-        match.score?.fulltime?.away ??
-        match.awayScore ??
+        away?.score ??
         "-";
 
 
-    const status =
-        match.fixture?.status?.short ||
-        match.status?.short ||
-        match.status ||
-        "NS";
+    const gameStatus =
+        game.status?.type;
 
 
-    const time =
-        match.fixture?.date ||
-        match.date ||
+    const state =
+        gameStatus?.state ||
+        "pre";
+
+
+    const detail =
+        gameStatus?.shortDetail ||
+        gameStatus?.detail ||
         "";
 
 
-    let statusText = "Upcoming";
-
-    let statusClass = "scheduled";
-
-
-    if (
-        status === "FT" ||
-        status === "AET" ||
-        status === "PEN"
-    ) {
-
-        statusText = "Finished";
-
-        statusClass = "finished";
-
-    }
+    let statusText =
+        detail || "Upcoming";
 
 
-    if (
-        status === "1H" ||
-        status === "2H" ||
-        status === "HT" ||
-        status === "ET"
-    ) {
+    let statusClass =
+        "scheduled";
 
-        statusText = "🔴 LIVE";
 
-        statusClass = "live";
+    /*
+       LIVE
+    */
+
+    if (state === "in") {
+
+        statusText =
+            "🔴 LIVE";
+
+        statusClass =
+            "live";
 
     }
 
 
-    let formattedTime = "";
+    /*
+       COMPLETED
+    */
+
+    else if (state === "post") {
+
+        statusText =
+            "Finished";
+
+        statusClass =
+            "finished";
+
+    }
 
 
-    if (time) {
+    /*
+       UPCOMING
+    */
+
+    else {
+
+        statusClass =
+            "scheduled";
+
+
+        statusText =
+            detail || "Upcoming";
+
+    }
+
+
+    /*
+       Match time
+    */
+
+    let formattedTime =
+        "";
+
+
+    if (game.date) {
 
         try {
 
             formattedTime =
-                new Date(time).toLocaleTimeString(
-                    "en-IN",
-                    {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }
-                );
+                new Date(game.date)
+                    .toLocaleTimeString(
+                        "en-IN",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    );
 
         }
 
@@ -792,14 +894,19 @@ function createMatch(match) {
 
         <div class="team home">
 
-            <span>${home}</span>
+            <span>
+                ${escapeHTML(homeName)}
+            </span>
 
             ${
                 homeLogo
                 ?
-                `<img src="${homeLogo}" alt="">`
+                `<img
+                    src="${homeLogo}"
+                    alt="${escapeHTML(homeName)} logo"
+                >`
                 :
-                "⚽"
+                `<span>⚽</span>`
             }
 
         </div>
@@ -811,16 +918,20 @@ function createMatch(match) {
                 ${homeScore} - ${awayScore}
             </div>
 
+
             <span class="match-time ${statusClass}">
-                ${statusText}
+                ${escapeHTML(statusText)}
             </span>
+
 
             ${
                 formattedTime
                 ?
-                `<span class="match-time">
+                `
+                <span class="match-time">
                     ${formattedTime}
-                </span>`
+                </span>
+                `
                 :
                 ""
             }
@@ -833,12 +944,18 @@ function createMatch(match) {
             ${
                 awayLogo
                 ?
-                `<img src="${awayLogo}" alt="">`
+                `<img
+                    src="${awayLogo}"
+                    alt="${escapeHTML(awayName)} logo"
+                >`
                 :
-                "⚽"
+                `<span>⚽</span>`
             }
 
-            <span>${away}</span>
+
+            <span>
+                ${escapeHTML(awayName)}
+            </span>
 
         </div>
 
@@ -850,22 +967,40 @@ function createMatch(match) {
 }
 
 
-/* --------------------------------
-   START
--------------------------------- */
+/* =========================================
+   SECURITY / TEXT CLEANING
+========================================= */
 
-loadFootballData();
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text ?? "";
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadMatches();
 
 
 /*
-   Automatically refresh every 5 minutes.
+   Refresh every 2 minutes
+   so live scores can update.
 */
 
-setInterval(() => {
-
-    loadFootballData();
-
-}, 300000);
+setInterval(
+    loadMatches,
+    120000
+);
 
 </script>
 
